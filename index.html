@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>కిరాణా చిట్టా - తెలుగు సరుకుల జాబితా & PDF తయారీ | Telugu Groceries App</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            telugu: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              800: '#166534',
+              900: '#14532d',
+            },
+            kirana: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            }
+          },
+          fontFamily: {
+            telugu: ['"Noto Sans Telugu"', 'sans-serif'],
+            teluguSerif: ['"Noto Serif Telugu"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Noto Sans Telugu & Noto Serif Telugu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800;900&family=Noto+Serif+Telugu:wght@600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- html2pdf.js for crisp Telugu Unicode PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <!-- App Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800 font-telugu flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="bg-gradient-to-r from-emerald-800 via-teal-700 to-emerald-900 text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+      <div class="flex items-center justify-between gap-4">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 bg-white text-emerald-800 rounded-xl flex items-center justify-center text-2xl shadow-md border-2 border-emerald-300">
+            🛒
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl sm:text-2xl font-bold font-telugu tracking-tight text-white flex items-center gap-2">
+                కిరాణా చిట్టా
+                <span class="text-xs bg-amber-400 text-amber-950 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider hidden sm:inline-block">తెలుగు PDF</span>
+              </h1>
+            </div>
+            <p class="text-xs text-emerald-100 hidden sm:block">
+              భారతీయ కిరాణా సరుకుల జాబితా & పూర్తి తెలుగు కొనుగోలు రసీదు PDF జనరేటర్
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Top Action Buttons -->
+        <div class="flex items-center gap-2">
+          <!-- Add Custom Item Button -->
+          <button id="btn-open-custom-item" class="bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition border border-white/20">
+            <i class="fa-solid fa-plus text-amber-300"></i>
+            <span class="hidden md:inline">కొత్త సరుకు</span> చేర్చండి
+          </button>
+
+          <!-- Customer / Shop Details Button -->
+          <button id="btn-open-details" class="bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg flex items-center gap-1.5 transition border border-white/20" title="వినియోగదారు / దుకాణం వివరాలు">
+            <i class="fa-solid fa-user-pen text-emerald-300"></i>
+            <span class="hidden lg:inline">వివరాలు</span>
+          </button>
+
+          <!-- Mobile Cart Toggle Button -->
+          <button id="btn-toggle-cart-mobile" class="lg:hidden relative bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-2 rounded-lg flex items-center gap-2 shadow transition">
+            <i class="fa-solid fa-clipboard-list text-base"></i>
+            <span class="text-xs">చిట్టా</span>
+            <span id="mobile-cart-badge" class="bg-red-600 text-white text-xs rounded-full h-5 min-w-[20px] px-1 flex items-center justify-center font-bold">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner / Telugu Terminology Guide Bar -->
+  <div class="bg-amber-50 border-b border-amber-200 px-4 py-2">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-xs sm:text-sm text-amber-900 gap-2">
+      <div class="flex items-center gap-2">
+        <span class="bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded text-xs flex items-center gap-1">
+          <i class="fa-solid fa-circle-info"></i> సులభమైన కొలతలు
+        </span>
+        <span class="text-amber-800">
+          తెలుగులో సహజమైన కొలతలు: <b>పావు కిలో (250g)</b>, <b>అర కిలో (500g)</b>, <b>1 కిలో</b>, <b>25 కిలోల బస్తా</b>, <b>కట్టలు</b>, <b>లీటర్లు</b>.
+        </span>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-amber-700">
+        <span class="hidden md:inline"><i class="fa-solid fa-check text-emerald-600"></i> 100% తెలుగు లిపి PDF</span>
+        <span class="hidden md:inline"><i class="fa-brands fa-whatsapp text-green-600"></i> వాట్సాప్ షేర్</span>
+        <span><i class="fa-solid fa-print text-indigo-600"></i> ప్రింట్ సదుపాయం</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT SECTION: Grocery Catalog & Search (Col 8 on Desktop) -->
+      <section class="lg:col-span-7 xl:col-span-8 space-y-5">
+        
+        <!-- Search and Quick Add Bar -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400 text-base"></i>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="సరుకు పేరు వెతకండి... (ఉదా: బియ్యం, కందిపప్పు, జీలకర్ర, Rice, Toor Dal, Hing...)" 
+              class="w-full pl-11 pr-10 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm sm:text-base focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+            >
+            <button id="btn-clear-search" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 hidden text-sm p-1">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-1 pt-1 scrollbar-thin" id="category-pills-container">
+            <!-- Dynamically populated categories -->
+          </div>
+        </div>
+
+        <!-- Catalog Items Stats & Active Filter Info -->
+        <div class="flex items-center justify-between text-xs sm:text-sm text-slate-500 px-1">
+          <div>
+            <span id="filtered-items-count" class="font-bold text-emerald-700">0</span> సరుకులు అందుబాటులో ఉన్నాయి
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-slate-400 hidden sm:inline">క్లిక్ చేసి కావలసిన పరిమాణం ఎంచుకోండి</span>
+            <button id="btn-quick-custom-add" class="text-emerald-700 hover:text-emerald-800 font-semibold flex items-center gap-1">
+              <i class="fa-solid fa-circle-plus"></i> వేరే సరుకు ఉందా?
+            </button>
+          </div>
+        </div>
+
+        <!-- Grocery Items Grid -->
+        <div id="grocery-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3.5">
+          <!-- Dynamically populated grocery cards -->
+        </div>
+
+        <!-- Empty Results State -->
+        <div id="no-results-state" class="hidden bg-white rounded-2xl p-8 text-center border border-slate-200">
+          <div class="text-4xl mb-3">🔍</div>
+          <h3 class="text-lg font-bold text-slate-800 mb-1">సరుకు కనబడలేదా?</h3>
+          <p class="text-slate-500 text-sm mb-4">మీరు వెతికిన సరుకు లిస్ట్‌లో లేకపోతే, నేరుగా మీరే కొత్త సరుకును చేర్చవచ్చు!</p>
+          <button id="btn-add-searched-item" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm inline-flex items-center gap-2 shadow transition">
+            <i class="fa-solid fa-plus"></i> ఈ సరుకును చిట్టాలో చేర్చండి
+          </button>
+        </div>
+
+      </section>
+
+      <!-- RIGHT SECTION: Current Order Chitta / Cart (Col 5/4 on Desktop) -->
+      <aside id="cart-sidebar" class="lg:col-span-5 xl:col-span-4 sticky top-20 space-y-4">
+        
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col max-h-[calc(100vh-6rem)]">
+          
+          <!-- Chitta Header -->
+          <div class="bg-gradient-to-r from-emerald-800 to-teal-800 text-white p-4 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center text-amber-300">
+                <i class="fa-solid fa-receipt text-base"></i>
+              </div>
+              <div>
+                <h2 class="text-base sm:text-lg font-bold">ఆర్డర్ చిట్టా (జాబితా)</h2>
+                <p class="text-xs text-emerald-200">సరుకులు & తెలుగు పరిమాణాలు</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="cart-item-counter" class="bg-amber-400 text-amber-950 text-xs font-black px-2.5 py-1 rounded-full">
+                0 సరుకులు
+              </span>
+              <!-- Clear all button -->
+              <button id="btn-clear-cart" class="text-red-200 hover:text-white text-xs p-1 rounded hover:bg-white/10 transition" title="చిట్టా ఖాళీ చేయండి">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Customer Summary / Bar -->
+          <div class="bg-emerald-50/70 border-b border-emerald-100 px-4 py-2.5 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2 truncate">
+              <i class="fa-solid fa-user text-emerald-600"></i>
+              <span id="summary-customer-name" class="font-bold text-slate-800 truncate">కస్టమర్ పేరు ఇవ్వండి</span>
+            </div>
+            <button id="btn-edit-details-quick" class="text-emerald-700 hover:underline font-semibold flex items-center gap-1 shrink-0">
+              <i class="fa-solid fa-pen-to-square"></i> మార్చండి
+            </button>
+          </div>
+
+          <!-- Cart Item List Container (Scrollable) -->
+          <div id="cart-items-list" class="flex-1 overflow-y-auto p-4 space-y-2.5 divide-y divide-slate-100">
+            <!-- Dynamic Cart Items -->
+          </div>
+
+          <!-- Empty Cart State -->
+          <div id="empty-cart-state" class="p-8 text-center text-slate-400 space-y-3">
+            <div class="w-16 h-16 mx-auto bg-slate-100 rounded-full flex items-center justify-center text-2xl text-slate-400">
+              🛒
+            </div>
+            <h4 class="font-bold text-slate-700 text-base">చిట్టా ఖాళీగా ఉంది</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              ఎడమవైపు ఉన్న సరుకులలో మీకు కావలసిన వాటిని మరియు తెలుగు పరిమాణాన్ని (ఉదా: 1 కిలో, అర కిలో, పావు కిలో, బస్తా) ఎంచుకుని చేర్చండి.
+            </p>
+            <div class="pt-2">
+              <button id="btn-sample-order" class="text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold px-3 py-1.5 rounded-lg border border-emerald-300 transition">
+                ⚡ నమూనా సరుకులు చేర్చండి (Sample Order)
+              </button>
+            </div>
+          </div>
+
+          <!-- Cart Footer Actions (Sticky at bottom of cart card) -->
+          <div id="cart-footer" class="border-t border-slate-200 p-4 bg-slate-50/80 space-y-2.5">
+            
+            <!-- Primary Action: Convert to PDF -->
+            <button 
+              id="btn-generate-pdf" 
+              class="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 text-sm sm:text-base animate-pulse-subtle"
+            >
+              <i class="fa-solid fa-file-pdf text-amber-300 text-lg"></i>
+              <span>తెలుగు PDF డౌన్‌లోడ్ చేయండి</span>
+            </button>
+
+            <!-- Secondary Actions Row -->
+            <div class="grid grid-cols-3 gap-2">
+              <!-- Print Button -->
+              <button 
+                id="btn-print-order" 
+                class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold py-2 px-2 rounded-lg text-xs flex items-center justify-center gap-1.5 transition"
+                title="డైరెక్ట్ ప్రింట్"
+              >
+                <i class="fa-solid fa-print text-indigo-600"></i>
+                <span>ప్రింట్</span>
+              </button>
+
+              <!-- WhatsApp Share Button -->
+              <button 
+                id="btn-whatsapp-share" 
+                class="bg-green-50 hover:bg-green-100 text-green-800 border border-green-300 font-bold py-2 px-2 rounded-lg text-xs flex items-center justify-center gap-1.5 transition"
+                title="వాట్సాప్ లో పంపండి"
+              >
+                <i class="fa-brands fa-whatsapp text-green-600 text-sm"></i>
+                <span>వాట్సాప్</span>
+              </button>
+
+              <!-- Preview Button -->
+              <button 
+                id="btn-preview-pdf" 
+                class="bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-bold py-2 px-2 rounded-lg text-xs flex items-center justify-center gap-1.5 transition"
+                title="చిట్టా చూడండి"
+              >
+                <i class="fa-solid fa-eye text-amber-700"></i>
+                <span>ప్రివ్యూ</span>
+              </button>
+            </div>
+
+            <!-- Copy Telugu Text Option -->
+            <button id="btn-copy-list" class="w-full text-center text-xs text-slate-500 hover:text-emerald-700 font-medium py-1 transition flex items-center justify-center gap-1">
+              <i class="fa-regular fa-copy"></i>
+              <span>మొత్తం చిట్టా టెక్స్ట్ కాపీ చేయండి</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 1: QUANTITY PICKER & CUSTOMIZER MODAL             -->
+  <!-- ======================================================== -->
+  <div id="modal-quantity" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+      
+      <!-- Modal Header -->
+      <div class="bg-emerald-800 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div id="modal-item-icon" class="text-2xl bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center">
+            🌾
+          </div>
+          <div>
+            <h3 id="modal-item-title" class="text-lg font-bold">కందిపప్పు</h3>
+            <p id="modal-item-subtitle" class="text-xs text-emerald-200">కావలసిన తెలుగు పరిమాణాన్ని ఎంచుకోండి</p>
+          </div>
+        </div>
+        <button id="btn-close-qty-modal" class="text-white/70 hover:text-white text-lg p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
+        
+        <!-- Standard Everyday Telugu Quantities -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+            సాధారణ తెలుగు పరిమాణాలు (ఎంపిక చేసుకోండి):
+          </label>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="modal-quick-quantities">
+            <!-- Buttons populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Custom Manual Quantity Input -->
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+          <label class="block text-xs font-bold text-slate-700">
+            లేదా ప్రత్యేక పరిమాణం ఇవ్వండి:
+          </label>
+          <div class="grid grid-cols-12 gap-2">
+            <div class="col-span-5">
+              <input 
+                type="text" 
+                id="modal-custom-qty-val" 
+                placeholder="ఉదా: 3, 15, అర..." 
+                class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              >
+            </div>
+            <div class="col-span-7">
+              <select id="modal-custom-qty-unit" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                <!-- Dynamically populated Telugu units -->
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Special Instructions / Notes -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">
+            ప్రత్యేక సూచన / బ్రాండ్ గమనిక (ఐచ్ఛికం):
+          </label>
+          <input 
+            type="text" 
+            id="modal-item-note" 
+            placeholder="ఉదా: పాత బియ్యం కావాలి, లూజ్ కాకుండా ప్యాకెట్ ఇవ్వండి, ఫస్ట్ క్వాలిటీ..." 
+            class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+          >
+        </div>
+
+        <!-- Price or Estimate (Optional) -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">
+            అంచనా ధర (₹ రూపాయిలలో - ఐచ్ఛికం):
+          </label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-slate-400 text-sm font-bold">₹</span>
+            <input 
+              type="number" 
+              id="modal-item-price" 
+              placeholder="ధర తెలిస్తే నమోదు చేయండి (ఖాళీగా ఉంచవచ్చు)" 
+              class="w-full pl-8 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex items-center justify-between">
+        <button id="btn-cancel-qty-modal" class="px-4 py-2 text-sm text-slate-600 hover:text-slate-800 font-semibold">
+          రద్దు చేయండి
+        </button>
+        <button id="btn-confirm-add-item" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2 rounded-xl text-sm shadow transition flex items-center gap-2">
+          <i class="fa-solid fa-check"></i>
+          <span>చిట్టాలో చేర్చండి</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 2: CUSTOM GROCERY ITEM CREATOR MODAL             -->
+  <!-- ======================================================== -->
+  <div id="modal-custom-item" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+      
+      <!-- Modal Header -->
+      <div class="bg-emerald-800 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-amber-300">
+            <i class="fa-solid fa-cart-plus"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold">కొత్త సరుకును చేర్చండి</h3>
+            <p class="text-xs text-emerald-200">లిస్ట్‌లో లేని సరుకును తెలుగులో నమోదు చేయండి</p>
+          </div>
+        </div>
+        <button id="btn-close-custom-item-modal" class="text-white/70 hover:text-white text-lg p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Form -->
+      <form id="form-custom-item" class="p-5 space-y-4">
+        
+        <!-- Item Name Telugu -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">
+            సరుకు పేరు (తెలుగులో) <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="custom-item-name-te" 
+            required
+            placeholder="ఉదా: మిల్ మేకర్, తేనె, నెయ్యి కేకు, వాము పువ్వు..." 
+            class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+          >
+        </div>
+
+        <!-- Item Name English (Optional) -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">
+            ఇంగ్లీష్ పేరు / రాత (ఐచ్ఛికం):
+          </label>
+          <input 
+            type="text" 
+            id="custom-item-name-en" 
+            placeholder="ఉదా: Soya Chunks, Pure Honey..." 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+          >
+        </div>
+
+        <!-- Quantity Selection -->
+        <div class="grid grid-cols-12 gap-2">
+          <div class="col-span-5">
+            <label class="block text-xs font-bold text-slate-700 mb-1">
+              ఎంత కావాలి? <span class="text-red-500">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="custom-item-qty-val" 
+              required
+              placeholder="ఉదా: 1, 2, అర, పావు..." 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+            >
+          </div>
+          <div class="col-span-7">
+            <label class="block text-xs font-bold text-slate-700 mb-1">
+              కొలత ప్రమాణం:
+            </label>
+            <select id="custom-item-qty-unit" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">
+            విభాగం (కేటగిరీ):
+          </label>
+          <select id="custom-item-category" class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="grains">ధాన్యాలు & పిండ్లు</option>
+            <option value="dals">పప్పు దినుసులు</option>
+            <option value="oils">నూనెలు & నెయ్యి</option>
+            <option value="spices">పోపు సామాన్లు</option>
+            <option value="essentials" selected>ఇతర కిరాణా సరుకులు</option>
+            <option value="dryfruits">డ్రై ఫ్రూట్స్ & గింజలు</option>
+            <option value="vegetables">కూరగాయలు & ఆకులు</option>
+            <option value="pooja_clean">పూజా & శుభ్రత</option>
+          </select>
+        </div>
+
+        <!-- Note -->
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">
+            ప్రత్యేక సూచన (ఐచ్ఛికం):
+          </label>
+          <input 
+            type="text" 
+            id="custom-item-note" 
+            placeholder="ఉదా: ఫలానా బ్రాండ్ మాత్రమే..." 
+            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+          >
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" id="btn-cancel-custom-item" class="px-4 py-2 text-sm text-slate-600 hover:text-slate-800 font-semibold">
+            రద్దు
+          </button>
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2 rounded-xl text-sm shadow transition flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i>
+            <span>సరుకును చేర్చండి</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 3: CUSTOMER & SHOP DETAILS MODAL                  -->
+  <!-- ======================================================== -->
+  <div id="modal-details" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
+      
+      <!-- Modal Header -->
+      <div class="bg-emerald-800 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-amber-300">
+            <i class="fa-solid fa-address-card"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold">ఆర్డర్ & దుకాణం వివరాలు</h3>
+            <p class="text-xs text-emerald-200">పీడీఎఫ్ లో ముద్రించబడే వివరాలు</p>
+          </div>
+        </div>
+        <button id="btn-close-details-modal" class="text-white/70 hover:text-white text-lg p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Details Form -->
+      <div class="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
+        
+        <!-- Customer Section -->
+        <div class="border-b border-slate-200 pb-4 space-y-3">
+          <h4 class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-user"></i> వినియోగదారుని వివరాలు (Customer Details):
+          </h4>
+          
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">వినియోగదారుని పేరు (Name in Telugu/English):</label>
+            <input 
+              type="text" 
+              id="input-customer-name" 
+              placeholder="ఉదా: శ్రీనివాసరావు గారు / K. Srinivasa Rao" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+            >
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">ఫోన్ నంబర్ (Phone):</label>
+              <input 
+                type="tel" 
+                id="input-customer-phone" 
+                placeholder="ఉదా: 9876543210" 
+                class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              >
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">ఆర్డర్ తేదీ (Date):</label>
+              <input 
+                type="date" 
+                id="input-order-date" 
+                class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              >
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">చిరునామా / ఊరు (Address / Location):</label>
+            <input 
+              type="text" 
+              id="input-customer-address" 
+              placeholder="ఉదా: గాంధీ నగర్, విజయవాడ" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+            >
+          </div>
+        </div>
+
+        <!-- Shop Section -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-shop"></i> కిరాణా దుకాణం వివరాలు (Kirana Shop Details):
+          </h4>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">దుకాణం పేరు (Shop Name):</label>
+            <input 
+              type="text" 
+              id="input-shop-name" 
+              value="శ్రీ లక్ష్మీ గణపతి కిరాణా & జనరల్ స్టోర్స్" 
+              class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold text-slate-800"
+            >
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">షాప్ ఫోన్ నంబర్:</label>
+              <input 
+                type="tel" 
+                id="input-shop-phone" 
+                placeholder="ఉదా: 9440123456" 
+                class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              >
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">షాప్ ప్రాంతం / ఊరు:</label>
+              <input 
+                type="text" 
+                id="input-shop-place" 
+                placeholder="ఉదా: మెయిన్ రోడ్డు, గుంటూరు" 
+                class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+              >
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-end">
+        <button id="btn-save-details" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2 rounded-xl text-sm shadow transition">
+          వివరాలు సేవ్ చేయండి
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL 4: LIVE PDF PREVIEW MODAL                         -->
+  <!-- ======================================================== -->
+  <div id="modal-pdf-preview" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 hidden animate-fade-in">
+    <div class="bg-white w-full max-w-4xl h-[92vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+      
+      <!-- Preview Header -->
+      <div class="bg-emerald-800 text-white p-3.5 px-5 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-file-pdf text-amber-300 text-xl"></i>
+          <div>
+            <h3 class="text-base sm:text-lg font-bold">తెలుగు కిరాణా చిట్టా - ప్రివ్యూ</h3>
+            <p class="text-xs text-emerald-200">డౌన్‌లోడ్ చేయడానికి ముందు రసీదును పరిశీలించండి</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-download-from-preview" class="bg-amber-400 hover:bg-amber-500 text-amber-950 font-bold px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm shadow flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-download"></i>
+            <span>డౌన్‌లోడ్ PDF</span>
+          </button>
+          <button id="btn-print-from-preview" class="bg-white/20 hover:bg-white/30 text-white font-bold px-3 py-1.5 rounded-lg text-xs sm:text-sm flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-print"></i>
+            <span class="hidden sm:inline">ప్రింట్</span>
+          </button>
+          <button id="btn-close-preview-modal" class="text-white/70 hover:text-white text-lg p-1.5 ml-2">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Preview Body (Scrollable container holding the rendered paper) -->
+      <div class="flex-1 bg-slate-200 p-4 sm:p-8 overflow-y-auto flex justify-center">
+        
+        <!-- THE PRINTABLE & PDF CANVAS CONTAINER -->
+        <div id="printable-area" class="w-full max-w-[760px] bg-white shadow-xl rounded-lg p-6 sm:p-8 border border-slate-300 my-auto text-slate-900 font-telugu">
+          
+          <!-- Shop Header -->
+          <div class="text-center border-b-2 border-emerald-800 pb-4 mb-4">
+            <div class="text-xs text-emerald-800 font-semibold tracking-wider uppercase mb-1">
+              ॥ శ్రీ లక్ష్మీ ప్రసన్న ॥
+            </div>
+            <h2 id="pdf-view-shop-name" class="text-xl sm:text-2xl font-black font-telugu-serif text-emerald-900 mb-1">
+              శ్రీ లక్ష్మీ గణపతి కిరాణా & జనరల్ స్టోర్స్
+            </h2>
+            <p id="pdf-view-shop-contact" class="text-xs text-slate-600">
+              అన్ని రకాల తాజా కిరాణా సరుకులు, పప్పులు, నూనెలు మరియు నిత్యావసర వస్తువులు లభించును
+            </p>
+            <div class="inline-block mt-2 bg-emerald-700 text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+              కిరాణా సరుకుల చిట్టా / కొనుగోలు జాబితా
+            </div>
+          </div>
+
+          <!-- Customer & Order Meta Information Grid -->
+          <div class="grid grid-cols-2 gap-4 text-xs bg-emerald-50/70 p-3 rounded-lg border border-emerald-200 mb-4">
+            <div>
+              <p class="mb-1"><span class="font-bold text-emerald-900">వినియోగదారుని పేరు:</span> <span id="pdf-view-customer-name" class="font-bold text-slate-800">శ్రీనివాస్ గారు</span></p>
+              <p class="mb-1"><span class="font-bold text-emerald-900">ఫోన్ నంబర్:</span> <span id="pdf-view-customer-phone">-</span></p>
+              <p><span class="font-bold text-emerald-900">గ్రామం / ఊరు:</span> <span id="pdf-view-customer-address">-</span></p>
+            </div>
+            <div class="text-right">
+              <p class="mb-1"><span class="font-bold text-emerald-900">చిట్టా నంబర్:</span> <span id="pdf-view-order-id" class="font-mono font-bold">KC-1001</span></p>
+              <p class="mb-1"><span class="font-bold text-emerald-900">తేదీ:</span> <span id="pdf-view-date">22-11-2026</span></p>
+              <p><span class="font-bold text-emerald-900">మొత్తం సరుకులు:</span> <span id="pdf-view-total-count" class="font-bold text-emerald-800">0</span></p>
+            </div>
+          </div>
+
+          <!-- Items Table -->
+          <table class="w-full text-xs sm:text-sm border-collapse mb-5 chitta-table">
+            <thead>
+              <tr class="bg-emerald-100 text-emerald-900 border-y-2 border-emerald-700 text-left">
+                <th class="py-2.5 px-3 w-12 text-center">క్ర.సం.</th>
+                <th class="py-2.5 px-3">సరుకు పేరు (కిరాణా దినుసు)</th>
+                <th class="py-2.5 px-3 text-center">పరిమాణం (ఎంత కావాలి?)</th>
+                <th class="py-2.5 px-3">గమనిక / సూచన</th>
+                <th class="py-2.5 px-3 w-16 text-center">ఇచ్చాము [✓]</th>
+              </tr>
+            </thead>
+            <tbody id="pdf-view-items-tbody">
+              <!-- Dynamically rendered rows -->
+            </tbody>
+          </table>
+
+          <!-- Footer Summary & Signature Block -->
+          <div class="border-t-2 border-dashed border-emerald-700 pt-4 mt-6">
+            <div class="flex items-center justify-between text-xs sm:text-sm">
+              <div>
+                <p class="font-bold text-emerald-900">మొత్తం చేర్చిన సరుకులు: <span id="pdf-view-bottom-count" class="text-base text-emerald-700 font-extrabold">0</span></p>
+                <p class="text-xs text-slate-500 mt-1">గమనిక: సరుకులు తీసుకున్న తర్వాత సరిచూసుకోగలరు.</p>
+              </div>
+              <div class="text-center">
+                <div class="h-10 border-b border-slate-400 w-32 mb-1"></div>
+                <p class="text-xs font-bold text-slate-700">దుకాణదారుని సంతకం</p>
+              </div>
+            </div>
+
+            <!-- Blessings / Courtesy Note -->
+            <div class="text-center mt-5 pt-3 border-t border-slate-200 text-xs text-emerald-800 font-semibold">
+              🙏 మా వద్ద కొనుగోలు చేసినందుకు ధన్యవాదాలు! శుభం భూయాత్ - మళ్ళీ రండి! 🙏
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-sm px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50 pointer-events-none">
+    <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toast-message">సరుకు చిట్టాలో చేర్చబడింది!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>🌾 <b>కిరాణా చిట్టా</b> - తెలుగు సరుకుల జాబితా & కొనుగోలు రసీదు PDF జనరేటర్</p>
+      <p class="text-slate-400">Designed with Telugu Font Support (Noto Sans Telugu)</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="groceryData.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

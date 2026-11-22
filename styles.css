@@ -1,0 +1,147 @@
+/* Custom Styles for Telugu Groceries App (కిరాణా చిట్టా) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800;900&family=Noto+Serif+Telugu:wght@600;700;900&display=swap');
+
+:root {
+  --primary-color: #0f766e;
+  --primary-dark: #115e59;
+  --secondary-color: #d97706;
+  --telugu-font: 'Noto Sans Telugu', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --telugu-serif: 'Noto Serif Telugu', Georgia, serif;
+}
+
+body {
+  font-family: var(--telugu-font);
+  background-color: #f8fafc;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-telugu {
+  font-family: var(--telugu-font);
+}
+
+.font-telugu-serif {
+  font-family: var(--telugu-serif);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Category Pill Active State */
+.cat-pill.active {
+  background-color: #0f766e;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+  border-color: #0f766e;
+}
+
+/* Grocery Card Hover */
+.grocery-card {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.grocery-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+}
+
+/* Quantity Quick Badge */
+.qty-quick-badge {
+  transition: all 0.15s ease;
+}
+.qty-quick-badge:hover {
+  background-color: #0f766e;
+  color: #ffffff;
+  border-color: #0f766e;
+}
+
+/* Printable Chitta / PDF styling container */
+#chitta-pdf-template {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: var(--telugu-font);
+  color: #1a202c;
+  line-height: 1.5;
+}
+
+.chitta-header-border {
+  border-bottom: 2px dashed #0f766e;
+}
+
+.chitta-table th {
+  background-color: #f0fdf4;
+  color: #166534;
+  font-weight: 700;
+  border-top: 1px solid #bbf7d0;
+  border-bottom: 2px solid #86efac;
+  padding: 10px 12px;
+}
+
+.chitta-table td {
+  padding: 9px 12px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.chitta-table tr:nth-child(even) td {
+  background-color: #fafaf9;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Pulse animation for PDF download button */
+@keyframes pulseSubtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2.5s infinite ease-in-out;
+}
+
+/* Print CSS */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  
+  #printable-area, #printable-area * {
+    visibility: visible;
+  }
+  
+  #printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 15mm;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
