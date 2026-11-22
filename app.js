@@ -9,6 +9,7 @@
     cart: [],
     currentCategory: 'all',
     searchQuery: '',
+    searchHistory: [],
     customerDetails: {
       name: 'శ్రీనివాస్ గారు',
       phone: '9876543210',
@@ -28,7 +29,8 @@
     CART: 'telugu_grocery_cart_v1',
     CUSTOMER: 'telugu_grocery_customer_v1',
     CUSTOM_ITEMS: 'telugu_grocery_custom_items_v1',
-    ORDER_NUM: 'telugu_grocery_order_num_v1'
+    ORDER_NUM: 'telugu_grocery_order_num_v1',
+    SEARCH_HISTORY: 'telugu_grocery_search_history_v1'
   };
 
   // --- DOM ELEMENTS ---
@@ -42,6 +44,10 @@
     // Search & Categories
     searchInput: document.getElementById('search-input'),
     btnClearSearch: document.getElementById('btn-clear-search'),
+    searchHistoryContainer: document.getElementById('search-history-container'),
+    recentSearchesList: document.getElementById('recent-searches-list'),
+    btnClearHistory: document.getElementById('btn-clear-history'),
+    tenglishQuickChips: document.getElementById('tenglish-quick-chips'),
     categoryPillsContainer: document.getElementById('category-pills-container'),
     filteredItemsCount: document.getElementById('filtered-items-count'),
     groceryGrid: document.getElementById('grocery-grid'),
@@ -133,6 +139,7 @@
   // --- INITIALIZATION ---
   function init() {
     loadSavedState();
+    loadSearchHistory();
     renderCategories();
     populateSelectUnits();
     renderGroceryGrid();
@@ -229,24 +236,199 @@
     DOM.customItemQtyUnit.innerHTML = optionsHtml;
   }
 
+  // --- TENGLISH & PHONETIC NORMALIZERS FOR SMART SEARCH ---
+  function normalizeTenglish(str) {
+    if (!str) return '';
+    return str
+      .toLowerCase()
+      .replace(/[^a-z0-9\s\u0C00-\u0C7F]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function getPhoneticKey(str) {
+    if (!str) return '';
+    return str.toLowerCase()
+      .replace(/ee/g, 'i').replace(/oo/g, 'u').replace(/aa/g, 'a')
+      .replace(/th/g, 't').replace(/dh/g, 'd').replace(/kh/g, 'k')
+      .replace(/gh/g, 'g').replace(/bh/g, 'b').replace(/ph/g, 'p')
+      .replace(/ch/g, 'c').replace(/sh/g, 's').replace(/w/g, 'v')
+      .replace(/z/g, 'j').replace(/ll/g, 'l').replace(/pp/g, 'p')
+      .replace(/dd/g, 'd').replace(/tt/g, 't').replace(/rr/g, 'r')
+      .replace(/mm/g, 'm').replace(/nn/g, 'n').replace(/ss/g, 's')
+      .replace(/bb/g, 'b').replace(/[^a-z0-9\u0C00-\u0C7F]/g, '');
+  }
+
+  function matchesSearch(item, rawQuery) {
+    if (!rawQuery) return true;
+    const q = normalizeTenglish(rawQuery);
+    if (!q) return true;
+
+    const nameTe = (item.nameTe || '').toLowerCase();
+    const nameEn = (item.nameEn || '').toLowerCase();
+    const translit = (item.translit || '').toLowerCase();
+    const combined = `${nameTe} ${nameEn} ${translit}`;
+    const combinedNorm = normalizeTenglish(combined);
+
+    // 1. Direct substring match (supports Telugu and English)
+    if (combined.includes(q)) return true;
+
+    // 2. Space-insensitive match (e.g. 'putnalapappu' matches 'putnala pappu', 'kandipappu' matches 'kandi pappu')
+    const qNoSpace = q.replace(/\s+/g, '');
+    const combinedNoSpace = combinedNorm.replace(/\s+/g, '');
+    if (combinedNoSpace.includes(qNoSpace)) return true;
+
+    // 3. Multi-word tokens match (every word must match somewhere in the item)
+    const tokens = q.split(' ').filter(Boolean);
+    if (tokens.length > 1) {
+      const allTokensMatch = tokens.every(token => {
+        const tokenPhonetic = getPhoneticKey(token);
+        return combinedNorm.includes(token) || getPhoneticKey(combinedNorm).includes(tokenPhonetic);
+      });
+      if (allTokensMatch) return true;
+    }
+
+    // 4. Phonetic comparison (catches common Gen Z spelling variants)
+    const qPhonetic = getPhoneticKey(q);
+    const itemPhonetic = getPhoneticKey(combined);
+    if (itemPhonetic.includes(qPhonetic)) return true;
+
+    return false;
+  }
+
+  function searchCatalog(items, query) {
+    if (!query) return items;
+    // Step 1: Strict match
+    let results = items.filter(item => matchesSearch(item, query));
+    if (results.length > 0) return results;
+
+    // Step 2: Fallback to match individual tokens for multi-word queries (e.g. 'allam vellulli')
+    const tokens = normalizeTenglish(query).split(' ').filter(t => t.length > 2);
+    if (tokens.length > 1) {
+      results = items.filter(item => {
+        return tokens.some(token => matchesSearch(item, token));
+      });
+    }
+    return results;
+  }
+
+  // --- SEARCH HISTORY MANAGEMENT ---
+  function loadSearchHistory() {
+    try {
+      const savedHistory = localStorage.getItem(STORAGE_KEYS.SEARCH_HISTORY);
+      if (savedHistory) {
+        STATE.searchHistory = JSON.parse(savedHistory);
+      }
+    } catch (e) {
+      STATE.searchHistory = [];
+    }
+    renderSearchHistory();
+  }
+
+  function addToSearchHistory(term) {
+    if (!term) return;
+    const cleanTerm = term.trim();
+    if (!cleanTerm || cleanTerm.length < 2) return;
+
+    // Deduplicate
+    STATE.searchHistory = STATE.searchHistory.filter(s => s.toLowerCase() !== cleanTerm.toLowerCase());
+    // Insert at front
+    STATE.searchHistory.unshift(cleanTerm);
+    // Keep max 8
+    if (STATE.searchHistory.length > 8) {
+      STATE.searchHistory = STATE.searchHistory.slice(0, 8);
+    }
+    try {
+      localStorage.setItem(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(STATE.searchHistory));
+    } catch (e) {}
+    renderSearchHistory();
+  }
+
+  function removeFromSearchHistory(term) {
+    STATE.searchHistory = STATE.searchHistory.filter(s => s.toLowerCase() !== term.toLowerCase());
+    try {
+      localStorage.setItem(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(STATE.searchHistory));
+    } catch (e) {}
+    renderSearchHistory();
+  }
+
+  function clearSearchHistory() {
+    STATE.searchHistory = [];
+    try {
+      localStorage.removeItem(STORAGE_KEYS.SEARCH_HISTORY);
+    } catch (e) {}
+    renderSearchHistory();
+    showToast('శోధన చరిత్ర ఖాళీ చేయబడింది', 'fa-trash');
+  }
+
+  function renderSearchHistory() {
+    if (!DOM.searchHistoryContainer || !DOM.recentSearchesList) return;
+
+    if (!STATE.searchHistory || STATE.searchHistory.length === 0) {
+      DOM.searchHistoryContainer.classList.add('hidden');
+      return;
+    }
+
+    DOM.searchHistoryContainer.classList.remove('hidden');
+    DOM.recentSearchesList.innerHTML = '';
+
+    STATE.searchHistory.forEach(term => {
+      const chip = document.createElement('div');
+      chip.className = 'group inline-flex items-center gap-1.5 bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg px-2.5 py-1 text-xs text-slate-700 transition cursor-pointer';
+      
+      chip.innerHTML = `
+        <span class="recent-term font-medium hover:text-emerald-800">${term}</span>
+        <button type="button" class="btn-remove-term text-slate-400 hover:text-red-500 ml-0.5 p-0.5 transition" title="తొలగించు">
+          <i class="fa-solid fa-xmark text-[10px]"></i>
+        </button>
+      `;
+
+      // Click to search
+      chip.querySelector('.recent-term').addEventListener('click', () => {
+        executeSearch(term, false);
+      });
+
+      // Click to remove
+      chip.querySelector('.btn-remove-term').addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeFromSearchHistory(term);
+      });
+
+      DOM.recentSearchesList.appendChild(chip);
+    });
+  }
+
+  function executeSearch(query, saveHistory = true) {
+    STATE.searchQuery = query;
+    DOM.searchInput.value = query;
+
+    if (query) {
+      DOM.btnClearSearch.classList.remove('hidden');
+    } else {
+      DOM.btnClearSearch.classList.add('hidden');
+    }
+
+    renderGroceryGrid();
+
+    if (saveHistory && query && query.trim().length >= 2) {
+      addToSearchHistory(query);
+    }
+  }
+
   // --- RENDER GROCERY GRID ---
   function renderGroceryGrid() {
     const allItems = [...GROCERY_ITEMS, ...STATE.customItems];
-    const query = STATE.searchQuery.toLowerCase().trim();
+    const query = STATE.searchQuery.trim();
 
-    // Filter items
-    const filtered = allItems.filter(item => {
-      // Category match
-      const catMatch = (STATE.currentCategory === 'all') || (item.category === STATE.currentCategory);
-      if (!catMatch) return false;
-
-      // Query match
-      if (!query) return true;
-      const teMatch = item.nameTe.toLowerCase().includes(query);
-      const enMatch = item.nameEn && item.nameEn.toLowerCase().includes(query);
-      const trMatch = item.translit && item.translit.toLowerCase().includes(query);
-      return teMatch || enMatch || trMatch;
-    });
+    let filtered = [];
+    if (query) {
+      // Searching across entire catalog so Tenglish search is never restricted by active category!
+      filtered = searchCatalog(allItems, query);
+    } else {
+      filtered = allItems.filter(item => {
+        return (STATE.currentCategory === 'all') || (item.category === STATE.currentCategory);
+      });
+    }
 
     DOM.filteredItemsCount.textContent = filtered.length;
     DOM.groceryGrid.innerHTML = '';
@@ -275,6 +457,9 @@
       ? item.commonQtys.slice(0, 3) 
       : ['1 కిలో', 'అర కిలో', 'పావు కిలో'];
 
+    // Extract first 2-3 translit words for Gen Z preview
+    const translitPreview = (item.translit || '').split(' ').slice(0, 3).join(' ');
+
     card.innerHTML = `
       <div>
         <!-- Top row: Icon, Category & Badge -->
@@ -285,9 +470,14 @@
               <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug">
                 ${item.nameTe}
               </h3>
-              <p class="text-[11px] text-slate-500 font-sans">
+              <p class="text-[11px] text-slate-500 font-sans leading-tight">
                 ${item.nameEn || ''}
               </p>
+              ${translitPreview ? `
+                <p class="text-[10px] text-emerald-700 font-sans font-medium truncate mt-0.5">
+                  <span class="bg-emerald-50 text-emerald-800 px-1 py-0.2 rounded border border-emerald-200 text-[9px] font-bold">Tenglish:</span> ${translitPreview}
+                </p>
+              ` : ''}
             </div>
           </div>
           ${item.badge ? `
@@ -935,15 +1125,34 @@
 
   // --- EVENT LISTENERS SETUP ---
   function setupEventListeners() {
-    // Search input
+    // Search input with debounce for recording to history
+    let searchDebounceTimer = null;
     DOM.searchInput.addEventListener('input', (e) => {
-      STATE.searchQuery = e.target.value;
-      if (STATE.searchQuery) {
+      const val = e.target.value;
+      STATE.searchQuery = val;
+      if (val) {
         DOM.btnClearSearch.classList.remove('hidden');
       } else {
         DOM.btnClearSearch.classList.add('hidden');
       }
       renderGroceryGrid();
+
+      if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      if (val && val.trim().length >= 3) {
+        searchDebounceTimer = setTimeout(() => {
+          addToSearchHistory(val.trim());
+        }, 1200);
+      }
+    });
+
+    // Enter key saves to search history immediately
+    DOM.searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const val = DOM.searchInput.value.trim();
+        if (val) {
+          executeSearch(val, true);
+        }
+      }
     });
 
     DOM.btnClearSearch.addEventListener('click', () => {
@@ -951,6 +1160,24 @@
       STATE.searchQuery = '';
       DOM.btnClearSearch.classList.add('hidden');
       renderGroceryGrid();
+    });
+
+    // Clear Search History button
+    if (DOM.btnClearHistory) {
+      DOM.btnClearHistory.addEventListener('click', clearSearchHistory);
+    }
+
+    // Gen Z Popular Tenglish Quick Chips
+    document.querySelectorAll('.tenglish-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const query = btn.dataset.query;
+        if (query) {
+          executeSearch(query, true);
+          showToast(`'${query}' కోసం వెతుకుతున్నాం`, 'fa-magnifying-glass');
+          // Smooth scroll towards the results grid
+          DOM.groceryGrid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
     });
 
     // Custom Item Modal
