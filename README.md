@@ -35,7 +35,18 @@
 
 ---
 
-### 3. తెలుగు PDF జనరేషన్ (Telugu PDF Order Bill / Chitta)
+### 3. Gen Z Tenglish ఫోనెటిక్ శోధన & శోధన చరిత్ర (Tenglish Search & Search History)
+- **ఫోనెటిక్ & స్పేస్-ఫ్రీ సెర్చ్ (Phonetic & Fuzzy Matching)**:
+  - యువతరం (Gen Z) ఇంగ్లీష్ అక్షరాలతో టైప్ చేసినా (ఉదా: `putnala pappu`, `kandi pappu`, `minapa pappu`, `palli noone`, `chintapandu`, `aavu neyyi`, `allam vellulli`, `biyyam`, `jeera`...) సంబంధిత తెలుగు సరుకు వెంటనే కనిపిస్తుంది.
+  - స్పెల్లింగ్ తేడాలున్నా (`putnala papu`, `jilakarra`, `chintha pandu`, `avu neyi`, `elachi`, `kothimira`...) ఫోనెటిక్ అల్గారిథమ్ ద్వారా సరైన సరుకు మ్యాచ్ అవుతుంది.
+- **ఇటీవలి శోధనల చరిత్ర (Recent Searches History)**:
+  - మీరు వెతికిన పదాలు బ్రౌజర్‌లో సేవ్ అయ్యి క్లిక్ చేసేందుకు వీలుగా డిస్‌ప్లే అవుతాయి.
+- **పాపులర్ Tenglish క్విక్ చిప్స్ (Quick Trending Chips)**:
+  - తరచుగా వెతికే సరుకుల పేర్లు ఒక్క క్లిక్‌తో సెర్చ్ చేసేలా చిప్స్ అందుబాటులో ఉన్నాయి.
+
+---
+
+### 4. తెలుగు PDF జనరేషన్ (Telugu PDF Order Bill / Chitta)
 - **Noto Sans Telugu** ఫాంట్‌తో కూడిన హై-రిజల్యూషన్ తెలుగు PDF డౌన్‌లోడ్.
 - రసీదు వివరాలు:
   - దుకాణం పేరు (Shop Name) & చిరునామా
