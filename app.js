@@ -57,6 +57,12 @@
 
     // Cart / Chitta Sidebar
     cartSidebar: document.getElementById('cart-sidebar'),
+    btnCloseMobileCart: document.getElementById('btn-close-mobile-cart'),
+    mobileFloatingCartBar: document.getElementById('mobile-floating-cart-bar'),
+    floatingCartTrigger: document.getElementById('floating-cart-trigger'),
+    floatingCartBadge: document.getElementById('floating-cart-badge'),
+    floatingCartLabel: document.getElementById('floating-cart-label'),
+    btnFloatingViewCart: document.getElementById('btn-floating-view-cart'),
     cartItemsList: document.getElementById('cart-items-list'),
     emptyCartState: document.getElementById('empty-cart-state'),
     cartFooter: document.getElementById('cart-footer'),
@@ -701,11 +707,25 @@
     }
   }
 
+  // --- MOBILE CART DRAWER CONTROLS ---
+  function openMobileCartDrawer() {
+    DOM.cartSidebar.classList.remove('hidden');
+    DOM.cartSidebar.classList.add('mobile-drawer-open');
+  }
+
+  function closeMobileCartDrawer() {
+    DOM.cartSidebar.classList.add('hidden');
+    DOM.cartSidebar.classList.remove('mobile-drawer-open');
+  }
+
   // --- RENDER CART IN SIDEBAR ---
   function renderCart() {
     const count = STATE.cart.length;
     DOM.cartItemCounter.textContent = `${count} సరుకులు`;
     DOM.mobileCartBadge.textContent = count;
+
+    if (DOM.floatingCartBadge) DOM.floatingCartBadge.textContent = count;
+    if (DOM.floatingCartLabel) DOM.floatingCartLabel.textContent = `(${count} సరుకులు)`;
 
     if (count === 0) {
       DOM.emptyCartState.classList.remove('hidden');
@@ -1224,9 +1244,22 @@
       printOrder();
     });
 
-    // Mobile Cart Drawer Toggle
-    DOM.btnToggleCartMobile.addEventListener('click', () => {
-      DOM.cartSidebar.scrollIntoView({ behavior: 'smooth' });
+    // Mobile Cart Drawer Toggles
+    DOM.btnToggleCartMobile.addEventListener('click', openMobileCartDrawer);
+    if (DOM.floatingCartTrigger) {
+      DOM.floatingCartTrigger.addEventListener('click', openMobileCartDrawer);
+    }
+    if (DOM.btnFloatingViewCart) {
+      DOM.btnFloatingViewCart.addEventListener('click', openMobileCartDrawer);
+    }
+    if (DOM.btnCloseMobileCart) {
+      DOM.btnCloseMobileCart.addEventListener('click', closeMobileCartDrawer);
+    }
+    // Close cart drawer on clicking backdrop on mobile
+    DOM.cartSidebar.addEventListener('click', (e) => {
+      if (e.target === DOM.cartSidebar && window.innerWidth < 1024) {
+        closeMobileCartDrawer();
+      }
     });
 
     // Close modals on clicking backdrop

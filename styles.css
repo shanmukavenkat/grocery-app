@@ -14,6 +14,8 @@ body {
   background-color: #f8fafc;
   color: #1e293b;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .font-telugu {
@@ -24,10 +26,17 @@ body {
   font-family: var(--telugu-serif);
 }
 
+/* Horizontal smooth touch scroll */
+.scrollbar-thin {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
@@ -57,25 +66,59 @@ body {
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
 }
 
-/* Quantity Quick Badge */
-.qty-quick-badge {
-  transition: all 0.15s ease;
+/* Mobile Bottom Drawer for Cart */
+@media (max-width: 1023px) {
+  #cart-sidebar.mobile-drawer-open {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  #cart-sidebar.mobile-drawer-open > div {
+    max-height: 90vh !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
-.qty-quick-badge:hover {
-  background-color: #0f766e;
-  color: #ffffff;
-  border-color: #0f766e;
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 /* Printable Chitta / PDF styling container */
-#chitta-pdf-template {
-  background-color: #ffffff;
+#printable-area {
   width: 100%;
-  max-width: 800px;
+  max-width: 760px;
+  box-sizing: border-box;
   margin: 0 auto;
   font-family: var(--telugu-font);
   color: #1a202c;
   line-height: 1.5;
+}
+
+/* Responsive adjustments for printable receipt on mobile screens */
+@media (max-width: 640px) {
+  #printable-area {
+    padding: 1rem !important;
+    font-size: 11px;
+  }
+  .chitta-table th {
+    padding: 6px 4px !important;
+    font-size: 10px;
+  }
+  .chitta-table td {
+    padding: 6px 4px !important;
+    font-size: 11px;
+  }
 }
 
 .chitta-header-border {
@@ -98,6 +141,7 @@ body {
 
 .chitta-table tr:nth-child(even) td {
   background-color: #fafaf9;
+}
 }
 
 /* Animation utilities */
