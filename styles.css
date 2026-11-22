@@ -57,13 +57,29 @@ body {
   border-color: #0f766e;
 }
 
-/* Grocery Card Hover */
+/* Grocery Card */
 .grocery-card {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible;
 }
 .grocery-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+}
+
+/* Badge Tooltip Animation */
+.badge-tooltip {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.group:hover .badge-tooltip,
+.group:focus .badge-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* Mobile Bottom Drawer for Cart */

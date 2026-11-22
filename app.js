@@ -97,6 +97,7 @@
     modalCustomItem: document.getElementById('modal-custom-item'),
     formCustomItem: document.getElementById('form-custom-item'),
     customItemNameTe: document.getElementById('custom-item-name-te'),
+    customItemNameTenglish: document.getElementById('custom-item-name-tenglish'),
     customItemNameEn: document.getElementById('custom-item-name-en'),
     customItemQtyVal: document.getElementById('custom-item-qty-val'),
     customItemQtyUnit: document.getElementById('custom-item-qty-unit'),
@@ -449,6 +450,55 @@
     }
   }
 
+  // Helper to get compact, vibrant badge configuration with tooltip
+  function getBadgeConfig(badgeName) {
+    if (!badgeName) return null;
+    switch (badgeName) {
+      case 'ముఖ్యమైనది':
+        return {
+          icon: 'fa-solid fa-star',
+          colorClass: 'bg-amber-100 text-amber-700 border-amber-300 hover:bg-amber-200 shadow-xs',
+          dotColor: 'bg-amber-400',
+          tooltip: 'ముఖ్యమైనది (Essential Item)'
+        };
+      case 'రోజూ వాడేది':
+        return {
+          icon: 'fa-solid fa-fire',
+          colorClass: 'bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-200 shadow-xs',
+          dotColor: 'bg-emerald-400',
+          tooltip: 'రోజూ వాడేది (Daily Kitchen Need)'
+        };
+      case 'పోపు సామాను':
+        return {
+          icon: 'fa-solid fa-pepper-hot',
+          colorClass: 'bg-rose-100 text-rose-700 border-rose-300 hover:bg-rose-200 shadow-xs',
+          dotColor: 'bg-rose-400',
+          tooltip: 'పోపు సామాను (Tadka / Spices)'
+        };
+      case 'ప్రీమియం':
+        return {
+          icon: 'fa-solid fa-gem',
+          colorClass: 'bg-purple-100 text-purple-700 border-purple-300 hover:bg-purple-200 shadow-xs',
+          dotColor: 'bg-purple-400',
+          tooltip: 'ప్రీమియం క్వాలిటీ (Premium Quality)'
+        };
+      case 'కస్టమ్ సరుకు':
+        return {
+          icon: 'fa-solid fa-sparkles',
+          colorClass: 'bg-teal-100 text-teal-700 border-teal-300 hover:bg-teal-200 shadow-xs',
+          dotColor: 'bg-teal-400',
+          tooltip: 'కస్టమ్ సరుకు (Custom Added Item)'
+        };
+      default:
+        return {
+          icon: 'fa-solid fa-tag',
+          colorClass: 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 shadow-xs',
+          dotColor: 'bg-slate-400',
+          tooltip: badgeName
+        };
+    }
+  }
+
   // Create individual Grocery Card element
   function createGroceryCard(item) {
     const card = document.createElement('div');
@@ -465,18 +515,19 @@
 
     // Extract first 2-3 translit words for Gen Z preview
     const translitPreview = (item.translit || '').split(' ').slice(0, 3).join(' ');
+    const badgeConfig = getBadgeConfig(item.badge);
 
     card.innerHTML = `
       <div>
-        <!-- Top row: Icon, Category & Badge -->
-        <div class="flex items-start justify-between gap-2 mb-1.5">
-          <div class="flex items-center gap-2">
-            <span class="text-2xl">${item.icon || '🛍️'}</span>
-            <div>
-              <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug">
+        <!-- Top row: Icon, Name & Badge -->
+        <div class="flex items-start justify-between gap-1.5 mb-2 relative">
+          <div class="flex items-start gap-2 min-w-0 flex-1">
+            <span class="text-2xl shrink-0 mt-0.5">${item.icon || '🛍️'}</span>
+            <div class="min-w-0 flex-1">
+              <h3 class="font-bold text-slate-900 text-xs sm:text-sm md:text-base leading-snug break-words">
                 ${item.nameTe}
               </h3>
-              <p class="text-[11px] text-slate-500 font-sans leading-tight">
+              <p class="text-[11px] text-slate-500 font-sans leading-tight truncate">
                 ${item.nameEn || ''}
               </p>
               ${translitPreview ? `
@@ -486,10 +537,19 @@
               ` : ''}
             </div>
           </div>
-          ${item.badge ? `
-            <span class="text-[10px] bg-emerald-50 text-emerald-800 font-semibold px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
-              ${item.badge}
-            </span>
+          ${badgeConfig ? `
+            <div class="relative group shrink-0 self-start ml-1.5" tabindex="0">
+              <!-- Colored Badge Icon / Pill -->
+              <div class="cursor-pointer ${badgeConfig.colorClass} border rounded-full w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-200 transform group-hover:scale-110 active:scale-95" title="${badgeConfig.tooltip}">
+                <i class="${badgeConfig.icon} text-xs"></i>
+              </div>
+              
+              <!-- Sleek Hover Tooltip -->
+              <div class="badge-tooltip absolute right-0 top-full mt-1.5 flex items-center gap-1.5 bg-slate-900/95 backdrop-blur-sm text-white text-[10px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-xl whitespace-nowrap z-30 border border-slate-700">
+                <span class="w-1.5 h-1.5 rounded-full ${badgeConfig.dotColor} shrink-0"></span>
+                <span>${badgeConfig.tooltip}</span>
+              </div>
+            </div>
           ` : ''}
         </div>
 
@@ -843,6 +903,7 @@
   // --- CUSTOM ITEM MODAL & FORM ---
   function openCustomItemModal() {
     DOM.customItemNameTe.value = '';
+    if (DOM.customItemNameTenglish) DOM.customItemNameTenglish.value = '';
     DOM.customItemNameEn.value = '';
     DOM.customItemQtyVal.value = '1';
     DOM.customItemQtyUnit.value = 'కిలోలు';
@@ -863,6 +924,7 @@
       return;
     }
 
+    const nameTenglish = DOM.customItemNameTenglish ? DOM.customItemNameTenglish.value.trim() : '';
     const nameEn = DOM.customItemNameEn.value.trim();
     const qtyVal = DOM.customItemQtyVal.value.trim();
     const qtyUnit = DOM.customItemQtyUnit.value;
@@ -871,11 +933,15 @@
 
     const fullQty = `${qtyVal} ${qtyUnit}`;
 
+    // Combine Telugu, Tenglish and English terms into translit for flawless search
+    const cleanTenglishNoSpace = nameTenglish.replace(/\s+/g, '');
+    const combinedTranslit = `${nameTe} ${nameTenglish} ${nameEn} ${cleanTenglishNoSpace}`;
+
     const newItem = {
       id: `custom_${Date.now()}`,
       nameTe: nameTe,
-      nameEn: nameEn,
-      translit: `${nameTe} ${nameEn}`,
+      nameEn: nameEn || nameTenglish,
+      translit: combinedTranslit,
       category: category,
       defaultQty: fullQty,
       commonQtys: [fullQty, '1 కిలో', 'అర కిలో'],
@@ -917,7 +983,7 @@
     STATE.customerDetails.phone = DOM.inputCustomerPhone.value.trim();
     STATE.customerDetails.address = DOM.inputCustomerAddress.value.trim();
     STATE.customerDetails.date = DOM.inputOrderDate.value || new Date().toISOString().split('T')[0];
-    STATE.customerDetails.shopName = DOM.inputShopName.value.trim() || 'శ్రీ లక్ష్మీ గణపతి కిరాణా & జనరల్ స్టోర్స్';
+    STATE.customerDetails.shopName = DOM.inputShopName.value.trim() || 'శ్రీ  కిరాణా & జనరల్ స్టోర్స్';
     STATE.customerDetails.shopPhone = DOM.inputShopPhone.value.trim();
     STATE.customerDetails.shopPlace = DOM.inputShopPlace.value.trim();
 
@@ -936,7 +1002,7 @@
     const cust = STATE.customerDetails;
     
     // Header
-    DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీ లక్ష్మీ గణపతి కిరాణా & జనరల్ స్టోర్స్';
+    DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీ  కిరాణా & జనరల్ స్టోర్స్';
     let contactLine = 'అన్ని రకాల తాజా కిరాణా సరుకులు, పప్పులు, నూనెలు మరియు నిత్యావసర వస్తువులు లభించును';
     if (cust.shopPhone || cust.shopPlace) {
       contactLine = `${cust.shopPlace ? cust.shopPlace + ' | ' : ''}ఫోన్: ${cust.shopPhone || '-'}`;
@@ -1205,7 +1271,13 @@
     DOM.btnQuickCustomAdd.addEventListener('click', openCustomItemModal);
     DOM.btnAddSearchedItem.addEventListener('click', () => {
       openCustomItemModal();
-      DOM.customItemNameTe.value = STATE.searchQuery;
+      const q = (STATE.searchQuery || '').trim();
+      if (/[\u0C00-\u0C7F]/.test(q)) {
+        DOM.customItemNameTe.value = q;
+      } else if (q) {
+        if (DOM.customItemNameTenglish) DOM.customItemNameTenglish.value = q;
+        DOM.customItemNameTe.value = q;
+      }
     });
     DOM.btnCloseCustomItemModal.addEventListener('click', closeCustomItemModal);
     DOM.btnCancelCustomItem.addEventListener('click', closeCustomItemModal);
