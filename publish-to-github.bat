@@ -8,7 +8,7 @@ echo.
 echo Step 1: Make sure you created a new repository on GitHub:
 echo         https://github.com/new (Name: telugu-grocery-app, Public)
 echo.
-set /p REPO_URL="Enter your GitHub Repository URL (e.g., https://github.com/your-username/telugu-grocery-app.git): "
+set /p REPO_URL="Enter your GitHub Repository URL (e.g., https://github.com/your-username/grocery-app.git): "
 
 if "%REPO_URL%"=="" (
     echo Error: No URL entered. Exiting.
@@ -38,7 +38,7 @@ if %ERRORLEVEL% equ 0 (
     echo    Select 'main' and '/ (root)', then click Save.
     echo.
     echo Your public link will be live in 1-2 minutes at:
-    echo https://^<your-username^>.github.io/telugu-grocery-app/
+    echo https://^<your-username^>.github.io/grocery-app/
     echo ========================================================
 ) else (
     echo.

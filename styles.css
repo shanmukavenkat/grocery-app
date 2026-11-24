@@ -1,5 +1,5 @@
-/* Custom Styles for Telugu Groceries App (కిరాణా చిట్టా) */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800;900&family=Noto+Serif+Telugu:wght@600;700;900&display=swap');
+/* Custom Styles for Telugu Groceries & Hindu Pooja Items App (కిరాణా & పూజా చిట్టా) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;600;700;800;900&family=Noto+Serif+Telugu:wght@600;700;900&family=JetBrains+Mono:wght@500;700&display=swap');
 
 :root {
   --primary-color: #0f766e;
@@ -7,6 +7,7 @@
   --secondary-color: #d97706;
   --telugu-font: 'Noto Sans Telugu', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --telugu-serif: 'Noto Serif Telugu', Georgia, serif;
+  --mono-font: 'JetBrains Mono', 'Courier New', Courier, monospace;
 }
 
 body {
@@ -24,6 +25,10 @@ body {
 
 .font-telugu-serif {
   font-family: var(--telugu-serif);
+}
+
+.font-mono-receipt {
+  font-family: var(--mono-font), var(--telugu-font);
 }
 
 /* Horizontal smooth touch scroll */
@@ -49,159 +54,239 @@ body {
   background: #94a3b8;
 }
 
-/* Category Pill Active State */
-.cat-pill.active {
-  background-color: #0f766e;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
-  border-color: #0f766e;
-}
-
-/* Grocery Card */
+/* Card hover animation */
 .grocery-card {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: visible;
 }
 .grocery-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
 }
 
-/* Badge Tooltip Animation */
-.badge-tooltip {
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+/* Product Image Container with zoom */
+.product-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: #f1f5f9;
 }
-.group:hover .badge-tooltip,
-.group:focus .badge-tooltip {
+
+.product-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.grocery-card:hover .product-image-wrap img {
+  transform: scale(1.06);
+}
+
+/* Priority Indicator Dots (replaces wide badges to fix overflow) */
+.priority-dot-wrap {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+}
+
+.priority-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.priority-dot:hover, .priority-dot:focus {
+  transform: scale(1.25);
+}
+
+/* Glowing dot variants */
+.dot-essential {
+  background-color: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.7);
+}
+.dot-fresh {
+  background-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.7);
+}
+.dot-offer {
+  background-color: #f43f5e;
+  box-shadow: 0 0 8px rgba(244, 63, 94, 0.7);
+}
+.dot-pooja {
+  background-color: #ea580c;
+  box-shadow: 0 0 8px rgba(234, 88, 12, 0.7);
+}
+
+/* Tooltip on hover/tap */
+.priority-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  background-color: #0f172a;
+  color: #ffffff;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  transform: translateY(4px);
+}
+
+.priority-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 6px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: #0f172a transparent transparent transparent;
+}
+
+.priority-dot-wrap:hover .priority-tooltip,
+.priority-dot-wrap:focus-within .priority-tooltip {
+  visibility: visible;
   opacity: 1;
   transform: translateY(0);
-  pointer-events: auto;
 }
 
-/* Mobile Bottom Drawer for Cart */
-@media (max-width: 1023px) {
-  #cart-sidebar.mobile-drawer-open {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    background: rgba(15, 23, 42, 0.65);
-    backdrop-filter: blur(4px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0;
-    animation: fadeIn 0.2s ease-out;
-  }
-  
-  #cart-sidebar.mobile-drawer-open > div {
-    max-height: 90vh !important;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-/* Printable Chitta / PDF styling container */
-#printable-area {
+/* ========================================================= */
+/* THERMAL RECEIPT / TICKET-STYLE PRINTING & PDF STYLES       */
+/* ========================================================= */
+.thermal-receipt-container {
   width: 100%;
-  max-width: 760px;
-  box-sizing: border-box;
+  max-width: 380px;
   margin: 0 auto;
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
   font-family: var(--telugu-font);
-  color: #1a202c;
-  line-height: 1.5;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Responsive adjustments for printable receipt on mobile screens */
-@media (max-width: 640px) {
-  #printable-area {
-    padding: 1rem !important;
-    font-size: 11px;
-  }
-  .chitta-table th {
-    padding: 6px 4px !important;
-    font-size: 10px;
-  }
-  .chitta-table td {
-    padding: 6px 4px !important;
-    font-size: 11px;
-  }
+/* Perforated / sawtooth cut paper effects */
+.receipt-sawtooth-top {
+  height: 10px;
+  background: radial-gradient(circle, transparent 4px, #ffffff 4px);
+  background-size: 12px 10px;
+  background-position: -6px 0;
 }
 
-.chitta-header-border {
-  border-bottom: 2px dashed #0f766e;
+.receipt-sawtooth-bottom {
+  height: 10px;
+  background: radial-gradient(circle, transparent 4px, #ffffff 4px);
+  background-size: 12px 10px;
+  background-position: -6px -5px;
 }
 
-.chitta-table th {
-  background-color: #f0fdf4;
-  color: #166534;
-  font-weight: 700;
-  border-top: 1px solid #bbf7d0;
-  border-bottom: 2px solid #86efac;
-  padding: 10px 12px;
+.receipt-body {
+  padding: 18px 20px 22px 20px;
 }
 
-.chitta-table td {
-  padding: 9px 12px;
-  border-bottom: 1px dashed #e2e8f0;
+.thermal-dashed {
+  border-top: 1.5px dashed #64748b;
+  margin: 10px 0;
 }
 
-.chitta-table tr:nth-child(even) td {
-  background-color: #fafaf9;
-}
-}
-
-/* Animation utilities */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+.thermal-double {
+  border-top: 3px double #0f172a;
+  margin: 12px 0;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.25s ease-out forwards;
+.receipt-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 6px;
 }
 
-/* Pulse animation for PDF download button */
-@keyframes pulseSubtle {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
+.receipt-section-header {
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 6px;
+  margin: 8px 0 6px 0;
+  border-radius: 4px;
+  background-color: #f1f5f9;
+  text-align: center;
+  color: #1e293b;
 }
 
-.animate-pulse-subtle {
-  animation: pulseSubtle 2.5s infinite ease-in-out;
+.receipt-section-pooja {
+  background-color: #fff7ed;
+  color: #c2410c;
+  border: 1px dashed #fdba74;
 }
 
-/* Print CSS */
+/* Barcode representation */
+.receipt-barcode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  height: 38px;
+  margin: 12px 0 6px 0;
+}
+
+.barcode-bar {
+  background-color: #0f172a;
+  height: 100%;
+}
+
+/* Print Styles */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  
-  #printable-area, #printable-area * {
-    visibility: visible;
-  }
-  
-  #printable-area {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 15mm;
-    background: #fff;
-    box-shadow: none;
+  body {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  .no-print {
+  /* Hide everything except the thermal receipt */
+  header, nav, #main-content, #cart-sidebar, #mobile-nav, .modal-backdrop, .no-print, button, .btn {
+    display: none !important;
+  }
+
+  #pdf-preview-modal {
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  .thermal-receipt-container {
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 80mm !important;
+    width: 80mm !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    page-break-inside: avoid;
+  }
+
+  .receipt-sawtooth-top, .receipt-sawtooth-bottom {
     display: none !important;
   }
 }

@@ -1,8 +1,53 @@
-// కిరాణా చిట్టా (Kirana Chitta) - Telugu Groceries & PDF Generator App
-// Logic & State Management
+// కిరాణా & పూజా చిట్టా (Kirana & Pooja Chitta) - Telugu Groceries & 80mm Thermal Receipt Generator
+// Production-Ready Script with Resilient Image Fallback, Gen-Z Tenglish Search & Zero Emojis Policy
 
 (function () {
   'use strict';
+
+  // --- SVG FALLBACK GENERATOR (Zero Emojis Policy) ---
+  window.getCategoryFallbackSvg = function (category) {
+    let bg = '#fffbeb', stroke = '#d97706', fill = '#f59e0b', path = '';
+    const cat = (category || '').toLowerCase();
+
+    if (cat.includes('pooja')) {
+      bg = '#fff7ed';
+      stroke = '#ea580c';
+      fill = '#f97316';
+      // Diya & Sacred Flame
+      path = '<path d="M12 3c0 3.5-3 5-3 8 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3-3-4.5-3-8z" fill="' + fill + '"/><path d="M4 17c0 4 3.6 6 8 6s8-2 8-6H4z" fill="' + stroke + '"/>';
+    } else if (cat.includes('veg') || cat.includes('green')) {
+      bg = '#f0fdf4';
+      stroke = '#15803d';
+      fill = '#16a34a';
+      // Fresh Leaf / Produce
+      path = '<path d="M12 3C8 3 4 7 4 12c0 6 7 9 8 9s8-3 8-9c0-5-4-9-8-9zm0 15c-3-2-6-5-6-8 0-3 2.5-5 6-5s6 2 6 5c0 3-3 6-6 8z" fill="' + fill + '"/>';
+    } else if (cat.includes('fruit')) {
+      bg = '#fff1f2';
+      stroke = '#be123c';
+      fill = '#f43f5e';
+      // Fresh Orchard Fruit
+      path = '<circle cx="12" cy="13" r="8" fill="' + fill + '"/><path d="M12 5c0-2.5 2-3 4-3" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round"/>';
+    } else {
+      // Groceries / Grains / Spices
+      bg = '#fffbeb';
+      stroke = '#b45309';
+      fill = '#d97706';
+      // Wheat / Grain Stalk
+      path = '<path d="M12 2v20M8 6l4-2 4 2M7 11l5-2 5 2M8 16l4-2 4 2" stroke="' + stroke + '" stroke-width="2.2" stroke-linecap="round" fill="none"/>';
+    }
+
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 24 24" fill="none">' +
+      '<rect width="24" height="24" fill="' + bg + '"/>' +
+      '<g transform="translate(0, 0)">' + path + '</g>' +
+      '</svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  };
+
+  window.handleProductImageError = function (img, category) {
+    if (!img) return;
+    img.onerror = null;
+    img.src = window.getCategoryFallbackSvg(category);
+  };
 
   // --- APPLICATION STATE ---
   const STATE = {
@@ -15,210 +60,222 @@
       phone: '9876543210',
       address: 'గాంధీ నగర్, విజయవాడ',
       date: new Date().toISOString().split('T')[0],
-      shopName: 'శ్రీ లక్ష్మీ గణపతి కిరాణా & జనరల్ స్టోర్స్',
+      shopName: 'శ్రీ లక్ష్మి కిరాణా, కూరగాయలు & పూజా స్టోర్',
       shopPhone: '9440123456',
       shopPlace: 'మెయిన్ రోడ్డు, విజయవాడ'
     },
-    orderCounter: 1001,
+    orderCounter: 1042,
     pendingItemForModal: null,
     customItems: []
   };
 
-  // --- LOCAL STORAGE KEYS ---
+  // --- STORAGE KEYS ---
   const STORAGE_KEYS = {
-    CART: 'telugu_grocery_cart_v1',
-    CUSTOMER: 'telugu_grocery_customer_v1',
-    CUSTOM_ITEMS: 'telugu_grocery_custom_items_v1',
-    ORDER_NUM: 'telugu_grocery_order_num_v1',
-    SEARCH_HISTORY: 'telugu_grocery_search_history_v1'
+    CART: 'telugu_grocery_cart_v2',
+    CUSTOMER: 'telugu_grocery_customer_v2',
+    CUSTOM_ITEMS: 'telugu_grocery_custom_items_v2',
+    ORDER_NUM: 'telugu_grocery_order_num_v2',
+    SEARCH_HISTORY: 'telugu_grocery_search_history_v2'
   };
 
-  // --- DOM ELEMENTS ---
+  // --- DOM CACHE ---
   const DOM = {
-    // Navigation & Buttons
+    // Top Nav
     btnOpenCustomItem: document.getElementById('btn-open-custom-item'),
     btnOpenDetails: document.getElementById('btn-open-details'),
     btnToggleCartMobile: document.getElementById('btn-toggle-cart-mobile'),
     mobileCartBadge: document.getElementById('mobile-cart-badge'),
-    
-    // Search & Categories
+
+    // Search & History
     searchInput: document.getElementById('search-input'),
     btnClearSearch: document.getElementById('btn-clear-search'),
     searchHistoryContainer: document.getElementById('search-history-container'),
     recentSearchesList: document.getElementById('recent-searches-list'),
     btnClearHistory: document.getElementById('btn-clear-history'),
     tenglishQuickChips: document.getElementById('tenglish-quick-chips'),
+
+    // Category & Grid
     categoryPillsContainer: document.getElementById('category-pills-container'),
     filteredItemsCount: document.getElementById('filtered-items-count'),
+    btnQuickCustomAdd: document.getElementById('btn-quick-custom-add'),
     groceryGrid: document.getElementById('grocery-grid'),
     noResultsState: document.getElementById('no-results-state'),
     btnAddSearchedItem: document.getElementById('btn-add-searched-item'),
-    btnQuickCustomAdd: document.getElementById('btn-quick-custom-add'),
 
-    // Cart / Chitta Sidebar
+    // Cart Sidebar
     cartSidebar: document.getElementById('cart-sidebar'),
-    btnCloseMobileCart: document.getElementById('btn-close-mobile-cart'),
-    mobileFloatingCartBar: document.getElementById('mobile-floating-cart-bar'),
-    floatingCartTrigger: document.getElementById('floating-cart-trigger'),
-    floatingCartBadge: document.getElementById('floating-cart-badge'),
-    floatingCartLabel: document.getElementById('floating-cart-label'),
-    btnFloatingViewCart: document.getElementById('btn-floating-view-cart'),
-    cartItemsList: document.getElementById('cart-items-list'),
-    emptyCartState: document.getElementById('empty-cart-state'),
-    cartFooter: document.getElementById('cart-footer'),
     cartItemCounter: document.getElementById('cart-item-counter'),
+    btnClearCart: document.getElementById('btn-clear-cart'),
+    btnCloseMobileCart: document.getElementById('btn-close-mobile-cart'),
     summaryCustomerName: document.getElementById('summary-customer-name'),
     btnEditDetailsQuick: document.getElementById('btn-edit-details-quick'),
-    btnClearCart: document.getElementById('btn-clear-cart'),
+    cartItemsList: document.getElementById('cart-items-list'),
+    emptyCartState: document.getElementById('empty-cart-state'),
     btnSampleOrder: document.getElementById('btn-sample-order'),
+    cartFooter: document.getElementById('cart-footer'),
+    cartSummaryCount: document.getElementById('cart-summary-count'),
+    cartSummaryTotal: document.getElementById('cart-summary-total'),
 
-    // Cart Actions
+    // Cart Main Buttons
     btnGeneratePdf: document.getElementById('btn-generate-pdf'),
     btnPrintOrder: document.getElementById('btn-print-order'),
     btnWhatsappShare: document.getElementById('btn-whatsapp-share'),
     btnPreviewPdf: document.getElementById('btn-preview-pdf'),
     btnCopyList: document.getElementById('btn-copy-list'),
 
-    // Modal: Quantity Customizer
+    // Modal 1: Quantity
     modalQuantity: document.getElementById('modal-quantity'),
+    modalItemIcon: document.getElementById('modal-item-icon'),
     modalItemTitle: document.getElementById('modal-item-title'),
     modalItemSubtitle: document.getElementById('modal-item-subtitle'),
-    modalItemIcon: document.getElementById('modal-item-icon'),
+    btnCloseQtyModal: document.getElementById('btn-close-qty-modal'),
     modalQuickQuantities: document.getElementById('modal-quick-quantities'),
     modalCustomQtyVal: document.getElementById('modal-custom-qty-val'),
     modalCustomQtyUnit: document.getElementById('modal-custom-qty-unit'),
     modalItemNote: document.getElementById('modal-item-note'),
     modalItemPrice: document.getElementById('modal-item-price'),
-    btnCloseQtyModal: document.getElementById('btn-close-qty-modal'),
     btnCancelQtyModal: document.getElementById('btn-cancel-qty-modal'),
     btnConfirmAddItem: document.getElementById('btn-confirm-add-item'),
 
-    // Modal: Custom Item Creator
+    // Modal 2: Custom Item
     modalCustomItem: document.getElementById('modal-custom-item'),
+    btnCloseCustomItemModal: document.getElementById('btn-close-custom-item-modal'),
     formCustomItem: document.getElementById('form-custom-item'),
     customItemNameTe: document.getElementById('custom-item-name-te'),
     customItemNameTenglish: document.getElementById('custom-item-name-tenglish'),
-    customItemNameEn: document.getElementById('custom-item-name-en'),
+    customItemCategory: document.getElementById('custom-item-category'),
+    customItemTagType: document.getElementById('custom-item-tag-type'),
     customItemQtyVal: document.getElementById('custom-item-qty-val'),
     customItemQtyUnit: document.getElementById('custom-item-qty-unit'),
-    customItemCategory: document.getElementById('custom-item-category'),
-    customItemNote: document.getElementById('custom-item-note'),
-    btnCloseCustomItemModal: document.getElementById('btn-close-custom-item-modal'),
+    customItemPrice: document.getElementById('custom-item-price'),
+    customItemFile: document.getElementById('custom-item-file'),
+    customItemImageUrl: document.getElementById('custom-item-image-url'),
+    customImagePreviewWrap: document.getElementById('custom-image-preview-wrap'),
+    customImagePreview: document.getElementById('custom-image-preview'),
     btnCancelCustomItem: document.getElementById('btn-cancel-custom-item'),
 
-    // Modal: Customer & Shop Details
+    // Modal 3: Details
     modalDetails: document.getElementById('modal-details'),
+    btnCloseDetailsModal: document.getElementById('btn-close-details-modal'),
     inputCustomerName: document.getElementById('input-customer-name'),
     inputCustomerPhone: document.getElementById('input-customer-phone'),
-    inputCustomerAddress: document.getElementById('input-customer-address'),
     inputOrderDate: document.getElementById('input-order-date'),
+    inputCustomerAddress: document.getElementById('input-customer-address'),
     inputShopName: document.getElementById('input-shop-name'),
     inputShopPhone: document.getElementById('input-shop-phone'),
     inputShopPlace: document.getElementById('input-shop-place'),
-    btnCloseDetailsModal: document.getElementById('btn-close-details-modal'),
     btnSaveDetails: document.getElementById('btn-save-details'),
 
-    // Modal: PDF Preview
+    // Modal 4: Thermal Receipt Preview
     modalPdfPreview: document.getElementById('modal-pdf-preview'),
-    btnClosePreviewModal: document.getElementById('btn-close-preview-modal'),
     btnDownloadFromPreview: document.getElementById('btn-download-from-preview'),
     btnPrintFromPreview: document.getElementById('btn-print-from-preview'),
-
-    // PDF Printable Template Elements
+    btnClosePreviewModal: document.getElementById('btn-close-preview-modal'),
     printableArea: document.getElementById('printable-area'),
     pdfViewShopName: document.getElementById('pdf-view-shop-name'),
     pdfViewShopContact: document.getElementById('pdf-view-shop-contact'),
+    pdfViewOrderId: document.getElementById('pdf-view-order-id'),
+    pdfViewDate: document.getElementById('pdf-view-date'),
     pdfViewCustomerName: document.getElementById('pdf-view-customer-name'),
     pdfViewCustomerPhone: document.getElementById('pdf-view-customer-phone'),
     pdfViewCustomerAddress: document.getElementById('pdf-view-customer-address'),
-    pdfViewOrderId: document.getElementById('pdf-view-order-id'),
-    pdfViewDate: document.getElementById('pdf-view-date'),
+    receiptItemsContainer: document.getElementById('receipt-items-container'),
     pdfViewTotalCount: document.getElementById('pdf-view-total-count'),
-    pdfViewBottomCount: document.getElementById('pdf-view-bottom-count'),
-    pdfViewItemsTbody: document.getElementById('pdf-view-items-tbody'),
+    pdfViewTotalUnits: document.getElementById('pdf-view-total-units'),
+    pdfViewTotalAmount: document.getElementById('pdf-view-total-amount'),
+    pdfViewBarcodeNum: document.getElementById('pdf-view-barcode-num'),
+
+    // Mobile Floating Bar
+    mobileFloatingCartBar: document.getElementById('mobile-floating-cart-bar'),
+    floatingCartTrigger: document.getElementById('floating-cart-trigger'),
+    floatingCartBadge: document.getElementById('floating-cart-badge'),
+    floatingCartLabel: document.getElementById('floating-cart-label'),
+    floatingCartAmount: document.getElementById('floating-cart-amount'),
+    btnFloatingViewCart: document.getElementById('btn-floating-view-cart'),
 
     // Toast
     toast: document.getElementById('toast'),
-    toastMessage: document.getElementById('toast-message'),
-    toastIcon: document.getElementById('toast-icon')
+    toastIcon: document.getElementById('toast-icon'),
+    toastMessage: document.getElementById('toast-message')
   };
 
   // --- INITIALIZATION ---
   function init() {
     loadSavedState();
-    loadSearchHistory();
-    renderCategories();
     populateSelectUnits();
+    renderCategories();
     renderGroceryGrid();
     renderCart();
+    renderSearchHistory();
     setupEventListeners();
   }
 
-  // Load state from localStorage
+  // --- LOAD STATE FROM LOCALSTORAGE ---
   function loadSavedState() {
     try {
       const savedCart = localStorage.getItem(STORAGE_KEYS.CART);
       if (savedCart) STATE.cart = JSON.parse(savedCart);
 
       const savedCust = localStorage.getItem(STORAGE_KEYS.CUSTOMER);
-      if (savedCust) STATE.customerDetails = Object.assign(STATE.customerDetails, JSON.parse(savedCust));
+      if (savedCust) STATE.customerDetails = { ...STATE.customerDetails, ...JSON.parse(savedCust) };
 
-      const savedCustomItems = localStorage.getItem(STORAGE_KEYS.CUSTOM_ITEMS);
-      if (savedCustomItems) STATE.customItems = JSON.parse(savedCustomItems);
+      const savedCustom = localStorage.getItem(STORAGE_KEYS.CUSTOM_ITEMS);
+      if (savedCustom) STATE.customItems = JSON.parse(savedCustom);
 
       const savedOrderNum = localStorage.getItem(STORAGE_KEYS.ORDER_NUM);
-      if (savedOrderNum) STATE.orderCounter = parseInt(savedOrderNum, 10);
-      else STATE.orderCounter = Math.floor(1000 + Math.random() * 9000);
+      if (savedOrderNum) STATE.orderCounter = parseInt(savedOrderNum, 10) || 1042;
 
-      // Populate details inputs
-      DOM.inputCustomerName.value = STATE.customerDetails.name || '';
-      DOM.inputCustomerPhone.value = STATE.customerDetails.phone || '';
-      DOM.inputCustomerAddress.value = STATE.customerDetails.address || '';
-      DOM.inputOrderDate.value = STATE.customerDetails.date || new Date().toISOString().split('T')[0];
-      DOM.inputShopName.value = STATE.customerDetails.shopName || 'శ్రీ లక్ష్మీ గణపతి కిరాణా & జనరల్ స్టోర్స్';
-      DOM.inputShopPhone.value = STATE.customerDetails.shopPhone || '';
-      DOM.inputShopPlace.value = STATE.customerDetails.shopPlace || '';
+      const savedHistory = localStorage.getItem(STORAGE_KEYS.SEARCH_HISTORY);
+      if (savedHistory) STATE.searchHistory = JSON.parse(savedHistory);
 
-      updateCustomerSummaryBadge();
-    } catch (err) {
-      console.warn('Could not load localStorage state:', err);
+      // Populate input defaults
+      if (DOM.inputCustomerName) DOM.inputCustomerName.value = STATE.customerDetails.name;
+      if (DOM.inputCustomerPhone) DOM.inputCustomerPhone.value = STATE.customerDetails.phone;
+      if (DOM.inputCustomerAddress) DOM.inputCustomerAddress.value = STATE.customerDetails.address;
+      if (DOM.inputShopName) DOM.inputShopName.value = STATE.customerDetails.shopName;
+      if (DOM.inputShopPhone) DOM.inputShopPhone.value = STATE.customerDetails.shopPhone;
+      if (DOM.inputShopPlace) DOM.inputShopPlace.value = STATE.customerDetails.shopPlace;
+      if (DOM.inputOrderDate) DOM.inputOrderDate.value = STATE.customerDetails.date;
+      if (DOM.summaryCustomerName) DOM.summaryCustomerName.textContent = STATE.customerDetails.name;
+    } catch (e) {
+      console.warn('Could not read from localStorage:', e);
     }
   }
 
   function saveCartState() {
     try {
       localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(STATE.cart));
-      localStorage.setItem(STORAGE_KEYS.CUSTOMER, JSON.stringify(STATE.customerDetails));
       localStorage.setItem(STORAGE_KEYS.ORDER_NUM, STATE.orderCounter.toString());
-      if (STATE.customItems.length) {
-        localStorage.setItem(STORAGE_KEYS.CUSTOM_ITEMS, JSON.stringify(STATE.customItems));
-      }
     } catch (e) {
-      console.warn('Storage save failed:', e);
+      console.warn('Could not save cart state:', e);
     }
   }
 
-  // --- RENDER CATEGORY PILLS ---
+  // --- RENDER CATEGORY TABS (Zero emojis - clean fontawesome icons) ---
   function renderCategories() {
+    if (!DOM.categoryPillsContainer) return;
     DOM.categoryPillsContainer.innerHTML = '';
-    
-    GROCERY_CATEGORIES.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = `cat-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold border transition flex items-center gap-1.5 ${
-        STATE.currentCategory === cat.id 
-          ? 'active bg-emerald-700 text-white border-emerald-700 shadow-sm' 
-          : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-300 hover:bg-emerald-50'
-      }`;
-      btn.dataset.category = cat.id;
 
-      // Calculate count in this category
-      const count = getItemsCountForCategory(cat.id);
-      
-      btn.innerHTML = `
-        <i class="fa-solid ${cat.icon} text-xs opacity-80"></i>
-        <span>${cat.name}</span>
-        <span class="text-[10px] px-1.5 py-0.2 rounded-full ${STATE.currentCategory === cat.id ? 'bg-emerald-800 text-white' : 'bg-slate-100 text-slate-600'}">${count}</span>
-      `;
+    const categories = (typeof GROCERY_CATEGORIES !== 'undefined') ? GROCERY_CATEGORIES : [
+      { id: 'all', name: 'అన్నీ', nameEn: 'All', icon: 'fa-layer-group', color: 'bg-emerald-600' },
+      { id: 'groceries', name: 'కిరాణా సరుకులు', nameEn: 'Groceries', icon: 'fa-wheat-awn', color: 'bg-amber-600' },
+      { id: 'vegetables', name: 'కూరగాయలు & ఆకులు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
+      { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
+      { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' }
+    ];
+
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      const isActive = STATE.currentCategory === cat.id;
+
+      btn.className = `category-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 border shadow-sm ${
+        isActive
+          ? 'bg-emerald-800 text-white border-emerald-900 shadow-md ring-2 ring-emerald-500/30'
+          : 'bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-900 border-slate-200'
+      }`;
+
+      btn.innerHTML = `<i class="fa-solid ${cat.icon} text-xs"></i> <span>${cat.name}</span>`;
 
       btn.addEventListener('click', () => {
         STATE.currentCategory = cat.id;
@@ -230,148 +287,133 @@
     });
   }
 
-  function getItemsCountForCategory(catId) {
-    const all = [...GROCERY_ITEMS, ...STATE.customItems];
-    if (catId === 'all') return all.length;
-    return all.filter(item => item.category === catId).length;
-  }
-
-  // --- POPULATE TELUGU UNITS IN SELECTS ---
+  // --- POPULATE TELUGU UNITS IN SELECT DROPDOWNS ---
   function populateSelectUnits() {
-    const optionsHtml = TELUGU_UNITS.map(unit => `<option value="${unit}">${unit}</option>`).join('');
-    DOM.modalCustomQtyUnit.innerHTML = optionsHtml;
-    DOM.customItemQtyUnit.innerHTML = optionsHtml;
+    const units = (typeof TELUGU_UNITS !== 'undefined') ? TELUGU_UNITS : [
+      'కిలోలు', 'గ్రాములు', 'లీటర్లు', 'మిల్లీ లీటర్లు', 'ప్యాకెట్లు', 'కట్టలు', 'కాయలు', 'డజన్లు', 'జతలు', 'డబ్బాలు', 'బాటిళ్ళు'
+    ];
+
+    const fillSelect = (selectElem) => {
+      if (!selectElem) return;
+      selectElem.innerHTML = '';
+      units.forEach(u => {
+        const opt = document.createElement('option');
+        opt.value = u;
+        opt.textContent = u;
+        selectElem.appendChild(opt);
+      });
+    };
+
+    fillSelect(DOM.modalCustomQtyUnit);
+    fillSelect(DOM.customItemQtyUnit);
   }
 
-  // --- TENGLISH & PHONETIC NORMALIZERS FOR SMART SEARCH ---
+  // --- GEN-Z TENGLISH NORMALIZATION & SEARCH MATCHING ---
   function normalizeTenglish(str) {
     if (!str) return '';
     return str
       .toLowerCase()
-      .replace(/[^a-z0-9\s\u0C00-\u0C7F]/g, ' ')
+      .replace(/aa/g, 'a')
+      .replace(/ee/g, 'i')
+      .replace(/oo/g, 'u')
+      .replace(/sh/g, 's')
+      .replace(/th/g, 't')
+      .replace(/dh/g, 'd')
+      .replace(/bh/g, 'b')
+      .replace(/ph/g, 'p')
+      .replace(/kh/g, 'k')
+      .replace(/gh/g, 'g')
+      .replace(/[\-_/\,.]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
   }
 
-  function getPhoneticKey(str) {
-    if (!str) return '';
-    return str.toLowerCase()
-      .replace(/ee/g, 'i').replace(/oo/g, 'u').replace(/aa/g, 'a')
-      .replace(/th/g, 't').replace(/dh/g, 'd').replace(/kh/g, 'k')
-      .replace(/gh/g, 'g').replace(/bh/g, 'b').replace(/ph/g, 'p')
-      .replace(/ch/g, 'c').replace(/sh/g, 's').replace(/w/g, 'v')
-      .replace(/z/g, 'j').replace(/ll/g, 'l').replace(/pp/g, 'p')
-      .replace(/dd/g, 'd').replace(/tt/g, 't').replace(/rr/g, 'r')
-      .replace(/mm/g, 'm').replace(/nn/g, 'n').replace(/ss/g, 's')
-      .replace(/bb/g, 'b').replace(/[^a-z0-9\u0C00-\u0C7F]/g, '');
-  }
-
-  function matchesSearch(item, rawQuery) {
-    if (!rawQuery) return true;
-    const q = normalizeTenglish(rawQuery);
-    if (!q) return true;
+  function matchesSearch(item, query) {
+    if (!query) return true;
+    const cleanQ = query.trim().toLowerCase();
+    const normQ = normalizeTenglish(cleanQ);
 
     const nameTe = (item.nameTe || '').toLowerCase();
     const nameEn = (item.nameEn || '').toLowerCase();
     const translit = (item.translit || '').toLowerCase();
-    const combined = `${nameTe} ${nameEn} ${translit}`;
-    const combinedNorm = normalizeTenglish(combined);
+    const normTranslit = normalizeTenglish(translit);
 
-    // 1. Direct substring match (supports Telugu and English)
-    if (combined.includes(q)) return true;
-
-    // 2. Space-insensitive match (e.g. 'putnalapappu' matches 'putnala pappu', 'kandipappu' matches 'kandi pappu')
-    const qNoSpace = q.replace(/\s+/g, '');
-    const combinedNoSpace = combinedNorm.replace(/\s+/g, '');
-    if (combinedNoSpace.includes(qNoSpace)) return true;
-
-    // 3. Multi-word tokens match (every word must match somewhere in the item)
-    const tokens = q.split(' ').filter(Boolean);
-    if (tokens.length > 1) {
-      const allTokensMatch = tokens.every(token => {
-        const tokenPhonetic = getPhoneticKey(token);
-        return combinedNorm.includes(token) || getPhoneticKey(combinedNorm).includes(tokenPhonetic);
-      });
-      if (allTokensMatch) return true;
+    // Exact or direct substring match
+    if (nameTe.includes(cleanQ) || nameEn.includes(cleanQ) || translit.includes(cleanQ)) {
+      return true;
     }
 
-    // 4. Phonetic comparison (catches common Gen Z spelling variants)
-    const qPhonetic = getPhoneticKey(q);
-    const itemPhonetic = getPhoneticKey(combined);
-    if (itemPhonetic.includes(qPhonetic)) return true;
+    // Normalized Tenglish fuzzy match
+    if (normTranslit.includes(normQ)) {
+      return true;
+    }
+
+    // Individual token matching (e.g. "putnala" + "pappu")
+    const tokens = cleanQ.split(' ').filter(Boolean);
+    if (tokens.length > 1) {
+      const allMatch = tokens.every(tok => {
+        const normTok = normalizeTenglish(tok);
+        return nameTe.includes(tok) || nameEn.includes(tok) || translit.includes(tok) || normTranslit.includes(normTok);
+      });
+      if (allMatch) return true;
+    }
 
     return false;
   }
 
-  function searchCatalog(items, query) {
-    if (!query) return items;
-    // Step 1: Strict match
-    let results = items.filter(item => matchesSearch(item, query));
-    if (results.length > 0) return results;
+  function getCatalogList() {
+    const defaultCatalog = (typeof GROCERY_ITEMS !== 'undefined') ? GROCERY_ITEMS : [];
+    return [...STATE.customItems, ...defaultCatalog];
+  }
 
-    // Step 2: Fallback to match individual tokens for multi-word queries (e.g. 'allam vellulli')
-    const tokens = normalizeTenglish(query).split(' ').filter(t => t.length > 2);
-    if (tokens.length > 1) {
-      results = items.filter(item => {
-        return tokens.some(token => matchesSearch(item, token));
-      });
-    }
-    return results;
+  function filterCatalog() {
+    const all = getCatalogList();
+    return all.filter(item => {
+      // Category filter
+      if (STATE.currentCategory !== 'all') {
+        const itemCat = (item.mainCategory || item.category || '').toLowerCase();
+        if (STATE.currentCategory === 'groceries') {
+          if (!['groceries', 'grains', 'dals', 'spices', 'essentials', 'dryfruits', 'oils'].includes(itemCat)) {
+            return false;
+          }
+        } else if (STATE.currentCategory === 'vegetables') {
+          if (!['vegetables', 'greens'].includes(itemCat)) {
+            return false;
+          }
+        } else if (STATE.currentCategory === 'fruits') {
+          if (itemCat !== 'fruits') return false;
+        } else if (STATE.currentCategory === 'pooja') {
+          if (itemCat !== 'pooja') return false;
+        } else {
+          if (itemCat !== STATE.currentCategory) return false;
+        }
+      }
+
+      // Search filter
+      if (STATE.searchQuery) {
+        return matchesSearch(item, STATE.searchQuery);
+      }
+
+      return true;
+    });
   }
 
   // --- SEARCH HISTORY MANAGEMENT ---
-  function loadSearchHistory() {
-    try {
-      const savedHistory = localStorage.getItem(STORAGE_KEYS.SEARCH_HISTORY);
-      if (savedHistory) {
-        STATE.searchHistory = JSON.parse(savedHistory);
-      }
-    } catch (e) {
-      STATE.searchHistory = [];
-    }
-    renderSearchHistory();
-  }
-
-  function addToSearchHistory(term) {
-    if (!term) return;
-    const cleanTerm = term.trim();
-    if (!cleanTerm || cleanTerm.length < 2) return;
-
-    // Deduplicate
-    STATE.searchHistory = STATE.searchHistory.filter(s => s.toLowerCase() !== cleanTerm.toLowerCase());
-    // Insert at front
-    STATE.searchHistory.unshift(cleanTerm);
-    // Keep max 8
-    if (STATE.searchHistory.length > 8) {
-      STATE.searchHistory = STATE.searchHistory.slice(0, 8);
-    }
+  function addToSearchHistory(q) {
+    if (!q || q.trim().length < 2) return;
+    const clean = q.trim();
+    STATE.searchHistory = STATE.searchHistory.filter(item => item.toLowerCase() !== clean.toLowerCase());
+    STATE.searchHistory.unshift(clean);
+    if (STATE.searchHistory.length > 8) STATE.searchHistory.pop();
     try {
       localStorage.setItem(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(STATE.searchHistory));
     } catch (e) {}
     renderSearchHistory();
-  }
-
-  function removeFromSearchHistory(term) {
-    STATE.searchHistory = STATE.searchHistory.filter(s => s.toLowerCase() !== term.toLowerCase());
-    try {
-      localStorage.setItem(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(STATE.searchHistory));
-    } catch (e) {}
-    renderSearchHistory();
-  }
-
-  function clearSearchHistory() {
-    STATE.searchHistory = [];
-    try {
-      localStorage.removeItem(STORAGE_KEYS.SEARCH_HISTORY);
-    } catch (e) {}
-    renderSearchHistory();
-    showToast('శోధన చరిత్ర ఖాళీ చేయబడింది', 'fa-trash');
   }
 
   function renderSearchHistory() {
     if (!DOM.searchHistoryContainer || !DOM.recentSearchesList) return;
-
-    if (!STATE.searchHistory || STATE.searchHistory.length === 0) {
+    if (STATE.searchHistory.length === 0) {
       DOM.searchHistoryContainer.classList.add('hidden');
       return;
     }
@@ -379,738 +421,506 @@
     DOM.searchHistoryContainer.classList.remove('hidden');
     DOM.recentSearchesList.innerHTML = '';
 
-    STATE.searchHistory.forEach(term => {
-      const chip = document.createElement('div');
-      chip.className = 'group inline-flex items-center gap-1.5 bg-slate-100 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-lg px-2.5 py-1 text-xs text-slate-700 transition cursor-pointer';
-      
-      chip.innerHTML = `
-        <span class="recent-term font-medium hover:text-emerald-800">${term}</span>
-        <button type="button" class="btn-remove-term text-slate-400 hover:text-red-500 ml-0.5 p-0.5 transition" title="తొలగించు">
-          <i class="fa-solid fa-xmark text-[10px]"></i>
-        </button>
-      `;
+    STATE.searchHistory.forEach(q => {
+      const chip = document.createElement('span');
+      chip.className = 'inline-flex items-center gap-1 bg-slate-100 hover:bg-emerald-100 text-slate-700 hover:text-emerald-900 px-2 py-0.5 rounded-md text-[11px] font-medium cursor-pointer transition border border-slate-200';
+      chip.innerHTML = `<span>${q}</span><i class="fa-solid fa-xmark text-[9px] text-slate-400 hover:text-red-500 ml-0.5 p-0.5"></i>`;
 
       // Click to search
-      chip.querySelector('.recent-term').addEventListener('click', () => {
-        executeSearch(term, false);
+      chip.querySelector('span').addEventListener('click', () => {
+        if (DOM.searchInput) DOM.searchInput.value = q;
+        executeSearch(q);
       });
 
-      // Click to remove
-      chip.querySelector('.btn-remove-term').addEventListener('click', (e) => {
+      // Remove single
+      chip.querySelector('.fa-xmark').addEventListener('click', (e) => {
         e.stopPropagation();
-        removeFromSearchHistory(term);
+        STATE.searchHistory = STATE.searchHistory.filter(item => item !== q);
+        try {
+          localStorage.setItem(STORAGE_KEYS.SEARCH_HISTORY, JSON.stringify(STATE.searchHistory));
+        } catch (err) {}
+        renderSearchHistory();
       });
 
       DOM.recentSearchesList.appendChild(chip);
     });
   }
 
-  function executeSearch(query, saveHistory = true) {
-    STATE.searchQuery = query;
-    DOM.searchInput.value = query;
-
-    if (query) {
-      DOM.btnClearSearch.classList.remove('hidden');
-    } else {
-      DOM.btnClearSearch.classList.add('hidden');
+  function executeSearch(query) {
+    STATE.searchQuery = query.trim();
+    if (STATE.searchQuery) addToSearchHistory(STATE.searchQuery);
+    if (DOM.btnClearSearch) {
+      if (STATE.searchQuery) DOM.btnClearSearch.classList.remove('hidden');
+      else DOM.btnClearSearch.classList.add('hidden');
     }
-
     renderGroceryGrid();
-
-    if (saveHistory && query && query.trim().length >= 2) {
-      addToSearchHistory(query);
-    }
   }
 
-  // --- RENDER GROCERY GRID ---
+  // --- RENDER GROCERY PRODUCT GRID (Strictly Zero Emojis) ---
   function renderGroceryGrid() {
-    const allItems = [...GROCERY_ITEMS, ...STATE.customItems];
-    const query = STATE.searchQuery.trim();
-
-    let filtered = [];
-    if (query) {
-      // Searching across entire catalog so Tenglish search is never restricted by active category!
-      filtered = searchCatalog(allItems, query);
-    } else {
-      filtered = allItems.filter(item => {
-        return (STATE.currentCategory === 'all') || (item.category === STATE.currentCategory);
-      });
-    }
-
-    DOM.filteredItemsCount.textContent = filtered.length;
+    if (!DOM.groceryGrid) return;
     DOM.groceryGrid.innerHTML = '';
 
-    if (filtered.length === 0) {
-      DOM.noResultsState.classList.remove('hidden');
-    } else {
-      DOM.noResultsState.classList.add('hidden');
-      filtered.forEach(item => {
-        DOM.groceryGrid.appendChild(createGroceryCard(item));
-      });
+    const items = filterCatalog();
+    if (DOM.filteredItemsCount) DOM.filteredItemsCount.textContent = items.length;
+
+    if (items.length === 0) {
+      DOM.groceryGrid.classList.add('hidden');
+      if (DOM.noResultsState) DOM.noResultsState.classList.remove('hidden');
+      return;
     }
+
+    DOM.groceryGrid.classList.remove('hidden');
+    if (DOM.noResultsState) DOM.noResultsState.classList.add('hidden');
+
+    items.forEach(item => {
+      const card = createProductCard(item);
+      DOM.groceryGrid.appendChild(card);
+    });
   }
 
-  // Helper to get compact, vibrant badge configuration with tooltip
-  function getBadgeConfig(badgeName) {
-    if (!badgeName) return null;
-    switch (badgeName) {
-      case 'ముఖ్యమైనది':
-        return {
-          icon: 'fa-solid fa-star',
-          colorClass: 'bg-amber-100 text-amber-700 border-amber-300 hover:bg-amber-200 shadow-xs',
-          dotColor: 'bg-amber-400',
-          tooltip: 'ముఖ్యమైనది (Essential Item)'
-        };
-      case 'రోజూ వాడేది':
-        return {
-          icon: 'fa-solid fa-fire',
-          colorClass: 'bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-200 shadow-xs',
-          dotColor: 'bg-emerald-400',
-          tooltip: 'రోజూ వాడేది (Daily Kitchen Need)'
-        };
-      case 'పోపు సామాను':
-        return {
-          icon: 'fa-solid fa-pepper-hot',
-          colorClass: 'bg-rose-100 text-rose-700 border-rose-300 hover:bg-rose-200 shadow-xs',
-          dotColor: 'bg-rose-400',
-          tooltip: 'పోపు సామాను (Tadka / Spices)'
-        };
-      case 'ప్రీమియం':
-        return {
-          icon: 'fa-solid fa-gem',
-          colorClass: 'bg-purple-100 text-purple-700 border-purple-300 hover:bg-purple-200 shadow-xs',
-          dotColor: 'bg-purple-400',
-          tooltip: 'ప్రీమియం క్వాలిటీ (Premium Quality)'
-        };
-      case 'కస్టమ్ సరుకు':
-        return {
-          icon: 'fa-solid fa-sparkles',
-          colorClass: 'bg-teal-100 text-teal-700 border-teal-300 hover:bg-teal-200 shadow-xs',
-          dotColor: 'bg-teal-400',
-          tooltip: 'కస్టమ్ సరుకు (Custom Added Item)'
-        };
-      default:
-        return {
-          icon: 'fa-solid fa-tag',
-          colorClass: 'bg-slate-100 text-slate-700 border-slate-300 hover:bg-slate-200 shadow-xs',
-          dotColor: 'bg-slate-400',
-          tooltip: badgeName
-        };
-    }
-  }
-
-  // Create individual Grocery Card element
-  function createGroceryCard(item) {
+  // --- CREATE PRODUCT CARD WITH RESILIENT REAL IMAGES & HOVER TOOLTIP ---
+  function createProductCard(item) {
     const card = document.createElement('div');
-    card.className = 'grocery-card bg-white rounded-xl p-3.5 border border-slate-200 shadow-sm flex flex-col justify-between';
+    card.className = 'grocery-card bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden relative group';
 
     // Find if already in cart
     const cartEntry = STATE.cart.find(c => c.nameTe === item.nameTe);
     const inCart = !!cartEntry;
 
-    // Quick Quantities buttons to show
-    const quickQtys = item.commonQtys && item.commonQtys.length > 0 
-      ? item.commonQtys.slice(0, 3) 
-      : ['1 కిలో', 'అర కిలో', 'పావు కిలో'];
+    // Quick Quantities buttons
+    const quickQtys = (item.commonQtys && item.commonQtys.length > 0)
+      ? item.commonQtys.slice(0, 3)
+      : ['1 కిలో', '500 గ్రాములు', '250 గ్రాములు'];
 
-    // Extract first 2-3 translit words for Gen Z preview
+    // Transliteration snippet for Gen Z
     const translitPreview = (item.translit || '').split(' ').slice(0, 3).join(' ');
-    const badgeConfig = getBadgeConfig(item.badge);
+
+    // Category identifier
+    const cat = item.mainCategory || item.category || 'groceries';
+
+    // Priority Indicator Dot & Tooltip (Amber: Essential, Green: Fresh, Rose: Offer, Orange: Pooja)
+    let priorityDotHtml = '';
+    if (item.tagType && item.tagType !== 'none') {
+      const dotType = item.tagType; // 'essential' | 'fresh' | 'offer' | 'pooja'
+      const label = item.tagLabelTelugu || (
+        dotType === 'essential' ? 'ముఖ్యమైనది (Essential)' :
+        dotType === 'fresh' ? 'తాజా పంట (Fresh Farm)' :
+        dotType === 'offer' ? 'ప్రత్యేక ఆఫర్ (Special Offer)' :
+        'పూజా విశేషం (Sacred Pooja)'
+      );
+      priorityDotHtml = `
+        <div class="priority-dot-wrap" tabindex="0">
+          <div class="priority-dot dot-${dotType}"></div>
+          <div class="priority-tooltip">${label}</div>
+        </div>
+      `;
+    }
 
     card.innerHTML = `
       <div>
-        <!-- Top row: Icon, Name & Badge -->
-        <div class="flex items-start justify-between gap-1.5 mb-2 relative">
-          <div class="flex items-start gap-2 min-w-0 flex-1">
-            <span class="text-2xl shrink-0 mt-0.5">${item.icon || '🛍️'}</span>
-            <div class="min-w-0 flex-1">
-              <h3 class="font-bold text-slate-900 text-xs sm:text-sm md:text-base leading-snug break-words">
-                ${item.nameTe}
-              </h3>
-              <p class="text-[11px] text-slate-500 font-sans leading-tight truncate">
-                ${item.nameEn || ''}
-              </p>
-              ${translitPreview ? `
-                <p class="text-[10px] text-emerald-700 font-sans font-medium truncate mt-0.5">
-                  <span class="bg-emerald-50 text-emerald-800 px-1 py-0.2 rounded border border-emerald-200 text-[9px] font-bold">Tenglish:</span> ${translitPreview}
-                </p>
-              ` : ''}
-            </div>
-          </div>
-          ${badgeConfig ? `
-            <div class="relative group shrink-0 self-start ml-1.5" tabindex="0">
-              <!-- Colored Badge Icon / Pill -->
-              <div class="cursor-pointer ${badgeConfig.colorClass} border rounded-full w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-200 transform group-hover:scale-110 active:scale-95" title="${badgeConfig.tooltip}">
-                <i class="${badgeConfig.icon} text-xs"></i>
-              </div>
-              
-              <!-- Sleek Hover Tooltip -->
-              <div class="badge-tooltip absolute right-0 top-full mt-1.5 flex items-center gap-1.5 bg-slate-900/95 backdrop-blur-sm text-white text-[10px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-lg shadow-xl whitespace-nowrap z-30 border border-slate-700">
-                <span class="w-1.5 h-1.5 rounded-full ${badgeConfig.dotColor} shrink-0"></span>
-                <span>${badgeConfig.tooltip}</span>
-              </div>
-            </div>
+        <!-- Real Product Image Container (Zero Emojis Policy) -->
+        <div class="product-image-wrap mb-2.5">
+          <img 
+            src="${item.imageUrl || ''}" 
+            alt="${item.nameTe}" 
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            onerror="window.handleProductImageError(this, '${cat}')"
+          />
+          ${priorityDotHtml}
+        </div>
+
+        <!-- Product Name in Telugu Script & English Subtitle -->
+        <div class="mb-2">
+          <h3 class="font-bold text-slate-900 text-xs sm:text-sm leading-snug break-words">
+            ${item.nameTe}
+          </h3>
+          <p class="text-[11px] text-slate-500 font-sans leading-tight truncate mt-0.5">
+            ${item.nameEn || ''}
+          </p>
+          ${translitPreview ? `
+            <p class="text-[10px] text-emerald-700 font-sans font-medium truncate mt-0.5">
+              <span class="bg-emerald-50 text-emerald-800 px-1 py-0.2 rounded border border-emerald-200 text-[9px] font-bold">Gen Z:</span> ${translitPreview}
+            </p>
           ` : ''}
         </div>
 
-        <!-- In-Cart indicator if present -->
+        <!-- Price Display -->
+        <div class="flex items-center justify-between text-xs mb-2">
+          <span class="font-bold text-emerald-800 font-mono-receipt text-xs sm:text-sm">
+            ₹ ${item.price || 40}.00
+          </span>
+          <span class="text-[10px] text-slate-400 font-sans">
+            (ధర/యూనిట్)
+          </span>
+        </div>
+
+        <!-- In-Cart Indicator if item is selected -->
         ${inCart ? `
-          <div class="mb-2 bg-amber-50 border border-amber-200 text-amber-900 text-xs px-2 py-1 rounded-md flex items-center justify-between">
+          <div class="mb-2 bg-amber-50 border border-amber-200 text-amber-900 text-[11px] px-2 py-1 rounded-lg flex items-center justify-between">
             <span class="font-semibold flex items-center gap-1">
-              <i class="fa-solid fa-check text-emerald-600"></i> చిట్టాలో ఉంది:
+              <i class="fa-solid fa-check text-emerald-600"></i> రసీదులో ఉంది:
             </span>
             <span class="font-bold text-emerald-800">${cartEntry.qty}</span>
           </div>
         ` : ''}
-
-        <!-- Quick 1-Click Telugu Quantity Pills -->
-        <div class="mt-2 mb-3">
-          <p class="text-[10px] text-slate-400 font-bold mb-1 uppercase tracking-wider">త్వరిత పరిమాణం:</p>
-          <div class="flex flex-wrap gap-1.5">
-            ${quickQtys.map(qty => `
-              <button 
-                type="button"
-                data-qty="${qty}" 
-                class="btn-quick-qty text-xs bg-slate-50 hover:bg-emerald-600 hover:text-white text-slate-700 border border-slate-200 px-2 py-1 rounded-lg transition font-medium"
-              >
-                ${qty}
-              </button>
-            `).join('')}
-          </div>
-        </div>
       </div>
 
-      <!-- Action Footer -->
-      <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
-        <button 
-          type="button" 
-          class="btn-custom-qty text-xs text-emerald-700 hover:text-emerald-900 hover:bg-emerald-50 font-semibold px-2.5 py-1.5 rounded-lg border border-emerald-200 transition flex items-center gap-1"
-          title="వేరే పరిమాణం లేదా సూచనలు ఇవ్వండి"
-        >
-          <i class="fa-solid fa-sliders text-[11px]"></i>
-          <span>పరిమాణం మార్చు</span>
-        </button>
+      <!-- Quick Action Buttons: 1-Click Telugu Quantities & Custom -->
+      <div class="pt-2 border-t border-slate-100 space-y-1.5">
+        <div class="text-[10px] font-bold text-slate-400">పరిమాణం ఎంచుకోండి:</div>
+        <div class="grid grid-cols-3 gap-1">
+          ${quickQtys.map(q => `
+            <button 
+              type="button" 
+              class="btn-quick-qty text-[11px] py-1 px-1 rounded-lg font-bold transition text-center truncate border ${
+                inCart && cartEntry.qty === q
+                  ? 'bg-emerald-700 text-white border-emerald-800 shadow-sm'
+                  : 'bg-slate-50 hover:bg-emerald-100 text-slate-800 border-slate-200'
+              }"
+              data-qty="${q}"
+            >
+              ${q}
+            </button>
+          `).join('')}
+        </div>
 
+        <!-- Custom Quantity Modal Opener -->
         <button 
           type="button" 
-          class="btn-add-default flex-1 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs py-1.5 px-3 rounded-lg shadow-sm transition flex items-center justify-center gap-1"
+          class="btn-open-qty-modal w-full py-1 text-[11px] font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50/80 hover:bg-emerald-100 rounded-lg transition border border-emerald-200 flex items-center justify-center gap-1"
         >
-          <i class="fa-solid fa-plus text-[10px]"></i>
-          <span>${item.defaultQty || '1 కిలో'} చేర్చు</span>
+          <i class="fa-solid fa-sliders text-[10px]"></i>
+          <span>మరిన్ని పరిమాణాలు...</span>
         </button>
       </div>
     `;
 
-    // Event listeners for quick quantity buttons
+    // Quick quantity button clicks
     card.querySelectorAll('.btn-quick-qty').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const selectedQty = btn.dataset.qty;
+        const selectedQty = btn.getAttribute('data-qty');
         addItemToCart(item, selectedQty);
+        triggerConfetti();
+        showToast(`${item.nameTe} (${selectedQty}) రసీదులో చేర్చబడింది!`);
       });
     });
 
-    // Event listener for default add
-    card.querySelector('.btn-add-default').addEventListener('click', (e) => {
-      e.stopPropagation();
-      addItemToCart(item, item.defaultQty || '1 కిలో');
-    });
-
-    // Event listener for custom quantity modal
-    card.querySelector('.btn-custom-qty').addEventListener('click', (e) => {
-      e.stopPropagation();
-      openQuantityModal(item);
-    });
+    // Custom Quantity button click
+    const btnCustom = card.querySelector('.btn-open-qty-modal');
+    if (btnCustom) {
+      btnCustom.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openQuantityModal(item);
+      });
+    }
 
     return card;
   }
 
-  // --- QUANTITY MODAL HANDLING ---
+  // --- QUANTITY MODAL LOGIC ---
   function openQuantityModal(item) {
     STATE.pendingItemForModal = item;
+    if (!DOM.modalQuantity) return;
 
-    DOM.modalItemTitle.textContent = item.nameTe;
-    DOM.modalItemSubtitle.textContent = item.nameEn ? `${item.nameEn} - కావలసిన తెలుగు పరిమాణం ఎంచుకోండి` : 'కావలసిన తెలుగు పరిమాణం ఎంచుకోండి';
-    DOM.modalItemIcon.textContent = item.icon || '🛍️';
-    DOM.modalCustomQtyVal.value = '';
-    DOM.modalItemNote.value = '';
-    DOM.modalItemPrice.value = '';
+    if (DOM.modalItemTitle) DOM.modalItemTitle.textContent = item.nameTe;
+    if (DOM.modalItemSubtitle) DOM.modalItemSubtitle.textContent = item.nameEn ? `${item.nameEn} - కావలసిన పరిమాణం` : 'కావలసిన పరిమాణాన్ని నమోదు చేయండి';
+    if (DOM.modalItemPrice) DOM.modalItemPrice.textContent = `₹ ${item.price || 40}.00`;
+    if (DOM.modalItemNote) DOM.modalItemNote.value = '';
 
-    // If item already in cart, prefill
-    const existing = STATE.cart.find(c => c.nameTe === item.nameTe);
-    if (existing) {
-      DOM.modalItemNote.value = existing.note || '';
-      if (existing.price) DOM.modalItemPrice.value = existing.price;
+    // Quick Quantities buttons in modal
+    if (DOM.modalQuickQuantities) {
+      DOM.modalQuickQuantities.innerHTML = '';
+      const qtys = (item.commonQtys && item.commonQtys.length > 0) ? item.commonQtys : ['1 కిలో', '500 గ్రాములు', '250 గ్రాములు'];
+      qtys.forEach(q => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-modal-quick-qty py-2 px-2 bg-slate-50 hover:bg-emerald-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition text-center truncate';
+        btn.textContent = q;
+        btn.addEventListener('click', () => {
+          DOM.modalCustomQtyVal.value = q;
+        });
+        DOM.modalQuickQuantities.appendChild(btn);
+      });
     }
 
-    // Populate standard quantity buttons
-    DOM.modalQuickQuantities.innerHTML = '';
-    STANDARD_QUANTITIES.forEach(sq => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'text-left p-2 rounded-xl border border-slate-200 hover:border-emerald-600 hover:bg-emerald-50 transition group flex flex-col justify-center';
-      btn.innerHTML = `
-        <span class="font-bold text-xs sm:text-sm text-slate-800 group-hover:text-emerald-800">${sq.label}</span>
-        <span class="text-[10px] text-slate-400 group-hover:text-emerald-600">${sq.sub}</span>
-      `;
-      btn.addEventListener('click', () => {
-        // highlight button or set into input
-        DOM.modalCustomQtyVal.value = sq.label;
-        highlightSelectedQtyButton(btn);
-      });
-      DOM.modalQuickQuantities.appendChild(btn);
-    });
-
+    if (DOM.modalCustomQtyVal) DOM.modalCustomQtyVal.value = item.defaultQty || '1 కిలో';
     DOM.modalQuantity.classList.remove('hidden');
   }
 
-  function highlightSelectedQtyButton(selectedBtn) {
-    DOM.modalQuickQuantities.querySelectorAll('button').forEach(b => {
-      b.classList.remove('bg-emerald-100', 'border-emerald-600', 'ring-2', 'ring-emerald-500');
-    });
-    selectedBtn.classList.add('bg-emerald-100', 'border-emerald-600', 'ring-2', 'ring-emerald-500');
-  }
-
   function closeQuantityModal() {
-    DOM.modalQuantity.classList.add('hidden');
+    if (DOM.modalQuantity) DOM.modalQuantity.classList.add('hidden');
     STATE.pendingItemForModal = null;
   }
 
-  function confirmAddFromModal() {
-    if (!STATE.pendingItemForModal) return;
-
-    let chosenQty = DOM.modalCustomQtyVal.value.trim();
-    if (!chosenQty) {
-      // Default to item's default or 1 కిలో
-      chosenQty = STATE.pendingItemForModal.defaultQty || '1 కిలో';
-    } else {
-      // If user typed a number without unit, append the selected unit
-      const unit = DOM.modalCustomQtyUnit.value;
-      if (!isNaN(chosenQty) && !chosenQty.includes(unit)) {
-        chosenQty = `${chosenQty} ${unit}`;
-      }
-    }
-
-    const note = DOM.modalItemNote.value.trim();
-    const price = DOM.modalItemPrice.value ? parseFloat(DOM.modalItemPrice.value) : null;
-
-    addItemToCart(STATE.pendingItemForModal, chosenQty, note, price);
-    closeQuantityModal();
-  }
-
-  // --- CART OPERATIONS ---
-  function addItemToCart(item, qty, note = '', price = null) {
+  // --- CART MANAGEMENT ---
+  function addItemToCart(item, qtyString, note) {
     const existingIndex = STATE.cart.findIndex(c => c.nameTe === item.nameTe);
+    const unitPrice = item.price || 40;
+    const cat = item.mainCategory || item.category || 'groceries';
 
     if (existingIndex > -1) {
-      // Update existing item's quantity & note
-      STATE.cart[existingIndex].qty = qty;
-      if (note) STATE.cart[existingIndex].note = note;
-      if (price !== null) STATE.cart[existingIndex].price = price;
-      showToast(`'${item.nameTe}' పరిమాణం '${qty}' గా మార్చబడింది!`, 'fa-circle-check');
+      STATE.cart[existingIndex].qty = qtyString;
+      if (note !== undefined) STATE.cart[existingIndex].note = note;
     } else {
-      // Add new item
       STATE.cart.push({
-        id: item.id || `custom_${Date.now()}`,
+        id: item.id || `item_${Date.now()}`,
         nameTe: item.nameTe,
         nameEn: item.nameEn || '',
-        icon: item.icon || '🛍️',
-        qty: qty,
-        note: note,
-        price: price,
-        category: item.category || 'essentials'
+        category: cat,
+        mainCategory: cat,
+        qty: qtyString,
+        unitPrice: unitPrice,
+        note: note || '',
+        imageUrl: item.imageUrl || '',
+        tagType: item.tagType,
+        tagLabelTelugu: item.tagLabelTelugu
       });
-      showToast(`'${item.nameTe} (${qty})' చిట్టాలో చేర్చబడింది!`, 'fa-cart-arrow-down');
     }
 
     saveCartState();
     renderCart();
-    renderGroceryGrid(); // Update in-cart badges
+    renderGroceryGrid();
   }
 
   function removeItemFromCart(index) {
-    const removed = STATE.cart[index];
     STATE.cart.splice(index, 1);
     saveCartState();
     renderCart();
     renderGroceryGrid();
-    if (removed) {
-      showToast(`'${removed.nameTe}' తొలగించబడింది.`, 'fa-trash-can');
-    }
-  }
-
-  function updateCartItemQty(index, newQty) {
-    if (STATE.cart[index]) {
-      STATE.cart[index].qty = newQty;
-      saveCartState();
-      renderCart();
-      renderGroceryGrid();
-      showToast(`పరిమాణం మార్చబడింది: ${newQty}`, 'fa-pen');
-    }
-  }
-
-  function updateCartItemNote(index, newNote) {
-    if (STATE.cart[index]) {
-      STATE.cart[index].note = newNote;
-      saveCartState();
-    }
   }
 
   function clearCart() {
     if (STATE.cart.length === 0) return;
-    if (confirm('మీ ప్రస్తుత చిట్టాలోని అన్ని సరుకులను తొలగించాలా?')) {
+    if (confirm('మీ రసీదులోని సరుకులన్నింటినీ ఖాళీ చేయాలా?')) {
       STATE.cart = [];
       saveCartState();
       renderCart();
       renderGroceryGrid();
-      showToast('చిట్టా ఖాళీ చేయబడింది.', 'fa-trash');
+      showToast('సరుకుల రసీదు ఖాళీ చేయబడింది');
     }
   }
 
-  // --- MOBILE CART DRAWER CONTROLS ---
-  function openMobileCartDrawer() {
-    DOM.cartSidebar.classList.remove('hidden');
-    DOM.cartSidebar.classList.add('mobile-drawer-open');
+  function calculateEstimatedTotal() {
+    let total = 0;
+    STATE.cart.forEach(item => {
+      total += (item.unitPrice || 40);
+    });
+    return total;
   }
 
-  function closeMobileCartDrawer() {
-    DOM.cartSidebar.classList.add('hidden');
-    DOM.cartSidebar.classList.remove('mobile-drawer-open');
-  }
-
-  // --- RENDER CART IN SIDEBAR ---
+  // --- RENDER CART SIDEBAR ---
   function renderCart() {
     const count = STATE.cart.length;
-    DOM.cartItemCounter.textContent = `${count} సరుకులు`;
-    DOM.mobileCartBadge.textContent = count;
 
+    // Badges & Counters
+    if (DOM.cartItemCounter) DOM.cartItemCounter.textContent = count;
+    if (DOM.mobileCartBadge) DOM.mobileCartBadge.textContent = count;
     if (DOM.floatingCartBadge) DOM.floatingCartBadge.textContent = count;
-    if (DOM.floatingCartLabel) DOM.floatingCartLabel.textContent = `(${count} సరుకులు)`;
+    if (DOM.floatingCartLabel) DOM.floatingCartLabel.textContent = `${count} సరుకులు చేర్చబడ్డాయి`;
+
+    const estTotal = calculateEstimatedTotal();
+    const formattedTotal = `₹ ${estTotal.toFixed(2)}`;
+
+    if (DOM.cartSummaryCount) DOM.cartSummaryCount.textContent = `${count} రకాలు`;
+    if (DOM.cartSummaryTotal) DOM.cartSummaryTotal.textContent = formattedTotal;
+    if (DOM.floatingCartAmount) DOM.floatingCartAmount.textContent = formattedTotal;
 
     if (count === 0) {
-      DOM.emptyCartState.classList.remove('hidden');
-      DOM.cartItemsList.classList.add('hidden');
-      DOM.cartFooter.classList.add('opacity-50', 'pointer-events-none');
-    } else {
-      DOM.emptyCartState.classList.add('hidden');
-      DOM.cartItemsList.classList.remove('hidden');
-      DOM.cartFooter.classList.remove('opacity-50', 'pointer-events-none');
-
-      DOM.cartItemsList.innerHTML = '';
-      STATE.cart.forEach((item, index) => {
-        const itemRow = document.createElement('div');
-        itemRow.className = 'py-2 px-1 flex items-start justify-between gap-2 group';
-
-        itemRow.innerHTML = `
-          <div class="flex items-start gap-2 flex-1 min-w-0">
-            <span class="text-xs font-bold text-slate-400 mt-0.5">${index + 1}.</span>
-            <div class="flex-1 min-w-0">
-              <div class="flex items-baseline justify-between gap-1">
-                <h4 class="font-bold text-slate-800 text-xs sm:text-sm truncate">
-                  ${item.nameTe}
-                </h4>
-              </div>
-              
-              <!-- Telugu Quantity with quick dropdown/badge -->
-              <div class="flex items-center gap-2 mt-1">
-                <span class="bg-emerald-100 text-emerald-900 font-bold text-xs px-2 py-0.5 rounded-md border border-emerald-300">
-                  ${item.qty}
-                </span>
-
-                <!-- Quick Change Quantity select -->
-                <select class="cart-qty-select text-[11px] bg-slate-50 border border-slate-200 rounded px-1.5 py-0.5 text-slate-700 hover:border-emerald-400">
-                  <option value="${item.qty}" selected>ఇదే ఉంచండి</option>
-                  <option value="పావు కిలో">పావు కిలో (250g)</option>
-                  <option value="అర కిలో">అర కిలో (500g)</option>
-                  <option value="ముప్పావు కిలో">ముప్పావు కిలో (750g)</option>
-                  <option value="1 కిలో">1 కిలో</option>
-                  <option value="2 కిలోలు">2 కిలోలు</option>
-                  <option value="5 కిలోలు">5 కిలోలు</option>
-                  <option value="10 కిలోలు">10 కిలోలు</option>
-                  <option value="25 కిలోల బస్తా">25 కిలోల బస్తా</option>
-                  <option value="50 గ్రాములు">50 గ్రాములు</option>
-                  <option value="100 గ్రాములు">100 గ్రాములు</option>
-                  <option value="అర లీటరు">అర లీటరు</option>
-                  <option value="1 లీటరు">1 లీటరు</option>
-                  <option value="1 ప్యాకెట్">1 ప్యాకెట్</option>
-                  <option value="2 ప్యాకెట్లు">2 ప్యాకెట్లు</option>
-                  <option value="1 కట్ట">1 కట్ట</option>
-                  <option value="1 డజను">1 డజను</option>
-                </select>
-              </div>
-
-              <!-- Note if present or input -->
-              ${item.note ? `
-                <p class="text-[11px] text-amber-800 bg-amber-50 rounded px-1.5 py-0.5 mt-1 border border-amber-200">
-                  <i class="fa-solid fa-note-sticky text-[10px]"></i> ${item.note}
-                </p>
-              ` : ''}
-            </div>
-          </div>
-
-          <!-- Delete item button -->
-          <button 
-            type="button" 
-            class="btn-delete-cart-item text-slate-400 hover:text-red-600 p-1 rounded hover:bg-red-50 transition shrink-0" 
-            title="తొలగించండి"
-          >
-            <i class="fa-solid fa-trash-can text-xs"></i>
-          </button>
-        `;
-
-        // Event listener for quantity change select
-        itemRow.querySelector('.cart-qty-select').addEventListener('change', (e) => {
-          if (e.target.value !== item.qty) {
-            updateCartItemQty(index, e.target.value);
-          }
-        });
-
-        // Event listener for delete
-        itemRow.querySelector('.btn-delete-cart-item').addEventListener('click', () => {
-          removeItemFromCart(index);
-        });
-
-        DOM.cartItemsList.appendChild(itemRow);
-      });
-    }
-  }
-
-  // --- SAMPLE TELUGU GROCERY ORDER LOADER ---
-  function loadSampleOrder() {
-    STATE.cart = [
-      { id: 'g_1', nameTe: 'సోనా మసూరి బియ్యం', nameEn: 'Sona Masoori Rice', icon: '🌾', qty: '25 కిలోల బస్తా', note: 'పాత బియ్యం కావాలి', category: 'grains' },
-      { id: 'd_1', nameTe: 'కందిపప్పు', nameEn: 'Toor Dal', icon: '🥘', qty: '1 కిలో', note: 'మొదటి రకం', category: 'dals' },
-      { id: 'd_2', nameTe: 'మినప్పప్పు (గుళ్ళు)', nameEn: 'Urad Dal', icon: '⚪', qty: '1 కిలో', note: '', category: 'dals' },
-      { id: 'o_1', nameTe: 'వేరుశనగ నూనె (పల్లీ నూనె)', nameEn: 'Groundnut Oil', icon: '🛢️', qty: '1 లీటరు', note: '', category: 'oils' },
-      { id: 'o_4', nameTe: 'స్వచ్ఛమైన ఆవు నెయ్యి', nameEn: 'Cow Ghee', icon: '🧈', qty: 'అర లీటరు', note: '', category: 'oils' },
-      { id: 's_1', nameTe: 'ఆవాలు', nameEn: 'Mustard Seeds', icon: '⚫', qty: '100 గ్రాములు', note: '', category: 'spices' },
-      { id: 's_2', nameTe: 'జీలకర్ర', nameEn: 'Cumin Seeds', icon: '🟤', qty: '100 గ్రాములు', note: '', category: 'spices' },
-      { id: 's_4', nameTe: 'పసుపు పొడి', nameEn: 'Turmeric Powder', icon: '🟡', qty: '100 గ్రాములు', note: '', category: 'spices' },
-      { id: 's_5', nameTe: 'కారం పొడి (ఘాటైన దేశీ కారం)', nameEn: 'Red Chilli Powder', icon: '🌶️', qty: 'అర కిలో', note: '', category: 'spices' },
-      { id: 'e_1', nameTe: 'పాత చింతపండు (నల్లటిది / ఎర్రటిది)', nameEn: 'Tamarind', icon: '🟤', qty: '1 కిలో', note: 'ఈనెలు లేనిది', category: 'essentials' },
-      { id: 'e_2', nameTe: 'బెల్లం (అచ్చులు / పొడి)', nameEn: 'Jaggery', icon: '🟤', qty: '1 కిలో', note: '', category: 'essentials' },
-      { id: 'e_5', nameTe: 'సన్న ఉప్పు (టాటా ఉప్పు / అయోడైజ్డ్)', nameEn: 'Table Salt', icon: '🧂', qty: '1 ప్యాకెట్', note: '', category: 'essentials' },
-      { id: 'v_1', nameTe: 'ఉల్లిపాయలు', nameEn: 'Onions', icon: '🧅', qty: '2 కిలోలు', note: '', category: 'vegetables' },
-      { id: 'v_7', nameTe: 'కొత్తిమీర', nameEn: 'Coriander Leaves', icon: '🌿', qty: '2 కట్టలు', note: 'తాజా ఆకులు', category: 'vegetables' }
-    ];
-
-    saveCartState();
-    renderCart();
-    renderGroceryGrid();
-    showToast('నమూనా సరుకుల జాబితా చేర్చబడింది!', 'fa-bolt');
-  }
-
-  // --- CUSTOM ITEM MODAL & FORM ---
-  function openCustomItemModal() {
-    DOM.customItemNameTe.value = '';
-    if (DOM.customItemNameTenglish) DOM.customItemNameTenglish.value = '';
-    DOM.customItemNameEn.value = '';
-    DOM.customItemQtyVal.value = '1';
-    DOM.customItemQtyUnit.value = 'కిలోలు';
-    DOM.customItemNote.value = '';
-    DOM.modalCustomItem.classList.remove('hidden');
-    DOM.customItemNameTe.focus();
-  }
-
-  function closeCustomItemModal() {
-    DOM.modalCustomItem.classList.add('hidden');
-  }
-
-  function handleCustomItemSubmit(e) {
-    e.preventDefault();
-    const nameTe = DOM.customItemNameTe.value.trim();
-    if (!nameTe) {
-      alert('దయచేసి సరుకు పేరును నమోదు చేయండి');
+      if (DOM.emptyCartState) DOM.emptyCartState.classList.remove('hidden');
+      if (DOM.cartItemsList) DOM.cartItemsList.classList.add('hidden');
+      if (DOM.cartFooter) DOM.cartFooter.classList.add('hidden');
       return;
     }
 
-    const nameTenglish = DOM.customItemNameTenglish ? DOM.customItemNameTenglish.value.trim() : '';
-    const nameEn = DOM.customItemNameEn.value.trim();
-    const qtyVal = DOM.customItemQtyVal.value.trim();
-    const qtyUnit = DOM.customItemQtyUnit.value;
-    const category = DOM.customItemCategory.value;
-    const note = DOM.customItemNote.value.trim();
+    if (DOM.emptyCartState) DOM.emptyCartState.classList.add('hidden');
+    if (DOM.cartItemsList) DOM.cartItemsList.classList.remove('hidden');
+    if (DOM.cartFooter) DOM.cartFooter.classList.remove('hidden');
 
-    const fullQty = `${qtyVal} ${qtyUnit}`;
+    DOM.cartItemsList.innerHTML = '';
 
-    // Combine Telugu, Tenglish and English terms into translit for flawless search
-    const cleanTenglishNoSpace = nameTenglish.replace(/\s+/g, '');
-    const combinedTranslit = `${nameTe} ${nameTenglish} ${nameEn} ${cleanTenglishNoSpace}`;
+    STATE.cart.forEach((item, index) => {
+      const row = document.createElement('div');
+      row.className = 'py-2 flex items-start justify-between gap-2 text-xs';
 
-    const newItem = {
-      id: `custom_${Date.now()}`,
-      nameTe: nameTe,
-      nameEn: nameEn || nameTenglish,
-      translit: combinedTranslit,
-      category: category,
-      defaultQty: fullQty,
-      commonQtys: [fullQty, '1 కిలో', 'అర కిలో'],
-      icon: '✨',
-      badge: 'కస్టమ్ సరుకు'
-    };
+      const isPooja = (item.category === 'pooja' || item.mainCategory === 'pooja');
 
-    // Save into customItems array
-    STATE.customItems.push(newItem);
-    localStorage.setItem(STORAGE_KEYS.CUSTOM_ITEMS, JSON.stringify(STATE.customItems));
+      row.innerHTML = `
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-1.5">
+            <span class="font-bold text-slate-800 break-words">${item.nameTe}</span>
+            ${isPooja ? '<span class="bg-orange-100 text-orange-800 text-[9px] font-bold px-1.5 py-0.2 rounded border border-orange-300">పూజా</span>' : ''}
+          </div>
+          <p class="text-[11px] text-emerald-800 font-bold mt-0.5">
+            పరిమాణం: <span class="bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">${item.qty}</span>
+          </p>
+          ${item.note ? `<p class="text-[10px] text-amber-800 italic mt-0.5">సూచన: ${item.note}</p>` : ''}
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="font-bold text-slate-700 font-mono-receipt">₹ ${item.unitPrice || 40}</span>
+          <button type="button" class="btn-remove-item text-slate-400 hover:text-red-600 p-1 transition" title="తీసివేయి">
+            <i class="fa-solid fa-trash-can text-xs"></i>
+          </button>
+        </div>
+      `;
 
-    // Add directly to cart
-    addItemToCart(newItem, fullQty, note);
+      row.querySelector('.btn-remove-item').addEventListener('click', () => {
+        removeItemFromCart(index);
+      });
 
-    closeCustomItemModal();
-    renderCategories();
-    renderGroceryGrid();
+      DOM.cartItemsList.appendChild(row);
+    });
   }
 
-  // --- CUSTOMER & SHOP DETAILS MODAL ---
-  function openDetailsModal() {
-    DOM.inputCustomerName.value = STATE.customerDetails.name;
-    DOM.inputCustomerPhone.value = STATE.customerDetails.phone;
-    DOM.inputCustomerAddress.value = STATE.customerDetails.address;
-    DOM.inputOrderDate.value = STATE.customerDetails.date;
-    DOM.inputShopName.value = STATE.customerDetails.shopName;
-    DOM.inputShopPhone.value = STATE.customerDetails.shopPhone;
-    DOM.inputShopPlace.value = STATE.customerDetails.shopPlace;
-
-    DOM.modalDetails.classList.remove('hidden');
-  }
-
-  function closeDetailsModal() {
-    DOM.modalDetails.classList.add('hidden');
-  }
-
-  function saveDetails() {
-    STATE.customerDetails.name = DOM.inputCustomerName.value.trim() || 'శ్రీనివాస్ గారు';
-    STATE.customerDetails.phone = DOM.inputCustomerPhone.value.trim();
-    STATE.customerDetails.address = DOM.inputCustomerAddress.value.trim();
-    STATE.customerDetails.date = DOM.inputOrderDate.value || new Date().toISOString().split('T')[0];
-    STATE.customerDetails.shopName = DOM.inputShopName.value.trim() || 'శ్రీ  కిరాణా & జనరల్ స్టోర్స్';
-    STATE.customerDetails.shopPhone = DOM.inputShopPhone.value.trim();
-    STATE.customerDetails.shopPlace = DOM.inputShopPlace.value.trim();
-
-    saveCartState();
-    updateCustomerSummaryBadge();
-    closeDetailsModal();
-    showToast('వివరాలు భద్రపరచబడ్డాయి!', 'fa-user-check');
-  }
-
-  function updateCustomerSummaryBadge() {
-    DOM.summaryCustomerName.textContent = STATE.customerDetails.name || 'కస్టమర్ పేరు ఇవ్వండి';
-  }
-
-  // --- PREPARE PRINTABLE CHITTA DOM ---
+  // --- POPULATE 80MM TICKET-STYLE THERMAL RECEIPT DOM ---
   function populatePrintableChittaDOM() {
     const cust = STATE.customerDetails;
-    
+
     // Header
-    DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీ  కిరాణా & జనరల్ స్టోర్స్';
-    let contactLine = 'అన్ని రకాల తాజా కిరాణా సరుకులు, పప్పులు, నూనెలు మరియు నిత్యావసర వస్తువులు లభించును';
-    if (cust.shopPhone || cust.shopPlace) {
-      contactLine = `${cust.shopPlace ? cust.shopPlace + ' | ' : ''}ఫోన్: ${cust.shopPhone || '-'}`;
+    if (DOM.pdfViewShopName) DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీ లక్ష్మి కిరాణా & పూజా స్టోర్';
+    if (DOM.pdfViewShopContact) {
+      DOM.pdfViewShopContact.textContent = `${cust.shopPlace ? cust.shopPlace + ' | ' : ''}ఫోన్: ${cust.shopPhone || '9440123456'}`;
     }
-    DOM.pdfViewShopContact.textContent = contactLine;
 
-    // Customer Meta
-    DOM.pdfViewCustomerName.textContent = cust.name || 'శ్రీనివాస్ గారు';
-    DOM.pdfViewCustomerPhone.textContent = cust.phone || '-';
-    DOM.pdfViewCustomerAddress.textContent = cust.address || '-';
-    DOM.pdfViewOrderId.textContent = `KC-${STATE.orderCounter}`;
+    // Ticket & Customer Meta
+    if (DOM.pdfViewOrderId) DOM.pdfViewOrderId.textContent = `#KC-${STATE.orderCounter}`;
+    if (DOM.pdfViewBarcodeNum) DOM.pdfViewBarcodeNum.textContent = `KC-${STATE.orderCounter}-TELUGU-STORE`;
 
-    // Format Date to DD-MM-YYYY
-    const d = new Date(cust.date || new Date());
-    const formattedDate = `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
-    DOM.pdfViewDate.textContent = formattedDate;
+    const now = new Date();
+    const dateFormatted = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
+    const timeFormatted = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (DOM.pdfViewDate) DOM.pdfViewDate.textContent = `${dateFormatted} | ${timeFormatted}`;
 
-    // Items table rows
-    DOM.pdfViewItemsTbody.innerHTML = '';
-    STATE.cart.forEach((item, index) => {
-      const tr = document.createElement('tr');
-      tr.className = 'border-b border-slate-200';
-      tr.innerHTML = `
-        <td class="py-2 px-3 text-center font-bold text-slate-500">${index + 1}</td>
-        <td class="py-2 px-3 font-bold text-slate-900">
-          ${item.nameTe}
-          ${item.nameEn ? `<span class="text-[11px] text-slate-500 font-normal block font-sans">${item.nameEn}</span>` : ''}
-        </td>
-        <td class="py-2 px-3 text-center font-bold text-emerald-800 bg-emerald-50/50">
-          ${item.qty}
-        </td>
-        <td class="py-2 px-3 text-slate-600 text-xs italic">
-          ${item.note ? item.note : '-'}
-        </td>
-        <td class="py-2 px-3 text-center">
-          <span class="inline-block w-4 h-4 border border-slate-400 rounded-sm"></span>
-        </td>
-      `;
-      DOM.pdfViewItemsTbody.appendChild(tr);
+    if (DOM.pdfViewCustomerName) DOM.pdfViewCustomerName.textContent = cust.name || 'శ్రీనివాస్ గారు';
+    if (DOM.pdfViewCustomerPhone) DOM.pdfViewCustomerPhone.textContent = cust.phone || '-';
+    if (DOM.pdfViewCustomerAddress) DOM.pdfViewCustomerAddress.textContent = cust.address || '-';
+
+    // Group items into 4 distinct thermal receipt categories
+    const groups = {
+      groceries: { title: '*** [ కిరాణా సరుకులు & పప్పులు ] ***', items: [], isPooja: false },
+      vegetables: { title: '*** [ తాజా కూరగాయలు & ఆకులు ] ***', items: [], isPooja: false },
+      fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
+      pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true }
+    };
+
+    STATE.cart.forEach(item => {
+      const cat = (item.mainCategory || item.category || 'groceries').toLowerCase();
+      if (cat.includes('pooja')) {
+        groups.pooja.items.push(item);
+      } else if (cat.includes('veg') || cat.includes('green')) {
+        groups.vegetables.items.push(item);
+      } else if (cat.includes('fruit')) {
+        groups.fruits.items.push(item);
+      } else {
+        groups.groceries.items.push(item);
+      }
     });
 
-    const totalCount = STATE.cart.length;
-    DOM.pdfViewTotalCount.textContent = `${totalCount} సరుకులు`;
-    DOM.pdfViewBottomCount.textContent = `${totalCount}`;
+    if (!DOM.receiptItemsContainer) return;
+    DOM.receiptItemsContainer.innerHTML = '';
+
+    let globalIndex = 1;
+
+    Object.keys(groups).forEach(key => {
+      const grp = groups[key];
+      if (grp.items.length === 0) return;
+
+      // Section Header Banner
+      const secHeader = document.createElement('div');
+      secHeader.className = `receipt-section-header ${grp.isPooja ? 'receipt-section-pooja' : ''}`;
+      secHeader.textContent = grp.title;
+      DOM.receiptItemsContainer.appendChild(secHeader);
+
+      // Section Item Rows
+      grp.items.forEach(it => {
+        const itemRow = document.createElement('div');
+        itemRow.className = 'receipt-item-row font-mono-receipt';
+
+        itemRow.innerHTML = `
+          <div class="flex items-start gap-1.5 flex-1 min-w-0 pr-2">
+            <span class="font-bold text-slate-500 w-4 shrink-0">${globalIndex++}.</span>
+            <div class="min-w-0 flex-1">
+              <span class="font-bold text-slate-900">${it.nameTe}</span>
+              ${it.nameEn ? `<span class="text-[10px] text-slate-500 block truncate">(${it.nameEn})</span>` : ''}
+              ${it.note ? `<span class="text-[10px] text-amber-800 block italic">>> సూచన: ${it.note}</span>` : ''}
+            </div>
+          </div>
+          <div class="text-right shrink-0">
+            <span class="font-bold text-slate-800 block">${it.qty}</span>
+            <span class="text-slate-600 block text-[11px]">₹ ${(it.unitPrice || 40).toFixed(2)}</span>
+          </div>
+        `;
+
+        DOM.receiptItemsContainer.appendChild(itemRow);
+      });
+    });
+
+    // Totals
+    const estTotal = calculateEstimatedTotal();
+    if (DOM.pdfViewTotalCount) DOM.pdfViewTotalCount.textContent = `${STATE.cart.length} రకాలు`;
+    if (DOM.pdfViewTotalUnits) DOM.pdfViewTotalUnits.textContent = `${STATE.cart.length} యూనిట్లు`;
+    if (DOM.pdfViewTotalAmount) DOM.pdfViewTotalAmount.textContent = `₹ ${estTotal.toFixed(2)}`;
   }
 
-  // --- LIVE PDF PREVIEW MODAL ---
+  // --- OPEN / CLOSE PDF PREVIEW MODAL ---
   function openPdfPreview() {
     if (STATE.cart.length === 0) {
-      alert('దయచేసి ముందుగా కొన్ని సరుకులను చిట్టాలో చేర్చండి!');
+      showToast('దయచేసి ముందుగా సరుకులను రసీదులో చేర్చండి!');
       return;
     }
     populatePrintableChittaDOM();
-    DOM.modalPdfPreview.classList.remove('hidden');
+    if (DOM.modalPdfPreview) DOM.modalPdfPreview.classList.remove('hidden');
   }
 
   function closePdfPreview() {
-    DOM.modalPdfPreview.classList.add('hidden');
+    if (DOM.modalPdfPreview) DOM.modalPdfPreview.classList.add('hidden');
   }
 
-  // --- CORE FEATURE: GENERATE & DOWNLOAD TELUGU PDF ---
+  // --- GENERATE AND DOWNLOAD PDF (80mm Ticket Proportions) ---
   function generateAndDownloadPdf() {
     if (STATE.cart.length === 0) {
-      alert('దయచేసి ముందుగా కొన్ని సరుకులను చిట్టాలో చేర్చండి!');
+      showToast('రసీదులో సరుకులు లేవు!');
       return;
     }
 
     populatePrintableChittaDOM();
-
-    showToast('తెలుగు PDF తయారవుతోంది... దయచేసి వేచి ఉండండి', 'fa-gear fa-spin');
-
     const element = DOM.printableArea;
-    const custName = (STATE.customerDetails.name || 'ఆర్డర్').replace(/[^a-zA-Z0-9\u0C00-\u0C7F_-]/g, '_');
-    const dateStr = new Date().toISOString().split('T')[0];
-    const filename = `కిరాణా_చిట్టా_${custName}_${dateStr}.pdf`;
+    if (!element) return;
+
+    showToast('రసీదు PDF తయారవుతోంది...');
+
+    const orderId = `KC-${STATE.orderCounter}`;
 
     const opt = {
-      margin: [10, 10, 10, 10], // top, left, bottom, right in mm
-      filename: filename,
+      margin: [4, 4, 4, 4],
+      filename: `Kirana-Pooja-Ticket-${orderId}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
-        scale: 2,
+        scale: 2.5,
         useCORS: true,
-        letterRendering: true,
         logging: false,
-        scrollY: 0
+        letterRendering: true
       },
       jsPDF: {
         unit: 'mm',
-        format: 'a4',
+        format: [80, Math.max(180, element.offsetHeight * 0.264583 + 20)],
         orientation: 'portrait'
       }
     };
 
-    // Trigger html2pdf
-    if (window.html2pdf) {
-      window.html2pdf().set(opt).from(element).save().then(() => {
-        showToast('PDF విజయవంతంగా డౌన్‌లోడ్ చేయబడింది!', 'fa-circle-check');
+    if (typeof html2pdf !== 'undefined') {
+      html2pdf().set(opt).from(element).save().then(() => {
+        showToast('రసీదు PDF డౌన్‌లోడ్ పూర్తయింది!');
         triggerConfetti();
-        // Increment order counter for next order
-        STATE.orderCounter += 1;
+        STATE.orderCounter++;
         saveCartState();
       }).catch(err => {
         console.error('PDF generation error:', err);
-        showToast('PDF తయారీలో సమస్య ఎదురైంది. దయచేసి ప్రింట్ ఆప్షన్ వాడండి.', 'fa-triangle-exclamation');
+        showToast('PDF తయారీలో లోపం ఏర్పడింది. దయచేసి ప్రింట్ చేయండి.');
       });
     } else {
-      // Fallback: browser print dialog
       window.print();
     }
   }
@@ -1118,243 +928,390 @@
   // --- NATIVE PRINT ---
   function printOrder() {
     if (STATE.cart.length === 0) {
-      alert('దయచేసి ముందుగా కొన్ని సరుకులను చిట్టాలో చేర్చండి!');
+      showToast('రసీదులో సరుకులు లేవు!');
       return;
     }
     populatePrintableChittaDOM();
     window.print();
   }
 
-  // --- WHATSAPP SHARE ---
+  // --- SHARE ON WHATSAPP ---
   function shareOnWhatsapp() {
     if (STATE.cart.length === 0) {
-      alert('దయచేసి ముందుగా కొన్ని సరుకులను చిట్టాలో చేర్చండి!');
+      showToast('సరుకుల రసీదు ఖాళీగా ఉంది!');
       return;
     }
 
     const cust = STATE.customerDetails;
-    let message = `🛒 *కిరాణా సరుకుల చిట్టా* 🛒\n`;
-    message += `🏪 *${cust.shopName}*\n`;
-    message += `--------------------------------\n`;
-    message += `👤 *కస్టమర్:* ${cust.name || 'శ్రీనివాస్ గారు'}\n`;
-    if (cust.phone) message += `📞 *ఫోన్:* ${cust.phone}\n`;
-    if (cust.address) message += `📍 *గ్రామం/ఊరు:* ${cust.address}\n`;
-    message += `📅 *తేదీ:* ${cust.date || new Date().toISOString().split('T')[0]}\n`;
-    message += `--------------------------------\n`;
-    message += `📋 *కావలసిన సరుకుల జాబితా:*\n`;
+    const estTotal = calculateEstimatedTotal();
 
-    STATE.cart.forEach((item, idx) => {
-      message += `${idx + 1}. *${item.nameTe}* - ${item.qty}`;
-      if (item.note) message += ` _(${item.note})_`;
-      message += `\n`;
+    let text = `*|| ${cust.shopName || 'శ్రీ లక్ష్మి కిరాణా & పూజా స్టోర్'} ||*\n`;
+    text += `*రసీదు టిక్కెట్ నం:* #KC-${STATE.orderCounter}\n`;
+    text += `*తేదీ:* ${new Date().toLocaleDateString('te-IN')}\n`;
+    text += `*గ్రాహకుడు:* ${cust.name}\n`;
+    text += `*ఫోన్:* ${cust.phone}\n`;
+    text += `--------------------------------\n`;
+    text += `*సరుకుల జాబితా (ORDER ITEMS):*\n\n`;
+
+    STATE.cart.forEach((it, i) => {
+      text += `${i + 1}. *${it.nameTe}* - ${it.qty}`;
+      if (it.note) text += ` _(సూచన: ${it.note})_`;
+      text += `\n`;
     });
 
-    message += `--------------------------------\n`;
-    message += `📦 *మొత్తం సరుకులు:* ${STATE.cart.length}\n`;
-    message += `🙏 *ధన్యవాదాలు!*`;
+    text += `--------------------------------\n`;
+    text += `*మొత్తం సరుకులు:* ${STATE.cart.length} రకాలు\n`;
+    text += `*సుమారు బిల్లు:* ₹ ${estTotal.toFixed(2)}\n\n`;
+    text += `_గమనిక: పూజా సామాగ్రిని ప్రత్యేక పవిత్ర సంచిలో ప్యాక్ చేయగలరు._\n`;
+    text += `*ధన్యవాదములు!*`;
 
-    const encoded = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${encoded}`;
-    window.open(whatsappUrl, '_blank');
+    const encoded = encodeURIComponent(text);
+    window.open(`https://api.whatsapp.com/send?text=${encoded}`, '_blank');
   }
 
-  // --- COPY TEXT TO CLIPBOARD ---
+  // --- COPY TICKET TEXT ---
   function copyListText() {
     if (STATE.cart.length === 0) {
-      alert('దయచేసి ముందుగా కొన్ని సరుకులను చిట్టాలో చేర్చండి!');
+      showToast('కాపీ చేయడానికి సరుకులు లేవు!');
       return;
     }
 
     const cust = STATE.customerDetails;
-    let text = `కిరాణా సరుకుల చిట్టా (${cust.shopName})\n`;
-    text += `కస్టమర్ పేరు: ${cust.name || 'శ్రీనివాస్ గారు'} | తేదీ: ${cust.date}\n\n`;
-    STATE.cart.forEach((item, idx) => {
-      text += `${idx + 1}. ${item.nameTe} - ${item.qty}${item.note ? ` (${item.note})` : ''}\n`;
+    let text = `|| ${cust.shopName} ||\nరసీదు నం: #KC-${STATE.orderCounter}\nకస్టమర్: ${cust.name}\n\n`;
+    STATE.cart.forEach((it, i) => {
+      text += `${i + 1}. ${it.nameTe} - ${it.qty}\n`;
     });
-    text += `\nమొత్తం సరుకులు: ${STATE.cart.length}`;
 
     navigator.clipboard.writeText(text).then(() => {
-      showToast('చిట్టా టెక్స్ట్ క్లిప్‌బోర్డ్‌కి కాపీ చేయబడింది!', 'fa-copy');
+      showToast('రసీదు వివరాలు కాపీ అయ్యాయి!');
     }).catch(() => {
-      showToast('కాపీ చేయడంలో విఫలమైంది.', 'fa-triangle-exclamation');
+      showToast('కాపీ చేయడంలో లోపం!');
     });
   }
 
-  // --- CONFETTI ANIMATION ---
-  function triggerConfetti() {
-    if (window.confetti) {
-      window.confetti({
-        particleCount: 70,
-        spread: 60,
-        origin: { y: 0.6 }
+  // --- SAMPLE ORDER LOADER ---
+  function loadSampleOrder() {
+    const samples = [
+      { nameTe: 'పుట్నాల పప్పు (వేయించిన శనగ పప్పు)', nameEn: 'Roasted Gram Dal', category: 'groceries', mainCategory: 'groceries', qty: '500 గ్రాములు', price: 38 },
+      { nameTe: 'సోనా మసూరి బియ్యం (పాత బియ్యం)', nameEn: 'Sona Masoori Rice', category: 'groceries', mainCategory: 'groceries', qty: '25 కిలోల బస్తా', price: 1450 },
+      { nameTe: 'టమోటా', nameEn: 'Tomato', category: 'vegetables', mainCategory: 'vegetables', qty: '1 కిలో', price: 40 },
+      { nameTe: 'అరటిపండ్లు', nameEn: 'Banana', category: 'fruits', mainCategory: 'fruits', qty: '1 డజను', price: 60 },
+      { nameTe: 'అగరబత్తీలు (సుగంధ ధూపం)', nameEn: 'Incense Sticks', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్', price: 40 },
+      { nameTe: 'హారతి కర్పూరం బిళ్లలు', nameEn: 'Camphor Tablets', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్', price: 50 },
+      { nameTe: 'పూజా కొబ్బరికాయ (పీచుతో)', nameEn: 'Sacred Pooja Coconut', category: 'pooja', mainCategory: 'pooja', qty: '1 కాయ', price: 35 }
+    ];
+
+    STATE.cart = [];
+    samples.forEach(s => addItemToCart(s, s.qty));
+    triggerConfetti();
+    showToast('నమూనా సరుకులు రసీదులో చేర్చబడ్డాయి!');
+  }
+
+  // --- CUSTOM ITEM SUBMIT WITH IMAGE UPLOAD OR URL ---
+  function handleCustomItemSubmit(e) {
+    e.preventDefault();
+    const nameTe = (DOM.customItemNameTe ? DOM.customItemNameTe.value : '').trim();
+    const nameTeng = (DOM.customItemNameTenglish ? DOM.customItemNameTenglish.value : '').trim();
+    const category = DOM.customItemCategory ? DOM.customItemCategory.value : 'groceries';
+    const tagType = DOM.customItemTagType ? DOM.customItemTagType.value : 'none';
+    const qtyVal = DOM.customItemQtyVal ? DOM.customItemQtyVal.value.trim() : '1';
+    const qtyUnit = DOM.customItemQtyUnit ? DOM.customItemQtyUnit.value : 'కిలోలు';
+    const price = DOM.customItemPrice ? parseFloat(DOM.customItemPrice.value) || 50 : 50;
+
+    if (!nameTe || !nameTeng) {
+      alert('దయచేసి తెలుగు పేరు మరియు టెంగ్లీష్ పేరు తప్పకుండా నమోదు చేయండి.');
+      return;
+    }
+
+    const qtyString = `${qtyVal} ${qtyUnit}`;
+
+    let tagLabelTelugu = null;
+    if (tagType === 'essential') tagLabelTelugu = 'ముఖ్యమైనది (Essential)';
+    else if (tagType === 'fresh') tagLabelTelugu = 'తాజా పంట (Fresh Farm)';
+    else if (tagType === 'offer') tagLabelTelugu = 'ప్రత్యేక ఆఫర్ (Special Offer)';
+    else if (tagType === 'pooja') tagLabelTelugu = 'పూజా విశేషం (Sacred Pooja)';
+
+    // Get image preview if uploaded or pasted
+    const imgUrl = (DOM.customItemImageUrl ? DOM.customItemImageUrl.value.trim() : '') ||
+                   (DOM.customImagePreview ? DOM.customImagePreview.src : '') ||
+                   window.getCategoryFallbackSvg(category);
+
+    const newItem = {
+      id: `custom_${Date.now()}`,
+      nameTe: nameTe,
+      nameEn: nameTeng,
+      translit: `${nameTeng} ${nameTe}`,
+      mainCategory: category,
+      category: category,
+      imageUrl: imgUrl,
+      price: price,
+      defaultQty: qtyString,
+      commonQtys: [qtyString, '1 కిలో', '500 గ్రాములు'],
+      tagType: (tagType !== 'none') ? tagType : null,
+      tagLabelTelugu: tagLabelTelugu,
+      inStock: true
+    };
+
+    STATE.customItems.unshift(newItem);
+    try {
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_ITEMS, JSON.stringify(STATE.customItems));
+    } catch (err) {}
+
+    // Add directly to cart
+    addItemToCart(newItem, qtyString);
+
+    if (DOM.modalCustomItem) DOM.modalCustomItem.classList.add('hidden');
+    if (DOM.formCustomItem) DOM.formCustomItem.reset();
+    if (DOM.customImagePreviewWrap) DOM.customImagePreviewWrap.classList.add('hidden');
+
+    triggerConfetti();
+    showToast(`${nameTe} విజయవంతంగా చేర్చబడింది!`);
+  }
+
+  // --- IMAGE UPLOAD HELPER WITH HTML5 CANVAS COMPRESSION ---
+  function setupImageUploadHandler() {
+    if (!DOM.customItemFile) return;
+
+    DOM.customItemFile.addEventListener('change', function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const tempImg = new Image();
+        tempImg.onload = function () {
+          // Scale down to 300x225 thumbnail to keep localStorage fast
+          const canvas = document.createElement('canvas');
+          canvas.width = 300;
+          canvas.height = 225;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(tempImg, 0, 0, 300, 225);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          if (DOM.customImagePreview) DOM.customImagePreview.src = dataUrl;
+          if (DOM.customImagePreviewWrap) DOM.customImagePreviewWrap.classList.remove('hidden');
+        };
+        tempImg.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if (DOM.customItemImageUrl) {
+      DOM.customItemImageUrl.addEventListener('input', function () {
+        const val = this.value.trim();
+        if (val) {
+          if (DOM.customImagePreview) DOM.customImagePreview.src = val;
+          if (DOM.customImagePreviewWrap) DOM.customImagePreviewWrap.classList.remove('hidden');
+        }
       });
     }
   }
 
-  // --- TOAST NOTIFICATION ---
+  // --- SAVE CUSTOMER & SHOP DETAILS ---
+  function saveCustomerDetails() {
+    STATE.customerDetails = {
+      name: DOM.inputCustomerName ? DOM.inputCustomerName.value.trim() : 'శ్రీనివాస్ గారు',
+      phone: DOM.inputCustomerPhone ? DOM.inputCustomerPhone.value.trim() : '',
+      address: DOM.inputCustomerAddress ? DOM.inputCustomerAddress.value.trim() : '',
+      date: DOM.inputOrderDate ? DOM.inputOrderDate.value : new Date().toISOString().split('T')[0],
+      shopName: DOM.inputShopName ? DOM.inputShopName.value.trim() : 'శ్రీ లక్ష్మి కిరాణా & పూజా స్టోర్',
+      shopPhone: DOM.inputShopPhone ? DOM.inputShopPhone.value.trim() : '',
+      shopPlace: DOM.inputShopPlace ? DOM.inputShopPlace.value.trim() : ''
+    };
+
+    if (DOM.summaryCustomerName) DOM.summaryCustomerName.textContent = STATE.customerDetails.name;
+    try {
+      localStorage.setItem(STORAGE_KEYS.CUSTOMER, JSON.stringify(STATE.customerDetails));
+    } catch (e) {}
+
+    if (DOM.modalDetails) DOM.modalDetails.classList.add('hidden');
+    showToast('వివరాలు భద్రపరచబడ్డాయి!');
+  }
+
+  // --- DELIGHTFUL CONFETTI CELEBRATION ---
+  function triggerConfetti() {
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 30,
+        spread: 60,
+        origin: { y: 0.8 },
+        colors: ['#0f766e', '#f59e0b', '#10b981', '#ea580c']
+      });
+    }
+  }
+
+  // --- TOAST HELPER ---
   let toastTimer = null;
-  function showToast(message, iconClass = 'fa-circle-check') {
-    if (!DOM.toast) return;
+  function showToast(msg) {
+    if (!DOM.toast || !DOM.toastMessage) return;
+    DOM.toastMessage.textContent = msg;
+    DOM.toast.classList.remove('opacity-0', 'pointer-events-none');
+    DOM.toast.classList.add('opacity-100');
 
-    DOM.toastMessage.textContent = message;
-    DOM.toastIcon.className = `fa-solid ${iconClass} text-emerald-400`;
-
-    DOM.toast.classList.remove('translate-y-20', 'opacity-0');
-    DOM.toast.classList.add('translate-y-0', 'opacity-100');
-
-    if (toastTimer) clearTimeout(toastTimer);
+    clearTimeout(toastTimer);
     toastTimer = setTimeout(() => {
-      DOM.toast.classList.remove('translate-y-0', 'opacity-100');
-      DOM.toast.classList.add('translate-y-20', 'opacity-0');
+      DOM.toast.classList.remove('opacity-100');
+      DOM.toast.classList.add('opacity-0', 'pointer-events-none');
     }, 2800);
   }
 
-  // --- EVENT LISTENERS SETUP ---
+  // --- EVENT LISTENERS ---
   function setupEventListeners() {
-    // Search input with debounce for recording to history
-    let searchDebounceTimer = null;
-    DOM.searchInput.addEventListener('input', (e) => {
-      const val = e.target.value;
-      STATE.searchQuery = val;
-      if (val) {
-        DOM.btnClearSearch.classList.remove('hidden');
-      } else {
-        DOM.btnClearSearch.classList.add('hidden');
-      }
-      renderGroceryGrid();
-
-      if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
-      if (val && val.trim().length >= 3) {
-        searchDebounceTimer = setTimeout(() => {
-          addToSearchHistory(val.trim());
-        }, 1200);
-      }
-    });
-
-    // Enter key saves to search history immediately
-    DOM.searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const val = DOM.searchInput.value.trim();
-        if (val) {
-          executeSearch(val, true);
-        }
-      }
-    });
-
-    DOM.btnClearSearch.addEventListener('click', () => {
-      DOM.searchInput.value = '';
-      STATE.searchQuery = '';
-      DOM.btnClearSearch.classList.add('hidden');
-      renderGroceryGrid();
-    });
-
-    // Clear Search History button
-    if (DOM.btnClearHistory) {
-      DOM.btnClearHistory.addEventListener('click', clearSearchHistory);
+    // Search input
+    if (DOM.searchInput) {
+      DOM.searchInput.addEventListener('input', (e) => {
+        executeSearch(e.target.value);
+      });
     }
 
-    // Gen Z Popular Tenglish Quick Chips
-    document.querySelectorAll('.tenglish-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const query = btn.dataset.query;
-        if (query) {
-          executeSearch(query, true);
-          showToast(`'${query}' కోసం వెతుకుతున్నాం`, 'fa-magnifying-glass');
-          // Smooth scroll towards the results grid
-          DOM.groceryGrid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (DOM.btnClearSearch) {
+      DOM.btnClearSearch.addEventListener('click', () => {
+        if (DOM.searchInput) DOM.searchInput.value = '';
+        executeSearch('');
+      });
+    }
+
+    if (DOM.btnClearHistory) {
+      DOM.btnClearHistory.addEventListener('click', () => {
+        STATE.searchHistory = [];
+        try {
+          localStorage.removeItem(STORAGE_KEYS.SEARCH_HISTORY);
+        } catch (e) {}
+        renderSearchHistory();
+      });
+    }
+
+    // Tenglish chips click
+    if (DOM.tenglishQuickChips) {
+      DOM.tenglishQuickChips.querySelectorAll('.tenglish-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const q = btn.getAttribute('data-query');
+          if (DOM.searchInput) DOM.searchInput.value = q;
+          executeSearch(q);
+        });
+      });
+    }
+
+    // Modals open / close
+    if (DOM.btnOpenCustomItem) {
+      DOM.btnOpenCustomItem.addEventListener('click', () => {
+        if (DOM.modalCustomItem) DOM.modalCustomItem.classList.remove('hidden');
+      });
+    }
+
+    if (DOM.btnQuickCustomAdd) {
+      DOM.btnQuickCustomAdd.addEventListener('click', () => {
+        if (DOM.modalCustomItem) DOM.modalCustomItem.classList.remove('hidden');
+      });
+    }
+
+    if (DOM.btnAddSearchedItem) {
+      DOM.btnAddSearchedItem.addEventListener('click', () => {
+        if (DOM.modalCustomItem) {
+          DOM.modalCustomItem.classList.remove('hidden');
+          if (DOM.customItemNameTenglish && STATE.searchQuery) {
+            DOM.customItemNameTenglish.value = STATE.searchQuery;
+          }
         }
       });
-    });
+    }
 
-    // Custom Item Modal
-    DOM.btnOpenCustomItem.addEventListener('click', openCustomItemModal);
-    DOM.btnQuickCustomAdd.addEventListener('click', openCustomItemModal);
-    DOM.btnAddSearchedItem.addEventListener('click', () => {
-      openCustomItemModal();
-      const q = (STATE.searchQuery || '').trim();
-      if (/[\u0C00-\u0C7F]/.test(q)) {
-        DOM.customItemNameTe.value = q;
-      } else if (q) {
-        if (DOM.customItemNameTenglish) DOM.customItemNameTenglish.value = q;
-        DOM.customItemNameTe.value = q;
-      }
-    });
-    DOM.btnCloseCustomItemModal.addEventListener('click', closeCustomItemModal);
-    DOM.btnCancelCustomItem.addEventListener('click', closeCustomItemModal);
-    DOM.formCustomItem.addEventListener('submit', handleCustomItemSubmit);
+    if (DOM.btnCloseCustomItemModal) {
+      DOM.btnCloseCustomItemModal.addEventListener('click', () => {
+        if (DOM.modalCustomItem) DOM.modalCustomItem.classList.add('hidden');
+      });
+    }
+
+    if (DOM.btnCancelCustomItem) {
+      DOM.btnCancelCustomItem.addEventListener('click', () => {
+        if (DOM.modalCustomItem) DOM.modalCustomItem.classList.add('hidden');
+      });
+    }
+
+    if (DOM.formCustomItem) {
+      DOM.formCustomItem.addEventListener('submit', handleCustomItemSubmit);
+    }
+
+    // Details Modal
+    if (DOM.btnOpenDetails) {
+      DOM.btnOpenDetails.addEventListener('click', () => {
+        if (DOM.modalDetails) DOM.modalDetails.classList.remove('hidden');
+      });
+    }
+
+    if (DOM.btnEditDetailsQuick) {
+      DOM.btnEditDetailsQuick.addEventListener('click', () => {
+        if (DOM.modalDetails) DOM.modalDetails.classList.remove('hidden');
+      });
+    }
+
+    if (DOM.btnCloseDetailsModal) {
+      DOM.btnCloseDetailsModal.addEventListener('click', () => {
+        if (DOM.modalDetails) DOM.modalDetails.classList.add('hidden');
+      });
+    }
+
+    if (DOM.btnSaveDetails) {
+      DOM.btnSaveDetails.addEventListener('click', saveCustomerDetails);
+    }
 
     // Quantity Modal
-    DOM.btnCloseQtyModal.addEventListener('click', closeQuantityModal);
-    DOM.btnCancelQtyModal.addEventListener('click', closeQuantityModal);
-    DOM.btnConfirmAddItem.addEventListener('click', confirmAddFromModal);
+    if (DOM.btnCloseQtyModal) DOM.btnCloseQtyModal.addEventListener('click', closeQuantityModal);
+    if (DOM.btnCancelQtyModal) DOM.btnCancelQtyModal.addEventListener('click', closeQuantityModal);
 
-    // Customer & Shop Details Modal
-    DOM.btnOpenDetails.addEventListener('click', openDetailsModal);
-    DOM.btnEditDetailsQuick.addEventListener('click', openDetailsModal);
-    DOM.btnCloseDetailsModal.addEventListener('click', closeDetailsModal);
-    DOM.btnSaveDetails.addEventListener('click', saveDetails);
-
-    // Cart Operations
-    DOM.btnClearCart.addEventListener('click', clearCart);
-    DOM.btnSampleOrder.addEventListener('click', loadSampleOrder);
-
-    // PDF, Print, Share Actions
-    DOM.btnGeneratePdf.addEventListener('click', generateAndDownloadPdf);
-    DOM.btnPrintOrder.addEventListener('click', printOrder);
-    DOM.btnWhatsappShare.addEventListener('click', shareOnWhatsapp);
-    DOM.btnPreviewPdf.addEventListener('click', openPdfPreview);
-    DOM.btnCopyList.addEventListener('click', copyListText);
-
-    // Preview Modal Actions
-    DOM.btnClosePreviewModal.addEventListener('click', closePdfPreview);
-    DOM.btnDownloadFromPreview.addEventListener('click', () => {
-      closePdfPreview();
-      generateAndDownloadPdf();
-    });
-    DOM.btnPrintFromPreview.addEventListener('click', () => {
-      closePdfPreview();
-      printOrder();
-    });
-
-    // Mobile Cart Drawer Toggles
-    DOM.btnToggleCartMobile.addEventListener('click', openMobileCartDrawer);
-    if (DOM.floatingCartTrigger) {
-      DOM.floatingCartTrigger.addEventListener('click', openMobileCartDrawer);
-    }
-    if (DOM.btnFloatingViewCart) {
-      DOM.btnFloatingViewCart.addEventListener('click', openMobileCartDrawer);
-    }
-    if (DOM.btnCloseMobileCart) {
-      DOM.btnCloseMobileCart.addEventListener('click', closeMobileCartDrawer);
-    }
-    // Close cart drawer on clicking backdrop on mobile
-    DOM.cartSidebar.addEventListener('click', (e) => {
-      if (e.target === DOM.cartSidebar && window.innerWidth < 1024) {
-        closeMobileCartDrawer();
-      }
-    });
-
-    // Close modals on clicking backdrop
-    [DOM.modalQuantity, DOM.modalCustomItem, DOM.modalDetails, DOM.modalPdfPreview].forEach(modal => {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.add('hidden');
-        }
+    if (DOM.btnConfirmAddItem) {
+      DOM.btnConfirmAddItem.addEventListener('click', () => {
+        if (!STATE.pendingItemForModal) return;
+        const qtyVal = DOM.modalCustomQtyVal ? DOM.modalCustomQtyVal.value.trim() : '1 కిలో';
+        const note = DOM.modalItemNote ? DOM.modalItemNote.value.trim() : '';
+        addItemToCart(STATE.pendingItemForModal, qtyVal, note);
+        closeQuantityModal();
+        triggerConfetti();
+        showToast('రసీదులో చేర్చబడింది!');
       });
-    });
+    }
 
-    // Keyboard ESC to close modals
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        DOM.modalQuantity.classList.add('hidden');
-        DOM.modalCustomItem.classList.add('hidden');
-        DOM.modalDetails.classList.add('hidden');
-        DOM.modalPdfPreview.classList.add('hidden');
-      }
-    });
+    // Mobile cart drawer
+    if (DOM.btnToggleCartMobile) {
+      DOM.btnToggleCartMobile.addEventListener('click', () => {
+        if (DOM.cartSidebar) DOM.cartSidebar.classList.remove('hidden');
+      });
+    }
+
+    if (DOM.btnCloseMobileCart) {
+      DOM.btnCloseMobileCart.addEventListener('click', () => {
+        if (DOM.cartSidebar) DOM.cartSidebar.classList.add('hidden');
+      });
+    }
+
+    if (DOM.btnFloatingViewCart || DOM.floatingCartTrigger) {
+      const openDrawer = () => {
+        if (DOM.cartSidebar) DOM.cartSidebar.classList.remove('hidden');
+      };
+      if (DOM.btnFloatingViewCart) DOM.btnFloatingViewCart.addEventListener('click', openDrawer);
+      if (DOM.floatingCartTrigger) DOM.floatingCartTrigger.addEventListener('click', openDrawer);
+    }
+
+    // Clear cart & sample order
+    if (DOM.btnClearCart) DOM.btnClearCart.addEventListener('click', clearCart);
+    if (DOM.btnSampleOrder) DOM.btnSampleOrder.addEventListener('click', loadSampleOrder);
+
+    // PDF Preview & Actions
+    if (DOM.btnPreviewPdf) DOM.btnPreviewPdf.addEventListener('click', openPdfPreview);
+    if (DOM.btnGeneratePdf) DOM.btnGeneratePdf.addEventListener('click', generateAndDownloadPdf);
+    if (DOM.btnPrintOrder) DOM.btnPrintOrder.addEventListener('click', printOrder);
+    if (DOM.btnWhatsappShare) DOM.btnWhatsappShare.addEventListener('click', shareOnWhatsapp);
+    if (DOM.btnCopyList) DOM.btnCopyList.addEventListener('click', copyListText);
+
+    if (DOM.btnClosePreviewModal) DOM.btnClosePreviewModal.addEventListener('click', closePdfPreview);
+    if (DOM.btnDownloadFromPreview) DOM.btnDownloadFromPreview.addEventListener('click', generateAndDownloadPdf);
+    if (DOM.btnPrintFromPreview) DOM.btnPrintFromPreview.addEventListener('click', printOrder);
+
+    // Setup image upload
+    setupImageUploadHandler();
   }
 
-  // Run init on DOMContentLoaded
+  // Run on DOM Ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
