@@ -218,7 +218,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "images/navadhanyalu/godhumalu.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -237,7 +236,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "images/navadhanyalu/yavalu.jpg",
-    "price": 60,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -256,7 +254,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "images/navadhanyalu/pesalu.jpg",
-    "price": 110,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -275,7 +272,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "images/navadhanyalu/senagalu.jpg",
-    "price": 85,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -294,7 +290,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "images/navadhanyalu/kandulu.jpg",
-    "price": 130,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -313,7 +308,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "images/navadhanyalu/alasandalu.jpg",
-    "price": 95,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -332,7 +326,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "spices",
     "imageUrl": "images/navadhanyalu/nuvvulu.jpg",
-    "price": 60,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -351,7 +344,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "images/navadhanyalu/minumulu.jpg",
-    "price": 125,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -370,7 +362,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "images/navadhanyalu/ulavalu.jpg",
-    "price": 75,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -389,7 +380,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=500&auto=format&fit=crop&q=80",
-    "price": 38,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -408,7 +398,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
-    "price": 1450,
     "defaultQty": "25 కిలోల బస్తా",
     "commonQtys": [
       "25 కిలోల బస్తా",
@@ -428,7 +417,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=500&auto=format&fit=crop&q=80",
-    "price": 120,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -447,7 +435,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "https://images.unsplash.com/photo-1585994192701-f1a505c817ea?w=500&auto=format&fit=crop&q=80",
-    "price": 155,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -466,7 +453,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "https://images.unsplash.com/photo-1587334207436-1e0e8e0d37e6?w=500&auto=format&fit=crop&q=80",
-    "price": 140,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -485,7 +471,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "https://images.unsplash.com/photo-1610444585694-8254b2a8d3fe?w=500&auto=format&fit=crop&q=80",
-    "price": 125,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -504,7 +489,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "https://images.unsplash.com/photo-1585994192701-f1a505c817ea?w=500&auto=format&fit=crop&q=80",
-    "price": 90,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -523,7 +507,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dals",
     "imageUrl": "https://images.unsplash.com/photo-1567894340315-735d7c361db0?w=500&auto=format&fit=crop&q=80",
-    "price": 130,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -542,7 +525,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=80",
-    "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -561,7 +543,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "https://images.unsplash.com/photo-1610444585694-8254b2a8d3fe?w=500&auto=format&fit=crop&q=80",
-    "price": 50,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -580,7 +561,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
-    "price": 42,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -598,7 +578,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "grains",
     "imageUrl": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500&auto=format&fit=crop&q=80",
-    "price": 50,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -616,7 +595,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "oils",
     "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80",
-    "price": 175,
     "defaultQty": "1 లీటరు",
     "commonQtys": [
       "1 లీటరు",
@@ -635,7 +613,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "oils",
     "imageUrl": "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=500&auto=format&fit=crop&q=80",
-    "price": 340,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -654,7 +631,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "spices",
     "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
-    "price": 45,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -673,7 +649,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "spices",
     "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
-    "price": 30,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -692,7 +667,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "spices",
     "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=500&auto=format&fit=crop&q=80",
-    "price": 70,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -711,7 +685,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "essentials",
     "imageUrl": "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=500&auto=format&fit=crop&q=80",
-    "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -730,7 +703,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "essentials",
     "imageUrl": "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=500&auto=format&fit=crop&q=80",
-    "price": 20,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -749,7 +721,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dryfruits",
     "imageUrl": "https://images.unsplash.com/photo-1536591375315-1b8368146743?w=500&auto=format&fit=crop&q=80",
-    "price": 210,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -769,7 +740,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "groceries",
     "category": "dryfruits",
     "imageUrl": "https://images.unsplash.com/photo-1508061252445-5350f3ab0a55?w=500&auto=format&fit=crop&q=80",
-    "price": 195,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -788,7 +758,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/tamata.jpg",
-    "price": 40,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -807,7 +776,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/bendakaya.jpg",
-    "price": 40,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -825,7 +793,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/bangaladumpa.jpg",
-    "price": 35,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -844,7 +811,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/ullipaya.jpg",
-    "price": 35,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -863,7 +829,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/chart_vegetables/vellulli.jpg",
-    "price": 45,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -882,7 +847,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/kyaret.jpg",
-    "price": 50,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -900,7 +864,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/kaliphlavar.jpg",
-    "price": 40,
     "defaultQty": "1 కాయ / పువ్వు",
     "commonQtys": [
       "1 కాయ",
@@ -918,7 +881,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/kyabeji.jpg",
-    "price": 35,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -936,7 +898,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/pachchimirapakaya.jpg",
-    "price": 20,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -955,7 +916,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/chart_vegetables/endumirchi.jpg",
-    "price": 45,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -974,7 +934,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/chart_vegetables/allam.jpg",
-    "price": 30,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -993,7 +952,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/munagakaya.jpg",
-    "price": 30,
     "defaultQty": "4 కాయలు",
     "commonQtys": [
       "4 కాయలు",
@@ -1011,7 +969,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/gummadikaya.jpg",
-    "price": 50,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1029,7 +986,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/budida_gummadikaya.jpg",
-    "price": 60,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ"
@@ -1046,7 +1002,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/birakaya.jpg",
-    "price": 50,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1064,7 +1019,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/sorakaya.jpg",
-    "price": 40,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1082,7 +1036,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/potlakaya.jpg",
-    "price": 40,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1100,7 +1053,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/kakarakaya.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1118,7 +1070,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/dondakaya.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1136,7 +1087,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/dosakaya.jpg",
-    "price": 35,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1154,7 +1104,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/neti_birakaya.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1172,7 +1121,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/sima_vankaya.jpg",
-    "price": 40,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1190,7 +1138,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/chikkudukaya.jpg",
-    "price": 50,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1208,7 +1155,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/bins.jpg",
-    "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1226,7 +1172,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/goruchikkudu.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1244,7 +1189,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/bathanilu.jpg",
-    "price": 55,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1262,7 +1206,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/bobbara_kayalu.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1280,7 +1223,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/bitrut.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1298,7 +1240,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/mullangi.jpg",
-    "price": 35,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1316,7 +1257,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/chilagadadumpa.jpg",
-    "price": 40,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1334,7 +1274,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/chamadumpa.jpg",
-    "price": 50,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1352,7 +1291,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/kanda.jpg",
-    "price": 50,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1370,7 +1308,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/nulkol.jpg",
-    "price": 45,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1388,7 +1325,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/kyapsikam.jpg",
-    "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1406,7 +1342,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/aratikaya.jpg",
-    "price": 30,
     "defaultQty": "4 కాయలు",
     "commonQtys": [
       "4 కాయలు",
@@ -1424,7 +1359,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/mamidikaya.jpg",
-    "price": 40,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1442,7 +1376,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/puttagodugu.jpg",
-    "price": 50,
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -1460,7 +1393,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/vegetables/brokali.jpg",
-    "price": 80,
     "defaultQty": "1 పువ్వు / పీస్",
     "commonQtys": [
       "1 పీస్",
@@ -1478,7 +1410,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/kothimeera.jpg",
-    "price": 15,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1497,7 +1428,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/karivepaku.jpg",
-    "price": 10,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1515,7 +1445,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/pudina.jpg",
-    "price": 15,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1533,7 +1462,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/palakura.jpg",
-    "price": 20,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1551,7 +1479,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/gongura.jpg",
-    "price": 20,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1569,7 +1496,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/menthikura.jpg",
-    "price": 15,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1587,7 +1513,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "greens",
     "imageUrl": "images/chart_vegetables/thotakura.jpg",
-    "price": 20,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -1605,7 +1530,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "vegetables",
     "category": "vegetables",
     "imageUrl": "images/chart_vegetables/mokkajonna.jpg",
-    "price": 25,
     "defaultQty": "2 కాయలు",
     "commonQtys": [
       "2 కాయలు",
@@ -1623,7 +1547,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/mamidi_pandu.jpg",
-    "price": 120,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1642,7 +1565,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/arati_pandu.jpg",
-    "price": 60,
     "defaultQty": "1 డజను",
     "commonQtys": [
       "1 డజను",
@@ -1661,7 +1583,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/apil.jpg",
-    "price": 160,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1680,7 +1601,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/draksha.jpg",
-    "price": 90,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1698,7 +1618,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/jama_pandu.jpg",
-    "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1716,7 +1635,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/danimma.jpg",
-    "price": 140,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1734,7 +1652,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/kamala_pandu.jpg",
-    "price": 80,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1753,7 +1670,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/battayi.jpg",
-    "price": 75,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1771,7 +1687,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/boppayi.jpg",
-    "price": 50,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1789,7 +1704,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/puchchakaya.jpg",
-    "price": 70,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1807,7 +1721,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/panasa_pandu.jpg",
-    "price": 60,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -1825,7 +1738,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/sitaphalam.jpg",
-    "price": 90,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1843,7 +1755,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/sapota.jpg",
-    "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -1861,7 +1772,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/neredu_pandu.jpg",
-    "price": 110,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -1879,7 +1789,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/anasa_pandu.jpg",
-    "price": 60,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1897,7 +1806,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/kharbuja.jpg",
-    "price": 50,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ"
@@ -1914,7 +1822,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/kharjuram.jpg",
-    "price": 90,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -1932,7 +1839,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/nimmakaya.jpg",
-    "price": 20,
     "defaultQty": "4 కాయలు",
     "commonQtys": [
       "4 కాయలు",
@@ -1951,7 +1857,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/usirikaya.jpg",
-    "price": 40,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -1969,7 +1874,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/kobbarikaya.jpg",
-    "price": 35,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1988,7 +1892,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/tati_munjalu.jpg",
-    "price": 50,
     "defaultQty": "1 డజను",
     "commonQtys": [
       "1 డజను",
@@ -2006,7 +1909,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/regupandu.jpg",
-    "price": 40,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -2024,7 +1926,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/velagapandu.jpg",
-    "price": 30,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -2042,7 +1943,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/star_phrut.jpg",
-    "price": 40,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -2060,7 +1960,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/anjira_pandu.jpg",
-    "price": 90,
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -2078,7 +1977,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/lichi.jpg",
-    "price": 120,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -2096,7 +1994,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/straberri.jpg",
-    "price": 75,
     "defaultQty": "1 బాక్స్",
     "commonQtys": [
       "1 బాక్స్",
@@ -2114,7 +2011,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/beripandu.jpg",
-    "price": 90,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -2132,7 +2028,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/kivi.jpg",
-    "price": 80,
     "defaultQty": "3 పీసులు",
     "commonQtys": [
       "3 పీసులు",
@@ -2150,7 +2045,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/dragan_phrut.jpg",
-    "price": 90,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -2168,7 +2062,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/avakado.jpg",
-    "price": 110,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -2186,7 +2079,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/pamparapanasa.jpg",
-    "price": 60,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ"
@@ -2203,7 +2095,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "fruits",
     "category": "fruits",
     "imageUrl": "images/fruits/ramaphalam.jpg",
-    "price": 80,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -2221,7 +2112,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&auto=format&fit=crop&q=80",
-    "price": 40,
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2240,7 +2130,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=80",
-    "price": 50,
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2259,7 +2148,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=500&auto=format&fit=crop&q=80",
-    "price": 30,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2278,7 +2166,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80",
-    "price": 30,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2297,7 +2184,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "images/fruits/kobbarikaya.jpg",
-    "price": 35,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -2317,7 +2203,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80",
-    "price": 25,
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2336,7 +2221,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80",
-    "price": 110,
     "defaultQty": "500 మి.లీ.",
     "commonQtys": [
       "500 మి.లీ.",
@@ -2355,7 +2239,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&auto=format&fit=crop&q=80",
-    "price": 60,
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2374,7 +2257,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=500&auto=format&fit=crop&q=80",
-    "price": 45,
     "defaultQty": "50 గ్రాములు",
     "commonQtys": [
       "50 గ్రాములు",
@@ -2393,7 +2275,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&auto=format&fit=crop&q=80",
-    "price": 20,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -2413,7 +2294,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
-    "price": 40,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2432,7 +2312,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1574870111867-089730e5a72b?w=500&auto=format&fit=crop&q=80",
-    "price": 30,
     "defaultQty": "1 జత (2 నంబర్లు)",
     "commonQtys": [
       "1 జత",
@@ -2452,7 +2331,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1533616688419-b7a585564566?w=500&auto=format&fit=crop&q=80",
-    "price": 50,
     "defaultQty": "1 కట్ట / మాల",
     "commonQtys": [
       "1 కట్ట",
@@ -2472,7 +2350,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=500&auto=format&fit=crop&q=80",
-    "price": 15,
     "defaultQty": "1 పీస్",
     "commonQtys": [
       "1 పీస్",
@@ -2491,7 +2368,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
-    "price": 20,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2509,7 +2385,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&auto=format&fit=crop&q=80",
-    "price": 25,
     "defaultQty": "1 జత",
     "commonQtys": [
       "1 జత",
@@ -2527,7 +2402,6 @@ const GROCERY_ITEMS = [
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1610730581079-ff3715e29786?w=500&auto=format&fit=crop&q=80",
-    "price": 180,
     "defaultQty": "1 పీస్",
     "commonQtys": [
       "1 పీస్"

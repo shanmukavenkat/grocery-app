@@ -133,7 +133,6 @@
     modalCustomQtyVal: document.getElementById('modal-custom-qty-val'),
     modalCustomQtyUnit: document.getElementById('modal-custom-qty-unit'),
     modalItemNote: document.getElementById('modal-item-note'),
-    modalItemPrice: document.getElementById('modal-item-price'),
     btnCancelQtyModal: document.getElementById('btn-cancel-qty-modal'),
     btnConfirmAddItem: document.getElementById('btn-confirm-add-item'),
 
@@ -147,7 +146,6 @@
     customItemTagType: document.getElementById('custom-item-tag-type'),
     customItemQtyVal: document.getElementById('custom-item-qty-val'),
     customItemQtyUnit: document.getElementById('custom-item-qty-unit'),
-    customItemPrice: document.getElementById('custom-item-price'),
     customItemFile: document.getElementById('custom-item-file'),
     customItemImageUrl: document.getElementById('custom-item-image-url'),
     customImagePreviewWrap: document.getElementById('custom-image-preview-wrap'),
@@ -182,7 +180,6 @@
     receiptItemsContainer: document.getElementById('receipt-items-container'),
     pdfViewTotalCount: document.getElementById('pdf-view-total-count'),
     pdfViewTotalUnits: document.getElementById('pdf-view-total-units'),
-    pdfViewTotalAmount: document.getElementById('pdf-view-total-amount'),
     pdfViewBarcodeNum: document.getElementById('pdf-view-barcode-num'),
 
     // Mobile Floating Bar
@@ -190,7 +187,6 @@
     floatingCartTrigger: document.getElementById('floating-cart-trigger'),
     floatingCartBadge: document.getElementById('floating-cart-badge'),
     floatingCartLabel: document.getElementById('floating-cart-label'),
-    floatingCartAmount: document.getElementById('floating-cart-amount'),
     btnFloatingViewCart: document.getElementById('btn-floating-view-cart'),
 
     // Toast
@@ -546,16 +542,6 @@
           ` : ''}
         </div>
 
-        <!-- Price Display -->
-        <div class="flex items-center justify-between text-xs mb-2">
-          <span class="font-bold text-emerald-800 font-mono-receipt text-xs sm:text-sm">
-            ₹ ${item.price || 40}.00
-          </span>
-          <span class="text-[10px] text-slate-400 font-sans">
-            (ధర/యూనిట్)
-          </span>
-        </div>
-
         <!-- In-Cart Indicator if item is selected -->
         ${inCart ? `
           <div class="mb-2 bg-amber-50 border border-amber-200 text-amber-900 text-[11px] px-2 py-1 rounded-lg flex items-center justify-between">
@@ -627,8 +613,7 @@
 
     if (DOM.modalItemTitle) DOM.modalItemTitle.textContent = item.nameTe;
     if (DOM.modalItemSubtitle) DOM.modalItemSubtitle.textContent = item.nameEn ? `${item.nameEn} - కావలసిన పరిమాణం` : 'కావలసిన పరిమాణాన్ని నమోదు చేయండి';
-    if (DOM.modalItemPrice) DOM.modalItemPrice.textContent = `₹ ${item.price || 40}.00`;
-    if (DOM.modalItemNote) DOM.modalItemNote.value = '';
+        if (DOM.modalItemNote) DOM.modalItemNote.value = '';
 
     // Quick Quantities buttons in modal
     if (DOM.modalQuickQuantities) {
@@ -658,8 +643,7 @@
   // --- CART MANAGEMENT ---
   function addItemToCart(item, qtyString, note) {
     const existingIndex = STATE.cart.findIndex(c => c.nameTe === item.nameTe);
-    const unitPrice = item.price || 40;
-    const cat = item.mainCategory || item.category || 'groceries';
+        const cat = item.mainCategory || item.category || 'groceries';
 
     if (existingIndex > -1) {
       STATE.cart[existingIndex].qty = qtyString;
@@ -672,7 +656,6 @@
         category: cat,
         mainCategory: cat,
         qty: qtyString,
-        unitPrice: unitPrice,
         note: note || '',
         imageUrl: item.imageUrl || '',
         tagType: item.tagType,
@@ -703,14 +686,7 @@
     }
   }
 
-  function calculateEstimatedTotal() {
-    let total = 0;
-    STATE.cart.forEach(item => {
-      total += (item.unitPrice || 40);
-    });
-    return total;
-  }
-
+  
   // --- RENDER CART SIDEBAR ---
   function renderCart() {
     const count = STATE.cart.length;
@@ -721,13 +697,9 @@
     if (DOM.floatingCartBadge) DOM.floatingCartBadge.textContent = count;
     if (DOM.floatingCartLabel) DOM.floatingCartLabel.textContent = `${count} సరుకులు చేర్చబడ్డాయి`;
 
-    const estTotal = calculateEstimatedTotal();
-    const formattedTotal = `₹ ${estTotal.toFixed(2)}`;
-
+    
     if (DOM.cartSummaryCount) DOM.cartSummaryCount.textContent = `${count} రకాలు`;
-    if (DOM.cartSummaryTotal) DOM.cartSummaryTotal.textContent = formattedTotal;
-    if (DOM.floatingCartAmount) DOM.floatingCartAmount.textContent = formattedTotal;
-
+        
     if (count === 0) {
       if (DOM.emptyCartState) DOM.emptyCartState.classList.remove('hidden');
       if (DOM.cartItemsList) DOM.cartItemsList.classList.add('hidden');
@@ -759,7 +731,7 @@
           ${item.note ? `<p class="text-[10px] text-amber-800 italic mt-0.5">సూచన: ${item.note}</p>` : ''}
         </div>
         <div class="flex items-center gap-2 shrink-0">
-          <span class="font-bold text-slate-700 font-mono-receipt">₹ ${item.unitPrice || 40}</span>
+          
           <button type="button" class="btn-remove-item text-slate-400 hover:text-red-600 p-1 transition" title="తీసివేయి">
             <i class="fa-solid fa-trash-can text-xs"></i>
           </button>
@@ -847,9 +819,9 @@
               ${it.note ? `<span class="text-[10px] text-amber-800 block italic">>> సూచన: ${it.note}</span>` : ''}
             </div>
           </div>
-          <div class="text-right shrink-0">
-            <span class="font-bold text-slate-800 block">${it.qty}</span>
-            <span class="text-slate-600 block text-[11px]">₹ ${(it.unitPrice || 40).toFixed(2)}</span>
+          <div class="text-right shrink-0 flex items-center gap-2">
+            <span class="font-bold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">${it.qty}</span>
+            <span class="inline-block w-4 h-4 border border-slate-400 rounded-sm text-center text-[10px] text-transparent select-none">✓</span>
           </div>
         `;
 
@@ -858,11 +830,9 @@
     });
 
     // Totals
-    const estTotal = calculateEstimatedTotal();
-    if (DOM.pdfViewTotalCount) DOM.pdfViewTotalCount.textContent = `${STATE.cart.length} రకాలు`;
+        if (DOM.pdfViewTotalCount) DOM.pdfViewTotalCount.textContent = `${STATE.cart.length} రకాలు`;
     if (DOM.pdfViewTotalUnits) DOM.pdfViewTotalUnits.textContent = `${STATE.cart.length} యూనిట్లు`;
-    if (DOM.pdfViewTotalAmount) DOM.pdfViewTotalAmount.textContent = `₹ ${estTotal.toFixed(2)}`;
-  }
+      }
 
   // --- OPEN / CLOSE PDF PREVIEW MODAL ---
   function openPdfPreview() {
@@ -943,8 +913,7 @@
     }
 
     const cust = STATE.customerDetails;
-    const estTotal = calculateEstimatedTotal();
-
+    
     let text = `*|| ${cust.shopName || 'శ్రీ లక్ష్మి కిరాణా & పూజా స్టోర్'} ||*\n`;
     text += `*రసీదు టిక్కెట్ నం:* #KC-${STATE.orderCounter}\n`;
     text += `*తేదీ:* ${new Date().toLocaleDateString('te-IN')}\n`;
@@ -960,8 +929,7 @@
     });
 
     text += `--------------------------------\n`;
-    text += `*మొత్తం సరుకులు:* ${STATE.cart.length} రకాలు\n`;
-    text += `*సుమారు బిల్లు:* ₹ ${estTotal.toFixed(2)}\n\n`;
+    text += `*మొత్తం సరుకులు:* ${STATE.cart.length} రకాలు\n\n`;
     text += `_గమనిక: పూజా సామాగ్రిని ప్రత్యేక పవిత్ర సంచిలో ప్యాక్ చేయగలరు._\n`;
     text += `*ధన్యవాదములు!*`;
 
@@ -992,16 +960,16 @@
   // --- SAMPLE ORDER LOADER ---
   function loadSampleOrder() {
     const samples = [
-      { nameTe: 'పుట్నాల పప్పు (వేయించిన శనగ పప్పు)', nameEn: 'Roasted Gram Dal', category: 'groceries', mainCategory: 'groceries', qty: '500 గ్రాములు', price: 38 },
-      { nameTe: 'సోనా మసూరి బియ్యం (పాత బియ్యం)', nameEn: 'Sona Masoori Rice', category: 'groceries', mainCategory: 'groceries', qty: '25 కిలోల బస్తా', price: 1450 },
-      { nameTe: 'గోధుమలు', nameEn: 'Wheat (Godhumalu)', category: 'groceries', mainCategory: 'groceries', qty: '2 కిలోలు', price: 45 },
-      { nameTe: 'టమాటా / టమోటా', nameEn: 'Tomato', category: 'vegetables', mainCategory: 'vegetables', qty: '1 కిలో', price: 40 },
-      { nameTe: 'కొత్తిమీర (తాజా కట్ట)', nameEn: 'Fresh Coriander', category: 'vegetables', mainCategory: 'vegetables', qty: '2 కట్టలు', price: 15 },
-      { nameTe: 'అరటి పండు (చక్కెరకేళి / అమృతపాణి)', nameEn: 'Banana', category: 'fruits', mainCategory: 'fruits', qty: '1 డజను', price: 60 },
-      { nameTe: 'మామిడి పండు (బంగినపల్లి)', nameEn: 'Sweet Mango', category: 'fruits', mainCategory: 'fruits', qty: '1 కిలో', price: 120 },
-      { nameTe: 'అగరబత్తీలు (సుగంధ ధూపం)', nameEn: 'Incense Sticks', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్', price: 40 },
-      { nameTe: 'హారతి కర్పూరం బిళ్లలు', nameEn: 'Camphor Tablets', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్', price: 50 },
-      { nameTe: 'పూజా కొబ్బరికాయ (పీచుతో)', nameEn: 'Sacred Pooja Coconut', category: 'pooja', mainCategory: 'pooja', qty: '1 కాయ', price: 35 }
+      { nameTe: 'పుట్నాల పప్పు (వేయించిన శనగ పప్పు)', nameEn: 'Roasted Gram Dal', category: 'groceries', mainCategory: 'groceries', qty: '500 గ్రాములు' },
+      { nameTe: 'సోనా మసూరి బియ్యం (పాత బియ్యం)', nameEn: 'Sona Masoori Rice', category: 'groceries', mainCategory: 'groceries', qty: '25 కిలోల బస్తా' },
+      { nameTe: 'గోధుమలు', nameEn: 'Wheat (Godhumalu)', category: 'groceries', mainCategory: 'groceries', qty: '2 కిలోలు' },
+      { nameTe: 'టమాటా / టమోటా', nameEn: 'Tomato', category: 'vegetables', mainCategory: 'vegetables', qty: '1 కిలో' },
+      { nameTe: 'కొత్తిమీర (తాజా కట్ట)', nameEn: 'Fresh Coriander', category: 'vegetables', mainCategory: 'vegetables', qty: '2 కట్టలు' },
+      { nameTe: 'అరటి పండు (చక్కెరకేళి / అమృతపాణి)', nameEn: 'Banana', category: 'fruits', mainCategory: 'fruits', qty: '1 డజను' },
+      { nameTe: 'మామిడి పండు (బంగినపల్లి)', nameEn: 'Sweet Mango', category: 'fruits', mainCategory: 'fruits', qty: '1 కిలో' },
+      { nameTe: 'అగరబత్తీలు (సుగంధ ధూపం)', nameEn: 'Incense Sticks', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్' },
+      { nameTe: 'హారతి కర్పూరం బిళ్లలు', nameEn: 'Camphor Tablets', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్' },
+      { nameTe: 'పూజా కొబ్బరికాయ (పీచుతో)', nameEn: 'Sacred Pooja Coconut', category: 'pooja', mainCategory: 'pooja', qty: '1 కాయ' }
     ];
 
     STATE.cart = [];
@@ -1019,8 +987,7 @@
     const tagType = DOM.customItemTagType ? DOM.customItemTagType.value : 'none';
     const qtyVal = DOM.customItemQtyVal ? DOM.customItemQtyVal.value.trim() : '1';
     const qtyUnit = DOM.customItemQtyUnit ? DOM.customItemQtyUnit.value : 'కిలోలు';
-    const price = DOM.customItemPrice ? parseFloat(DOM.customItemPrice.value) || 50 : 50;
-
+    
     if (!nameTe || !nameTeng) {
       alert('దయచేసి తెలుగు పేరు మరియు టెంగ్లీష్ పేరు తప్పకుండా నమోదు చేయండి.');
       return;
@@ -1047,7 +1014,6 @@
       mainCategory: category,
       category: category,
       imageUrl: imgUrl,
-      price: price,
       defaultQty: qtyString,
       commonQtys: [qtyString, '1 కిలో', '500 గ్రాములు'],
       tagType: (tagType !== 'none') ? tagType : null,
