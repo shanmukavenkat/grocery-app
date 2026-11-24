@@ -861,8 +861,8 @@
     }
 
     populatePrintableChittaDOM();
-    const sourceElement = DOM.printableArea;
-    if (!sourceElement) return;
+    const element = DOM.printableArea;
+    if (!element) return;
 
     showToast('రసీదు PDF తయారవుతోంది...');
 
@@ -873,88 +873,74 @@
       }
     } catch (e) {}
 
-    const orderId = `KC-${STATE.orderCounter}`;
+    const wasHidden = DOM.modalPdfPreview && DOM.modalPdfPreview.classList.contains('hidden');
+    if (wasHidden && DOM.modalPdfPreview) {
+      DOM.modalPdfPreview.classList.remove('hidden');
+      DOM.modalPdfPreview.style.opacity = '0';
+      DOM.modalPdfPreview.style.pointerEvents = 'none';
+    }
 
-    // Create an off-screen measuring clone with fixed 360px layout width
-    const clone = sourceElement.cloneNode(true);
-    clone.id = 'temp-pdf-ticket-container';
-    clone.style.position = 'fixed';
-    clone.style.left = '-9999px';
-    clone.style.top = '0';
-    clone.style.width = '360px';
-    clone.style.maxWidth = '360px';
-    clone.style.minWidth = '360px';
-    clone.style.display = 'block';
-    clone.style.visibility = 'visible';
-    clone.style.boxShadow = 'none';
-    clone.style.border = 'none';
-    clone.style.borderRadius = '0';
-    clone.style.backgroundColor = '#ffffff';
-    clone.style.margin = '0';
-    clone.style.padding = '0';
-    clone.style.overflow = 'visible';
+    // Allow DOM to settle and calculate real height
+    await new Promise(resolve => setTimeout(resolve, 150));
 
-    document.body.appendChild(clone);
+    const actualHeightPx = element.scrollHeight || element.offsetHeight || 600;
+    const actualWidthPx = element.offsetWidth || 360;
 
-    // Allow browser layout engine to paint and calculate exact dimensions
-    await new Promise(resolve => setTimeout(resolve, 100));
-
-    // Get actual height in pixels
-    const actualHeightPx = Math.max(clone.scrollHeight || 0, clone.offsetHeight || 0, 700);
-
-    // Scale conversion: 360px fits inside 76mm printable width (80mm page minus 4mm horizontal margins)
-    // 76mm / 360px = 0.21111 mm per px
+    // Scale calculation:
+    // Standard 80mm roll width with 2mm left/right margin = 76mm printable width
+    const printableWidthMm = 76;
+    const imgHeightMm = Math.ceil((actualHeightPx * printableWidthMm) / actualWidthPx);
     const topMarginMm = 4;
     const bottomMarginMm = 4;
-    const imgHeightMm = Math.ceil((actualHeightPx * 76) / 360);
-    // Page height sized exactly to contain the whole receipt on ONE continuous slip
-    const pageHeightMm = Math.max(120, imgHeightMm + topMarginMm + bottomMarginMm + 8);
+    // Exactly size the single-page ticket height to prevent page cuts
+    const totalPageHeightMm = Math.max(140, imgHeightMm + topMarginMm + bottomMarginMm + 6);
+
+    const orderId = `KC-${STATE.orderCounter}`;
 
     const opt = {
       margin: [topMarginMm, 2, bottomMarginMm, 2],
       filename: `Kirana-Pooja-Ticket-${orderId}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
-        scale: 3, // Razor-sharp 300 DPI quality
+        scale: 2.5,
         useCORS: true,
         logging: false,
-        letterRendering: false, // CRITICAL: Never true for Indic Telugu scripts
+        letterRendering: false,
         allowTaint: true,
         backgroundColor: '#ffffff',
-        width: 360,
-        windowWidth: 360
+        scrollY: 0,
+        scrollX: 0
       },
       pagebreak: {
         mode: ['avoid-all', 'css', 'legacy'],
-        avoid: ['.receipt-item-row', '.receipt-section-header', '.thermal-totals-section', '.thermal-footer', '.receipt-header-block']
+        avoid: ['.receipt-item-row', '.receipt-section-header', '.thermal-totals-section', '.thermal-footer']
       },
       jsPDF: {
         unit: 'mm',
-        format: [80, pageHeightMm],
+        format: [80, totalPageHeightMm],
         orientation: 'portrait'
       }
     };
 
-    if (typeof html2pdf !== 'undefined') {
-      try {
-        await html2pdf().set(opt).from(clone).save();
+    try {
+      if (typeof html2pdf !== 'undefined') {
+        await html2pdf().set(opt).from(element).save();
         showToast('రసీదు PDF డౌన్‌లోడ్ పూర్తయింది!');
         triggerConfetti();
         STATE.orderCounter++;
         saveCartState();
-      } catch (err) {
-        console.error('PDF generation error:', err);
-        showToast('PDF తయారీలో లోపం ఏర్పడింది. దయచేసి ప్రింట్ చేయండి.');
-      } finally {
-        if (clone && clone.parentNode) {
-          clone.parentNode.removeChild(clone);
-        }
+      } else {
+        window.print();
       }
-    } else {
-      if (clone && clone.parentNode) {
-        clone.parentNode.removeChild(clone);
+    } catch (err) {
+      console.error('PDF generation error:', err);
+      showToast('PDF తయారీలో లోపం ఏర్పడింది. దయచేసి ప్రింట్ చేయండి.');
+    } finally {
+      if (wasHidden && DOM.modalPdfPreview) {
+        DOM.modalPdfPreview.classList.add('hidden');
+        DOM.modalPdfPreview.style.opacity = '';
+        DOM.modalPdfPreview.style.pointerEvents = '';
       }
-      window.print();
     }
   }
 
@@ -965,6 +951,7 @@
       return;
     }
     populatePrintableChittaDOM();
+    if (DOM.modalPdfPreview) DOM.modalPdfPreview.classList.remove('hidden');
     window.print();
   }
 

@@ -309,25 +309,56 @@ body {
 
 /* Print Styles */
 @media print {
-  body {
-    background: transparent !important;
+  html, body {
+    background: #ffffff !important;
     padding: 0 !important;
     margin: 0 !important;
+    width: 100% !important;
+    color: #0f172a !important;
   }
 
   /* Hide everything except the thermal receipt */
-  header, nav, #main-content, #cart-sidebar, #mobile-nav, .modal-backdrop, .no-print, button, .btn {
+  header, nav, #main-content, #cart-sidebar, #mobile-nav, .modal-backdrop, .no-print, button, .btn, #bottom-nav, #floating-cart-bar {
     display: none !important;
   }
 
-  #pdf-preview-modal {
+  /* Unhide preview modal and remove overlays */
+  #modal-pdf-preview {
     position: static !important;
-    background: none !important;
+    background: transparent !important;
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
     box-shadow: none !important;
     overflow: visible !important;
+    width: 100% !important;
+  }
+
+  #modal-pdf-preview > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Hide modal header bar & control buttons during print */
+  #modal-pdf-preview .bg-slate-900,
+  #modal-pdf-preview button {
+    display: none !important;
+  }
+
+  /* Remove gray background from scroll container */
+  #modal-pdf-preview .bg-slate-200 {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: block !important;
   }
 
   .thermal-receipt-container {
@@ -337,7 +368,17 @@ body {
     width: 80mm !important;
     margin: 0 auto !important;
     padding: 0 !important;
-    page-break-inside: avoid;
+    display: block !important;
+    visibility: visible !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .receipt-item-row,
+  .receipt-section-header,
+  .thermal-totals-section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .receipt-sawtooth-top, .receipt-sawtooth-bottom {
