@@ -60,7 +60,7 @@
       phone: '9876543210',
       address: 'గాంధీ నగర్, విజయవాడ',
       date: new Date().toISOString().split('T')[0],
-      shopName: 'శ్రీ లక్ష్మి కిరాణా, కూరగాయలు & పూజా స్టోర్',
+      shopName: 'శ్రీరామ కిరాణా & పూజా స్టోర్',
       shopPhone: '9440123456',
       shopPlace: 'మెయిన్ రోడ్డు, విజయవాడ'
     },
@@ -816,7 +816,7 @@
     const cust = STATE.customerDetails;
 
     // Header
-    if (DOM.pdfViewShopName) DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీ లక్ష్మి కిరాణా & పూజా స్టోర్';
+    if (DOM.pdfViewShopName) DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీరామ కిరాణా & పూజా స్టోర్';
     if (DOM.pdfViewShopContact) {
       DOM.pdfViewShopContact.textContent = `${cust.shopPlace ? cust.shopPlace + ' | ' : ''}ఫోన్: ${cust.shopPhone || '9440123456'}`;
     }
