@@ -478,7 +478,7 @@
   // --- CREATE PRODUCT CARD WITH RESILIENT REAL IMAGES & HOVER TOOLTIP ---
   function createProductCard(item) {
     const card = document.createElement('div');
-    card.className = 'grocery-card bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex flex-col justify-between overflow-hidden relative group';
+    card.className = 'grocery-card bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex flex-col justify-between relative group hover:border-emerald-300 transition-all duration-200';
 
     // Find if already in cart
     const cartEntry = STATE.cart.find(c => c.nameTe === item.nameTe);
@@ -506,24 +506,29 @@
         'పూజా విశేషం (Sacred Pooja)'
       );
       priorityDotHtml = `
-        <div class="priority-dot-wrap" tabindex="0">
+        <div class="priority-dot-wrap" tabindex="0" role="button" aria-label="${label}">
           <div class="priority-dot dot-${dotType}"></div>
-          <div class="priority-tooltip">${label}</div>
+          <div class="priority-tooltip">
+            <span class="tooltip-indicator dot-${dotType}"></span>
+            <span>${label}</span>
+          </div>
         </div>
       `;
     }
 
     card.innerHTML = `
       <div>
-        <!-- Real Product Image Container (Zero Emojis Policy) -->
-        <div class="product-image-wrap mb-2.5">
-          <img 
-            src="${item.imageUrl || ''}" 
-            alt="${item.nameTe}" 
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            loading="lazy"
-            onerror="window.handleProductImageError(this, '${cat}')"
-          />
+        <!-- Real Product Image Container with Priority Dot OUTSIDE the image frame -->
+        <div class="product-media-container relative mb-2.5">
+          <div class="product-image-wrap">
+            <img 
+              src="${item.imageUrl || ''}" 
+              alt="${item.nameTe}" 
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+              onerror="window.handleProductImageError(this, '${cat}')"
+            />
+          </div>
           ${priorityDotHtml}
         </div>
 
@@ -1278,6 +1283,18 @@
 
     // Setup image upload
     setupImageUploadHandler();
+
+    // Priority Dot Tooltip toggle for touch screens & dismissing on outside click
+    document.addEventListener('click', (e) => {
+      const dotWrap = e.target.closest('.priority-dot-wrap');
+      if (dotWrap) {
+        const wasActive = dotWrap.classList.contains('active');
+        document.querySelectorAll('.priority-dot-wrap.active').forEach(el => el.classList.remove('active'));
+        if (!wasActive) dotWrap.classList.add('active');
+      } else {
+        document.querySelectorAll('.priority-dot-wrap.active').forEach(el => el.classList.remove('active'));
+      }
+    });
   }
 
   // Run on DOM Ready

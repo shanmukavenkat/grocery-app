@@ -379,7 +379,7 @@ const GROCERY_ITEMS = [
     "translit": "putnala pappu putnalapappu putnalu roasted chana dal senaga pappu roasted bengal gram vepudu senagapappu",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/navadhanyalu/putnala_pappu.jpg",
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
