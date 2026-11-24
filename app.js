@@ -813,14 +813,14 @@
       // Section Item Rows
       grp.items.forEach(it => {
         const itemRow = document.createElement('div');
-        itemRow.className = 'receipt-item-row font-mono-receipt';
+        itemRow.className = 'receipt-item-row';
 
         itemRow.innerHTML = `
           <div class="flex items-start gap-1.5 flex-1 min-w-0 pr-2">
             <span class="font-bold text-slate-500 w-4 shrink-0">${globalIndex++}.</span>
             <div class="min-w-0 flex-1">
               <span class="font-bold text-slate-900">${it.nameTe}</span>
-              ${it.nameEn ? `<span class="text-[10px] text-slate-500 block truncate">(${it.nameEn})</span>` : ''}
+              ${it.nameEn ? `<span class="text-[10px] text-slate-500 block leading-tight">(${it.nameEn})</span>` : ''}
               ${it.note ? `<span class="text-[10px] text-amber-800 block italic">>> సూచన: ${it.note}</span>` : ''}
             </div>
           </div>
@@ -835,9 +835,9 @@
     });
 
     // Totals
-        if (DOM.pdfViewTotalCount) DOM.pdfViewTotalCount.textContent = `${STATE.cart.length} రకాలు`;
+    if (DOM.pdfViewTotalCount) DOM.pdfViewTotalCount.textContent = `${STATE.cart.length} రకాలు`;
     if (DOM.pdfViewTotalUnits) DOM.pdfViewTotalUnits.textContent = `${STATE.cart.length} యూనిట్లు`;
-      }
+  }
 
   // --- OPEN / CLOSE PDF PREVIEW MODAL ---
   function openPdfPreview() {
@@ -853,49 +853,107 @@
     if (DOM.modalPdfPreview) DOM.modalPdfPreview.classList.add('hidden');
   }
 
-  // --- GENERATE AND DOWNLOAD PDF (80mm Ticket Proportions) ---
-  function generateAndDownloadPdf() {
+  // --- GENERATE AND DOWNLOAD PDF (Seamless 80mm Continuous Ticket) ---
+  async function generateAndDownloadPdf() {
     if (STATE.cart.length === 0) {
       showToast('రసీదులో సరుకులు లేవు!');
       return;
     }
 
     populatePrintableChittaDOM();
-    const element = DOM.printableArea;
-    if (!element) return;
+    const sourceElement = DOM.printableArea;
+    if (!sourceElement) return;
 
     showToast('రసీదు PDF తయారవుతోంది...');
 
+    // Wait for Telugu web font to be completely ready
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+    } catch (e) {}
+
     const orderId = `KC-${STATE.orderCounter}`;
 
+    // Create an off-screen measuring clone with fixed 360px layout width
+    const clone = sourceElement.cloneNode(true);
+    clone.id = 'temp-pdf-ticket-container';
+    clone.style.position = 'fixed';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    clone.style.width = '360px';
+    clone.style.maxWidth = '360px';
+    clone.style.minWidth = '360px';
+    clone.style.display = 'block';
+    clone.style.visibility = 'visible';
+    clone.style.boxShadow = 'none';
+    clone.style.border = 'none';
+    clone.style.borderRadius = '0';
+    clone.style.backgroundColor = '#ffffff';
+    clone.style.margin = '0';
+    clone.style.padding = '0';
+    clone.style.overflow = 'visible';
+
+    document.body.appendChild(clone);
+
+    // Allow browser layout engine to paint and calculate exact dimensions
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Get actual height in pixels
+    const actualHeightPx = Math.max(clone.scrollHeight || 0, clone.offsetHeight || 0, 700);
+
+    // Scale conversion: 360px fits inside 76mm printable width (80mm page minus 4mm horizontal margins)
+    // 76mm / 360px = 0.21111 mm per px
+    const topMarginMm = 4;
+    const bottomMarginMm = 4;
+    const imgHeightMm = Math.ceil((actualHeightPx * 76) / 360);
+    // Page height sized exactly to contain the whole receipt on ONE continuous slip
+    const pageHeightMm = Math.max(120, imgHeightMm + topMarginMm + bottomMarginMm + 8);
+
     const opt = {
-      margin: [4, 4, 4, 4],
+      margin: [topMarginMm, 2, bottomMarginMm, 2],
       filename: `Kirana-Pooja-Ticket-${orderId}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: {
-        scale: 2.5,
+        scale: 3, // Razor-sharp 300 DPI quality
         useCORS: true,
         logging: false,
-        letterRendering: true
+        letterRendering: false, // CRITICAL: Never true for Indic Telugu scripts
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        width: 360,
+        windowWidth: 360
+      },
+      pagebreak: {
+        mode: ['avoid-all', 'css', 'legacy'],
+        avoid: ['.receipt-item-row', '.receipt-section-header', '.thermal-totals-section', '.thermal-footer', '.receipt-header-block']
       },
       jsPDF: {
         unit: 'mm',
-        format: [80, Math.max(180, element.offsetHeight * 0.264583 + 20)],
+        format: [80, pageHeightMm],
         orientation: 'portrait'
       }
     };
 
     if (typeof html2pdf !== 'undefined') {
-      html2pdf().set(opt).from(element).save().then(() => {
+      try {
+        await html2pdf().set(opt).from(clone).save();
         showToast('రసీదు PDF డౌన్‌లోడ్ పూర్తయింది!');
         triggerConfetti();
         STATE.orderCounter++;
         saveCartState();
-      }).catch(err => {
+      } catch (err) {
         console.error('PDF generation error:', err);
         showToast('PDF తయారీలో లోపం ఏర్పడింది. దయచేసి ప్రింట్ చేయండి.');
-      });
+      } finally {
+        if (clone && clone.parentNode) {
+          clone.parentNode.removeChild(clone);
+        }
+      }
     } else {
+      if (clone && clone.parentNode) {
+        clone.parentNode.removeChild(clone);
+      }
       window.print();
     }
   }
