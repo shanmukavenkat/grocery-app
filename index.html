@@ -67,7 +67,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
   <!-- Custom Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=4.5">
+  <link rel="stylesheet" href="styles.css?v=5.0">
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col font-telugu antialiased select-auto">
 
@@ -394,79 +394,80 @@
   <!-- ======================================================== -->
   <!-- MODAL 1: QUANTITY PICKER & NOTE MODAL                   -->
   <!-- ======================================================== -->
-  <div id="modal-quantity" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden animate-fade-in">
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-slate-200 transform transition-all">
+  <div id="modal-quantity" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden animate-fade-in overflow-y-auto">
+    <div class="bg-white w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden border border-slate-200 transform transition-all my-auto max-h-[92vh] flex flex-col">
       
       <!-- Modal Header (Zero emojis) -->
-      <div class="bg-emerald-800 text-white p-4 flex items-center justify-between">
+      <div class="bg-gradient-to-r from-emerald-800 to-teal-700 text-white p-4 flex items-center justify-between shrink-0">
         <div class="flex items-center gap-3">
           <div id="modal-item-icon" class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-amber-300 text-lg shrink-0">
-            <i class="fa-solid fa-wheat-awn"></i>
+            <i class="fa-solid fa-scale-balanced"></i>
           </div>
           <div>
             <h3 id="modal-item-title" class="text-base sm:text-lg font-bold">కందిపప్పు</h3>
             <p id="modal-item-subtitle" class="text-xs text-emerald-200">కావలసిన తెలుగు పరిమాణాన్ని ఎంచుకోండి</p>
           </div>
         </div>
-        <button id="btn-close-qty-modal" class="text-white/70 hover:text-white text-lg p-1">
+        <button id="btn-close-qty-modal" class="text-white/70 hover:text-white text-lg p-1.5 rounded-lg hover:bg-white/10 transition">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- Modal Body -->
-      <div class="p-5 space-y-4">
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-4 sm:p-5 space-y-4 overflow-y-auto flex-1 scrollbar-thin">
         
-        <!-- Standard Quick Selection Buttons -->
+        <!-- Standard Telugu Quantities Grid (Exact Match to User Reference Image) -->
         <div>
-          <label class="block text-xs font-bold text-slate-600 mb-2">సాధారణ తెలుగు పరిమాణాలు:</label>
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="modal-quick-quantities">
-            <!-- Dynamically populated buttons -->
+          <div class="flex items-center justify-between mb-2.5">
+            <label class="block text-xs sm:text-sm font-bold text-slate-800">
+              సాధారణ తెలుగు పరిమాణాలు (ఎంపిక చేసుకోండి):
+            </label>
+            <span class="text-[10px] sm:text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              క్లిక్ చేయండి
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-2.5" id="modal-quick-quantities">
+            <!-- Dynamically populated 2-line cards (పావు కిలో / 250 గ్రాములు etc.) -->
           </div>
         </div>
 
-        <!-- Custom Quantity Input -->
+        <!-- Selected Quantity Display & Custom Input -->
         <div class="border-t border-slate-200 pt-3">
-          <label class="block text-xs font-bold text-slate-600 mb-1.5">సొంత పరిమాణం (లేదా వేరే కొలత):</label>
-          <div class="grid grid-cols-12 gap-2">
-            <div class="col-span-5">
-              <input 
-                type="text" 
-                id="modal-custom-qty-val" 
-                placeholder="ఉదా: 1.5, 3..." 
-                class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
-              >
-            </div>
-            <div class="col-span-7">
-              <select id="modal-custom-qty-unit" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-                <!-- Standard Telugu Units -->
-              </select>
-            </div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">ఎంచుకున్న పరిమాణం (లేదా సొంతంగా టైప్ చేయండి):</label>
+          <div class="relative">
+            <input 
+              type="text" 
+              id="modal-custom-qty-val" 
+              placeholder="ఉదా: పావు కిలో, 1.5 కిలోలు, 3 కట్టలు..." 
+              class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-bold text-emerald-900 focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+            >
           </div>
         </div>
 
         <!-- Special Note for Shopkeeper -->
         <div>
-          <label class="block text-xs font-bold text-slate-600 mb-1 flex items-center justify-between">
+          <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
             <span>షాపు వారి కోసం ప్రత్యేక సూచన:</span>
             <span class="text-[10px] text-slate-400 font-normal">(ఐచ్ఛికం)</span>
           </label>
           <input 
             type="text" 
             id="modal-item-note" 
-            placeholder="ఉదా: సన్న బియ్యం, మంచి బ్రాండ్, పాత సరుకు..." 
-            class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-800"
+            placeholder="ఉదా: సన్న బియ్యం, మంచి క్వాలిటీ, తాజా కట్టలు..." 
+            class="w-full px-3.5 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none text-slate-800"
           >
         </div>
 
       </div>
 
       <!-- Modal Footer -->
-      <div class="bg-slate-50 p-4 border-t border-slate-200 flex items-center justify-end gap-2">
+      <div class="bg-slate-50 p-4 border-t border-slate-200 flex items-center justify-end gap-2.5 shrink-0">
         <button id="btn-cancel-qty-modal" class="px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 transition">
           రద్దు చేయి
         </button>
-        <button id="btn-confirm-add-item" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-5 py-2 rounded-xl text-xs sm:text-sm shadow transition flex items-center gap-1.5">
-          <i class="fa-solid fa-check"></i>
+        <button id="btn-confirm-add-item" class="bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2">
+          <i class="fa-solid fa-cart-plus"></i>
           <span>రసీదులో చేర్చు</span>
         </button>
       </div>
@@ -918,7 +919,7 @@
   </div>
 
   <!-- App Logic & Catalog Scripts -->
-  <script src="groceryData.js?v=4.5"></script>
-  <script src="app.js?v=4.5"></script>
+  <script src="groceryData.js?v=5.0"></script>
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>

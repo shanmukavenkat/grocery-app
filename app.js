@@ -611,32 +611,92 @@
     return card;
   }
 
+  // --- MASTER LIST OF AUTHENTIC TELUGU EVERYDAY QUANTITIES (MATCHING REFERENCE IMAGE) ---
+  const TELUGU_STANDARD_QUANTITY_OPTIONS = [
+    { primary: 'పావు కిలో', secondary: '250 గ్రాములు', value: 'పావు కిలో' },
+    { primary: 'అర కిలో', secondary: '500 గ్రాములు', value: 'అర కిలో' },
+    { primary: 'ముప్పావు కిలో', secondary: '750 గ్రాములు', value: 'ముప్పావు కిలో' },
+    { primary: '1 కిలో', secondary: '1000 గ్రాములు', value: '1 కిలో' },
+    { primary: '2 కిలోలు', secondary: '2000 గ్రాములు', value: '2 కిలోలు' },
+    { primary: '5 కిలోలు', secondary: '5 KG', value: '5 కిలోలు' },
+    { primary: '10 కిలోలు', secondary: '10 KG', value: '10 కిలోలు' },
+    { primary: '25 కిలోల బస్తా', secondary: '1 బ్యాగ్', value: '25 కిలోల బస్తా' },
+    { primary: '50 గ్రాములు', secondary: '50 gm', value: '50 గ్రాములు' },
+    { primary: '100 గ్రాములు', secondary: '100 gm', value: '100 గ్రాములు' },
+    { primary: '200 గ్రాములు', secondary: '200 gm', value: '200 గ్రాములు' },
+    { primary: 'అర లీటరు', secondary: '500 మి.లీ', value: 'అర లీటరు' },
+    { primary: '1 లీటరు', secondary: '1000 మి.లీ', value: '1 లీటరు' },
+    { primary: '2 లీటర్లు', secondary: '2 Liters', value: '2 లీటర్లు' },
+    { primary: '5 లీటర్ల డబ్బా', secondary: '5 Liters Can', value: '5 లీటర్ల డబ్బా' },
+    { primary: '1 ప్యాకెట్', secondary: '1 Packet', value: '1 ప్యాకెట్' },
+    { primary: '2 ప్యాకెట్లు', secondary: '2 Packets', value: '2 ప్యాకెట్లు' },
+    { primary: '1 కట్ట', secondary: '1 Bunch', value: '1 కట్ట' },
+    { primary: '2 కట్టలు', secondary: '2 Bunches', value: '2 కట్టలు' },
+    { primary: '1 డజను', secondary: '12 నంబర్లు', value: '1 డజను' },
+    { primary: 'అర డజను', secondary: '6 నంబర్లు', value: 'అర డజను' },
+    { primary: '1 కాయ', secondary: '1 Piece', value: '1 కాయ' },
+    { primary: '2 కాయలు', secondary: '2 Pieces', value: '2 కాయలు' },
+    { primary: '1 జత', secondary: '2 Pieces (Pair)', value: '1 జత' },
+    { primary: '1 పీస్', secondary: '1 Single Pc', value: '1 పీస్' }
+  ];
+
   // --- QUANTITY MODAL LOGIC ---
   function openQuantityModal(item) {
     STATE.pendingItemForModal = item;
     if (!DOM.modalQuantity) return;
 
     if (DOM.modalItemTitle) DOM.modalItemTitle.textContent = item.nameTe;
-    if (DOM.modalItemSubtitle) DOM.modalItemSubtitle.textContent = item.nameEn ? `${item.nameEn} - కావలసిన పరిమాణం` : 'కావలసిన పరిమాణాన్ని నమోదు చేయండి';
-        if (DOM.modalItemNote) DOM.modalItemNote.value = '';
+    if (DOM.modalItemSubtitle) DOM.modalItemSubtitle.textContent = item.nameEn ? `${item.nameEn} - కావలసిన పరిమాణం` : 'కావలసిన పరిమాణాన్ని ఎంచుకోండి';
+    if (DOM.modalItemNote) DOM.modalItemNote.value = '';
 
-    // Quick Quantities buttons in modal
+    const defaultSelection = item.defaultQty || (item.commonQtys && item.commonQtys[0]) || '1 కిలో';
+    if (DOM.modalCustomQtyVal) DOM.modalCustomQtyVal.value = defaultSelection;
+
+    // Populate the full 2-line authentic Telugu measurement grid (matching user's reference image)
     if (DOM.modalQuickQuantities) {
       DOM.modalQuickQuantities.innerHTML = '';
-      const qtys = (item.commonQtys && item.commonQtys.length > 0) ? item.commonQtys : ['1 కిలో', '500 గ్రాములు', '250 గ్రాములు'];
-      qtys.forEach(q => {
+
+      TELUGU_STANDARD_QUANTITY_OPTIONS.forEach(opt => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'btn-modal-quick-qty py-2 px-2 bg-slate-50 hover:bg-emerald-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 transition text-center truncate';
-        btn.textContent = q;
+        const isSelected = (defaultSelection === opt.value || defaultSelection === opt.primary);
+        btn.className = `qty-card-btn text-left p-2.5 sm:p-3 bg-white border rounded-xl sm:rounded-2xl transition-all duration-150 flex flex-col justify-center shadow-xs cursor-pointer focus:outline-none ${
+          isSelected 
+            ? 'border-emerald-600 bg-emerald-50/90 ring-2 ring-emerald-500' 
+            : 'border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50'
+        }`;
+        
+        btn.innerHTML = `
+          <span class="font-bold text-slate-900 text-xs sm:text-sm leading-snug group-hover:text-emerald-800">${opt.primary}</span>
+          <span class="text-[10px] sm:text-[11px] text-slate-400 font-sans mt-0.5 leading-tight">${opt.secondary}</span>
+        `;
+
         btn.addEventListener('click', () => {
-          DOM.modalCustomQtyVal.value = q;
+          DOM.modalQuickQuantities.querySelectorAll('.qty-card-btn').forEach(b => {
+            b.classList.remove('border-emerald-600', 'bg-emerald-50/90', 'ring-2', 'ring-emerald-500');
+            b.classList.add('border-slate-200', 'bg-white');
+          });
+          btn.classList.remove('border-slate-200', 'bg-white');
+          btn.classList.add('border-emerald-600', 'bg-emerald-50/90', 'ring-2', 'ring-emerald-500');
+
+          if (DOM.modalCustomQtyVal) {
+            DOM.modalCustomQtyVal.value = opt.value;
+          }
         });
+
+        // Double click immediately confirms and adds to cart
+        btn.addEventListener('dblclick', () => {
+          const note = DOM.modalItemNote ? DOM.modalItemNote.value.trim() : '';
+          addItemToCart(item, opt.value, note);
+          closeQuantityModal();
+          triggerConfetti();
+          showToast(`${item.nameTe} (${opt.value}) రసీదులో చేర్చబడింది!`);
+        });
+
         DOM.modalQuickQuantities.appendChild(btn);
       });
     }
 
-    if (DOM.modalCustomQtyVal) DOM.modalCustomQtyVal.value = item.defaultQty || '1 కిలో';
     DOM.modalQuantity.classList.remove('hidden');
   }
 
