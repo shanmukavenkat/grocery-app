@@ -1,89 +1,394 @@
-// కిరాణా & పూజా సామాగ్రి డేటాబేస్ (Telugu Grocery, Produce & Hindu Pooja Catalog)
-// Built with real NRIOL images & verified sacred Hindu pooja items. Zero emojis.
+// కిరాణా, నవధాన్యాలు, కూరగాయలు, పండ్లు & పూజా సామాగ్రి డేటాబేస్
+// High-resolution photos from Telugu Sampada vocabulary PDFs & Navadhanyalu chart.
+// STRICT ZERO EMOJIS POLICY. 100% VEGETARIAN (NO EGGS).
 
 const GROCERY_CATEGORIES = [
-  { id: 'all', name: 'అన్నీ', nameEn: 'All Items', icon: 'fa-layer-group', color: 'bg-emerald-600' },
-  { id: 'groceries', name: 'కిరాణా సరుకులు', nameEn: 'Groceries & Dals', icon: 'fa-wheat-awn', color: 'bg-amber-600' },
-  { id: 'vegetables', name: 'కూరగాయలు & ఆకులు', nameEn: 'Vegetables & Greens', icon: 'fa-carrot', color: 'bg-green-600' },
-  { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fresh Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
-  { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Hindu Pooja Items', icon: 'fa-om', color: 'bg-orange-600' }
+  {
+    "id": "all",
+    "name": "అన్నీ",
+    "nameEn": "All Items",
+    "icon": "fa-layer-group",
+    "color": "bg-emerald-600"
+  },
+  {
+    "id": "groceries",
+    "name": "కిరాణా & నవధాన్యాలు",
+    "nameEn": "Groceries & Grains",
+    "icon": "fa-wheat-awn",
+    "color": "bg-amber-600"
+  },
+  {
+    "id": "vegetables",
+    "name": "కూరగాయలు & ఆకులు",
+    "nameEn": "Vegetables & Greens",
+    "icon": "fa-carrot",
+    "color": "bg-green-600"
+  },
+  {
+    "id": "fruits",
+    "name": "తాజా పండ్లు",
+    "nameEn": "Fresh Fruits",
+    "icon": "fa-apple-whole",
+    "color": "bg-rose-600"
+  },
+  {
+    "id": "pooja",
+    "name": "పూజా సామాగ్రి",
+    "nameEn": "Hindu Pooja Items",
+    "icon": "fa-om",
+    "color": "bg-orange-600"
+  }
 ];
 
-// Everyday Telugu Quantity Options with clear naming and standard equivalents
 const STANDARD_QUANTITIES = [
-  { id: 'pavu_kg', label: 'పావు కిలో', sub: '250 గ్రాములు', defaultUnit: 'పావు కిలో' },
-  { id: 'ara_kg', label: 'అర కిలో', sub: '500 గ్రాములు', defaultUnit: 'అర కిలో' },
-  { id: 'muppavu_kg', label: 'ముప్పావు కిలో', sub: '750 గ్రాములు', defaultUnit: 'ముప్పావు కిలో' },
-  { id: '1_kg', label: '1 కిలో', sub: '1000 గ్రాములు', defaultUnit: '1 కిలో' },
-  { id: '2_kg', label: '2 కిలోలు', sub: '2000 గ్రాములు', defaultUnit: '2 కిలోలు' },
-  { id: '5_kg', label: '5 కిలోలు', sub: '5 KG', defaultUnit: '5 కిలోలు' },
-  { id: '10_kg', label: '10 కిలోలు', sub: '10 KG', defaultUnit: '10 కిలోలు' },
-  { id: '25_kg_basta', label: '25 కిలోల బస్తా', sub: '1 బ్యాగ్', defaultUnit: '25 కిలోల బస్తా' },
-  { id: '50_gm', label: '50 గ్రాములు', sub: '50 gm', defaultUnit: '50 గ్రాములు' },
-  { id: '100_gm', label: '100 గ్రాములు', sub: '100 gm', defaultUnit: '100 గ్రాములు' },
-  { id: '200_gm', label: '200 గ్రాములు', sub: '200 gm', defaultUnit: '200 గ్రాములు' },
-  { id: 'ara_liter', label: 'అర లీటరు', sub: '500 మి.లీ', defaultUnit: 'అర లీటరు' },
-  { id: '1_liter', label: '1 లీటరు', sub: '1000 మి.లీ', defaultUnit: '1 లీటరు' },
-  { id: '2_liter', label: '2 లీటర్లు', sub: '2 Liters', defaultUnit: '2 లీటర్లు' },
-  { id: '5_liter', label: '5 లీటర్ల డబ్బా', sub: '5 Liters Can', defaultUnit: '5 లీటర్ల డబ్బా' },
-  { id: '1_pkt', label: '1 ప్యాకెట్', sub: '1 Packet', defaultUnit: '1 ప్యాకెట్' },
-  { id: '2_pkt', label: '2 ప్యాకెట్లు', sub: '2 Packets', defaultUnit: '2 ప్యాకెట్లు' },
-  { id: '1_katta', label: '1 కట్ట', sub: '1 Bunch', defaultUnit: '1 కట్ట' },
-  { id: '2_katta', label: '2 కట్టలు', sub: '2 Bunches', defaultUnit: '2 కట్టలు' },
-  { id: '1_kaya', label: '1 కాయ', sub: '1 Piece', defaultUnit: '1 కాయ' },
-  { id: '2_kayalu', label: '2 కాయలు', sub: '2 Pieces', defaultUnit: '2 కాయలు' },
-  { id: '1_dozen', label: '1 డజను', sub: '12 నంబర్లు', defaultUnit: '1 డజను' },
-  { id: 'ara_dozen', label: 'అర డజను', sub: '6 నంబర్లు', defaultUnit: 'అర డజను' },
-  { id: '1_jatha', label: '1 జత', sub: '2 Pieces (Pair)', defaultUnit: '1 జత' },
-  { id: '1_dabba', label: '1 డబ్బా / బాక్స్', sub: '1 Box', defaultUnit: '1 డబ్బా' },
-  { id: '1_bottle', label: '1 బాటిల్', sub: '1 Bottle', defaultUnit: '1 బాటిల్' }
+  {
+    "id": "pavu_kg",
+    "label": "పావు కిలో",
+    "sub": "250 గ్రాములు",
+    "defaultUnit": "పావు కిలో"
+  },
+  {
+    "id": "ara_kg",
+    "label": "అర కిలో",
+    "sub": "500 గ్రాములు",
+    "defaultUnit": "అర కిలో"
+  },
+  {
+    "id": "muppavu_kg",
+    "label": "ముప్పావు కిలో",
+    "sub": "750 గ్రాములు",
+    "defaultUnit": "ముప్పావు కిలో"
+  },
+  {
+    "id": "1_kg",
+    "label": "1 కిలో",
+    "sub": "1000 గ్రాములు",
+    "defaultUnit": "1 కిలో"
+  },
+  {
+    "id": "2_kg",
+    "label": "2 కిలోలు",
+    "sub": "2000 గ్రాములు",
+    "defaultUnit": "2 కిలోలు"
+  },
+  {
+    "id": "5_kg",
+    "label": "5 కిలోలు",
+    "sub": "5 KG",
+    "defaultUnit": "5 కిలోలు"
+  },
+  {
+    "id": "10_kg",
+    "label": "10 కిలోలు",
+    "sub": "10 KG",
+    "defaultUnit": "10 కిలోలు"
+  },
+  {
+    "id": "25_kg_basta",
+    "label": "25 కిలోల బస్తా",
+    "sub": "1 బ్యాగ్",
+    "defaultUnit": "25 కిలోల బస్తా"
+  },
+  {
+    "id": "50_gm",
+    "label": "50 గ్రాములు",
+    "sub": "50 gm",
+    "defaultUnit": "50 గ్రాములు"
+  },
+  {
+    "id": "100_gm",
+    "label": "100 గ్రాములు",
+    "sub": "100 gm",
+    "defaultUnit": "100 గ్రాములు"
+  },
+  {
+    "id": "250_gm",
+    "label": "250 గ్రాములు",
+    "sub": "250 gm",
+    "defaultUnit": "250 గ్రాములు"
+  },
+  {
+    "id": "500_gm",
+    "label": "500 గ్రాములు",
+    "sub": "500 gm",
+    "defaultUnit": "500 గ్రాములు"
+  },
+  {
+    "id": "ara_liter",
+    "label": "అర లీటరు",
+    "sub": "500 మి.లీ",
+    "defaultUnit": "అర లీటరు"
+  },
+  {
+    "id": "1_liter",
+    "label": "1 లీటరు",
+    "sub": "1000 మి.లీ",
+    "defaultUnit": "1 లీటరు"
+  },
+  {
+    "id": "2_liter",
+    "label": "2 లీటర్లు",
+    "sub": "2 Liters",
+    "defaultUnit": "2 లీటర్లు"
+  },
+  {
+    "id": "5_liter",
+    "label": "5 లీటర్ల డబ్బా",
+    "sub": "5 Liters Can",
+    "defaultUnit": "5 లీటర్ల డబ్బా"
+  },
+  {
+    "id": "1_pkt",
+    "label": "1 ప్యాకెట్",
+    "sub": "1 Packet",
+    "defaultUnit": "1 ప్యాకెట్"
+  },
+  {
+    "id": "2_pkt",
+    "label": "2 ప్యాకెట్లు",
+    "sub": "2 Packets",
+    "defaultUnit": "2 ప్యాకెట్లు"
+  },
+  {
+    "id": "1_katta",
+    "label": "1 కట్ట",
+    "sub": "1 Bunch",
+    "defaultUnit": "1 కట్ట"
+  },
+  {
+    "id": "2_katta",
+    "label": "2 కట్టలు",
+    "sub": "2 Bunches",
+    "defaultUnit": "2 కట్టలు"
+  },
+  {
+    "id": "1_kaya",
+    "label": "1 కాయ",
+    "sub": "1 Piece",
+    "defaultUnit": "1 కాయ"
+  },
+  {
+    "id": "2_kayalu",
+    "label": "2 కాయలు",
+    "sub": "2 Pieces",
+    "defaultUnit": "2 కాయలు"
+  },
+  {
+    "id": "1_dozen",
+    "label": "1 డజను",
+    "sub": "12 నంబర్లు",
+    "defaultUnit": "1 డజను"
+  },
+  {
+    "id": "ara_dozen",
+    "label": "అర డజను",
+    "sub": "6 నంబర్లు",
+    "defaultUnit": "అర డజను"
+  },
+  {
+    "id": "1_jatha",
+    "label": "1 జత",
+    "sub": "2 Pieces (Pair)",
+    "defaultUnit": "1 జత"
+  }
 ];
 
 const TELUGU_UNITS = [
-  'కిలోలు',
-  'గ్రాములు',
-  'లీటర్లు',
-  'మిల్లీ లీటర్లు',
-  'ప్యాకెట్లు',
-  'కట్టలు',
-  'కాయలు',
-  'డజన్లు',
-  'జతలు',
-  'డబ్బాలు',
-  'బాటిళ్ళు',
-  'బస్తాలు',
-  'నంబర్లు'
+  "కిలోలు",
+  "గ్రాములు",
+  "లీటర్లు",
+  "మిల్లీ లీటర్లు",
+  "ప్యాకెట్లు",
+  "కట్టలు",
+  "కాయలు",
+  "డజన్లు",
+  "జతలు",
+  "డబ్బాలు",
+  "బాటిళ్ళు",
+  "బస్తాలు",
+  "పీసులు"
 ];
 
 const GROCERY_ITEMS = [
   {
-    "id": "nr_sona_rice_1",
-    "nameTe": "సోనా మసూరి బియ్యం (పాత బియ్యం)",
-    "nameEn": "Sona Masoori Rice (Aged Rice)",
-    "translit": "sona masoori biyyam biyam rice sona masuri raw rice steam rice white rice rice bag",
+    "id": "nava_1",
+    "nameTe": "గోధుమలు",
+    "nameEn": "Wheat (Godhumalu)",
+    "translit": "godhumalu godhuma wheat whole wheat grains atta nava dhanyalu navadhanya",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/raw.jpg",
-    "price": 1450,
-    "defaultQty": "25 కిలోల బస్తా",
+    "imageUrl": "images/navadhanyalu/godhumalu.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
     "commonQtys": [
-      "25 కిలోల బస్తా",
-      "10 కిలోలు",
-      "5 కిలోలు",
-      "1 కిలో"
+      "1 కిలో",
+      "2 కిలోలు",
+      "5 కిలోలు"
     ],
     "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
+    "tagLabelTelugu": "నవధాన్యం",
     "inStock": true
   },
   {
-    "id": "nr_putnala_1",
+    "id": "nava_2",
+    "nameTe": "యవలు (బార్లీ)",
+    "nameEn": "Barley (Yavalu)",
+    "translit": "yavalu barley jav javalu yavalu nava dhanyalu navadhanya",
+    "mainCategory": "groceries",
+    "category": "grains",
+    "imageUrl": "images/navadhanyalu/yavalu.jpg",
+    "price": 60,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_3",
+    "nameTe": "పెసలు (ఆకుపచ్చ పెసలు)",
+    "nameEn": "Green Gram Whole (Pesalu)",
+    "translit": "pesalu moong whole sabut moong green gram pesalu nava dhanyalu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "images/navadhanyalu/pesalu.jpg",
+    "price": 110,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_4",
+    "nameTe": "శనగలు (నల్ల శనగలు)",
+    "nameEn": "Bengal Gram Whole (Kala Chana / Senagalu)",
+    "translit": "senagalu sanagalu kala chana brown chana desi chana bengal gram whole nava dhanyalu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "images/navadhanyalu/senagalu.jpg",
+    "price": 85,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_5",
+    "nameTe": "కందులు (మొత్తం కందులు)",
+    "nameEn": "Red Gram Whole (Kandulu / Whole Toor)",
+    "translit": "kandulu toor whole arhar red gram kandulu nava dhanyalu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "images/navadhanyalu/kandulu.jpg",
+    "price": 130,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_6",
+    "nameTe": "అలసందలు (బొబ్బర్లు)",
+    "nameEn": "Cowpeas / Black-Eyed Peas (Alasandalu)",
+    "translit": "alasandalu bobbarlu lobiya cowpeas black eyed peas alasandalu nava dhanyalu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "images/navadhanyalu/alasandalu.jpg",
+    "price": 95,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_7",
+    "nameTe": "నువ్వులు (తెల్ల నువ్వులు)",
+    "nameEn": "Sesame Seeds (Nuvvulu / Til)",
+    "translit": "nuvvulu tella nuvvulu til sesame seeds gingelly nava dhanyalu pooja nuvvulu",
+    "mainCategory": "groceries",
+    "category": "spices",
+    "imageUrl": "images/navadhanyalu/nuvvulu.jpg",
+    "price": 60,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_8",
+    "nameTe": "మినుములు (పొట్టు మినుములు)",
+    "nameEn": "Black Gram Whole (Minumulu / Sabut Urad)",
+    "translit": "minumulu sabut urad black gram whole minumulu nava dhanyalu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "images/navadhanyalu/minumulu.jpg",
+    "price": 125,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "nava_9",
+    "nameTe": "ఉలవలు (గుర్రపు పప్పు)",
+    "nameEn": "Horse Gram (Ulavalu)",
+    "translit": "ulavalu horse gram kulthi ulava charu ulavalu nava dhanyalu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "images/navadhanyalu/ulavalu.jpg",
+    "price": 75,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "నవధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "groc_1",
     "nameTe": "పుట్నాల పప్పు (వేయించిన శనగ పప్పు)",
     "nameEn": "Roasted Gram Dal (Putnala Pappu)",
     "translit": "putnala pappu putnalapappu putnalu roasted chana dal senaga pappu roasted bengal gram vepudu senagapappu",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/bengal-gram.jpg",
+    "imageUrl": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=500&auto=format&fit=crop&q=80",
     "price": 38,
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
@@ -96,52 +401,91 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "nr_1",
-    "nameTe": "శనగ పప్పు",
-    "nameEn": "Bengal Gram",
-    "translit": "senaga pappu bengal gram శనగ పప్పు putnala putnalapappu roasted chana dal",
+    "id": "groc_2",
+    "nameTe": "సోనా మసూరి బియ్యం (పాత బియ్యం)",
+    "nameEn": "Sona Masoori Rice (Aged Rice)",
+    "translit": "sona masoori biyyam biyam rice sona masuri raw rice steam rice white rice rice bag basta",
     "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/bengal-gram.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
+    "category": "grains",
+    "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
+    "price": 1450,
+    "defaultQty": "25 కిలోల బస్తా",
     "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
+      "25 కిలోల బస్తా",
+      "10 కిలోలు",
+      "5 కిలోలు",
+      "1 కిలో"
     ],
     "tagType": "essential",
     "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
-    "id": "nr_2",
+    "id": "groc_3",
+    "nameTe": "బాస్మతి బియ్యం (ప్రీమియం లాంగ్ గ్రెయిన్)",
+    "nameEn": "Basmati Rice (Biryani Rice)",
+    "translit": "basmati rice biyyam biryani rice daawat india gate long grain basmathi",
+    "mainCategory": "groceries",
+    "category": "grains",
+    "imageUrl": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=500&auto=format&fit=crop&q=80",
+    "price": 120,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "5 కిలోలు",
+      "2 కిలోలు"
+    ],
+    "tagType": "offer",
+    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
+    "inStock": true
+  },
+  {
+    "id": "groc_4",
+    "nameTe": "కంది పప్పు (ఫస్ట్ క్వాలిటీ)",
+    "nameEn": "Toor Dal (Kandi Pappu)",
+    "translit": "kandi pappu kandipappu toor dal tuvar dal arhar dal yellow dal",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "https://images.unsplash.com/photo-1585994192701-f1a505c817ea?w=500&auto=format&fit=crop&q=80",
+    "price": 155,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_5",
+    "nameTe": "మినప పప్పు (గుళ్ళు)",
+    "nameEn": "Urad Dal Gulla (Minapa Gulla)",
+    "translit": "minapa pappu minapappu minapa gulla urad dal idli dal dosa pappu",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "https://images.unsplash.com/photo-1587334207436-1e0e8e0d37e6?w=500&auto=format&fit=crop&q=80",
+    "price": 140,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_6",
     "nameTe": "పెసర పప్పు",
-    "nameEn": "Green Gram",
-    "translit": "pesara pappu green gram పెసర పప్పు pesarapappu moong dal",
+    "nameEn": "Moong Dal (Pesara Pappu)",
+    "translit": "pesara pappu pesarapappu moong dal yellow moong dal pesarattu pappu",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/green-gram.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_3",
-    "nameTe": "కంది పప్పు",
-    "nameEn": "Red Gram",
-    "translit": "kandhi pappu red gram కంది పప్పు kandi kandipappu toor dal tuvar",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/red-gram.jpg",
-    "price": 60,
+    "imageUrl": "https://images.unsplash.com/photo-1610444585694-8254b2a8d3fe?w=500&auto=format&fit=crop&q=80",
+    "price": 125,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -153,52 +497,987 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "nr_4",
-    "nameTe": "మినపప్పు",
-    "nameEn": "Black Gram",
-    "translit": "minappappu black gram మినపప్పు minapa pappu minapappu urad dal uddipappu",
+    "id": "groc_7",
+    "nameTe": "శనగ పప్పు (తాలింపు పప్పు)",
+    "nameEn": "Chana Dal (Senaga Pappu)",
+    "translit": "senaga pappu sanaga pappu chana dal bengal gram split dal",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/black-gram.jpg",
-    "price": 60,
+    "imageUrl": "https://images.unsplash.com/photo-1585994192701-f1a505c817ea?w=500&auto=format&fit=crop&q=80",
+    "price": 90,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
       "500 గ్రాములు",
       "250 గ్రాములు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
-    "id": "nr_5",
-    "nameTe": "గసగసాలు",
-    "nameEn": "Poppy seeds",
-    "translit": "gasalu gasagasaalu poppy seeds గసగసాలు",
+    "id": "groc_8",
+    "nameTe": "వేరుశెనగ గుళ్ళు / పల్లీలు",
+    "nameEn": "Peanuts / Groundnuts (Pallilu)",
+    "translit": "pallilu palli verusenaga gullu peanuts groundnuts moongphali",
+    "mainCategory": "groceries",
+    "category": "dals",
+    "imageUrl": "https://images.unsplash.com/photo-1567894340315-735d7c361db0?w=500&auto=format&fit=crop&q=80",
+    "price": 130,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_9",
+    "nameTe": "గోధుమ పిండి (చక్కీ ఫ్రెష్ ఆటా)",
+    "nameEn": "Chakki Fresh Wheat Flour (Atta)",
+    "translit": "godhuma pindi atta chakki fresh aashirvaad wheat flour chapatipindi",
+    "mainCategory": "groceries",
+    "category": "grains",
+    "imageUrl": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=80",
+    "price": 60,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "5 కిలోలు",
+      "10 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_10",
+    "nameTe": "శనగపిండి (బేసన్)",
+    "nameEn": "Besan / Gram Flour",
+    "translit": "senagapindi besan gram flour bajji pindi chana flour",
+    "mainCategory": "groceries",
+    "category": "grains",
+    "imageUrl": "https://images.unsplash.com/photo-1610444585694-8254b2a8d3fe?w=500&auto=format&fit=crop&q=80",
+    "price": 50,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_11",
+    "nameTe": "బొంబాయి రవ్వ (ఉప్మా రవ్వ)",
+    "nameEn": "Semolina / Upma Rava (Bombay Rava)",
+    "translit": "bombai rawa bombay rava upma rava semolina sooji suji",
+    "mainCategory": "groceries",
+    "category": "grains",
+    "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
+    "price": 42,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_12",
+    "nameTe": "అటుకులు (మధ్యస్థం)",
+    "nameEn": "Poha / Beaten Rice (Atukulu)",
+    "translit": "atukulu poha flattened rice beaten rice aval atukulu",
+    "mainCategory": "groceries",
+    "category": "grains",
+    "imageUrl": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500&auto=format&fit=crop&q=80",
+    "price": 50,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_13",
+    "nameTe": "వేరుశెనగ నూనె (గానుగ నూనె)",
+    "nameEn": "Groundnut Cooking Oil (Cold Pressed)",
+    "translit": "verusenaga nune palli noone groundnut oil peanut oil ganuga nune cooking oil",
+    "mainCategory": "groceries",
+    "category": "oils",
+    "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80",
+    "price": 175,
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "1 లీటరు",
+      "2 లీటర్లు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_14",
+    "nameTe": "స్వచ్ఛమైన ఆవు నెయ్యి",
+    "nameEn": "Pure Cow Ghee (Aavu Neyyi)",
+    "translit": "aavu neyyi cow ghee pure desi ghee neyyi ghee butter",
+    "mainCategory": "groceries",
+    "category": "oils",
+    "imageUrl": "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=500&auto=format&fit=crop&q=80",
+    "price": 340,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_15",
+    "nameTe": "జీలకర్ర",
+    "nameEn": "Cumin Seeds (Jeelakarra)",
+    "translit": "jeelakarra jeera cumin seeds zeera popu jeelakarra",
     "mainCategory": "groceries",
     "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/poppy.jpg",
-    "price": 50,
+    "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+    "price": 45,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
       "250 గ్రాములు",
-      "50 గ్రాములు",
       "500 గ్రాములు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
-    "id": "nr_6",
-    "nameTe": "ధనియాలు",
-    "nameEn": "Coriander seeds",
-    "translit": "dhaniyalu coriander seeds ధనియాలు",
+    "id": "groc_16",
+    "nameTe": "ఆవాలు",
+    "nameEn": "Mustard Seeds (Avalu)",
+    "translit": "avalu rai mustard seeds popu avalu sasive",
+    "mainCategory": "groceries",
+    "category": "spices",
+    "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+    "price": 30,
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "50 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_17",
+    "nameTe": "చింతపండు (కొత్త చింతపండు)",
+    "nameEn": "Tamarind (Chintapandu)",
+    "translit": "chintapandu chintha pandu tamarind imli fresh tamarind",
+    "mainCategory": "groceries",
+    "category": "spices",
+    "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=500&auto=format&fit=crop&q=80",
+    "price": 70,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_18",
+    "nameTe": "సేంద్రీయ అచ్చ బెల్లం",
+    "nameEn": "Organic Jaggery (Bellam)",
+    "translit": "bellam achu bellam jaggery gur organic bellam chakkera",
+    "mainCategory": "groceries",
+    "category": "essentials",
+    "imageUrl": "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=500&auto=format&fit=crop&q=80",
+    "price": 60,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_19",
+    "nameTe": "కల్లుప్పు / రాతి ఉప్పు",
+    "nameEn": "Crystal Rock Salt (Kalluppu)",
+    "translit": "kalluppu rathi uppu rock salt sea salt crystal salt uppu",
+    "mainCategory": "groceries",
+    "category": "essentials",
+    "imageUrl": "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=500&auto=format&fit=crop&q=80",
+    "price": 20,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "5 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_20",
+    "nameTe": "జీడిపప్పు (ప్రీమియం కాజూ)",
+    "nameEn": "Cashew Nuts (Jeedi Pappu / Kaju)",
+    "translit": "jeedi pappu jeedipappu kaju cashews kaju nuts whole cashews",
+    "mainCategory": "groceries",
+    "category": "dryfruits",
+    "imageUrl": "https://images.unsplash.com/photo-1536591375315-1b8368146743?w=500&auto=format&fit=crop&q=80",
+    "price": 210,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": "offer",
+    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
+    "inStock": true
+  },
+  {
+    "id": "groc_21",
+    "nameTe": "బాదం పప్పు (కాలిఫోర్నియా బాదం)",
+    "nameEn": "Almonds (Badam)",
+    "translit": "badam badampappu almonds california badam dry fruits",
+    "mainCategory": "groceries",
+    "category": "dryfruits",
+    "imageUrl": "https://images.unsplash.com/photo-1508061252445-5350f3ab0a55?w=500&auto=format&fit=crop&q=80",
+    "price": 195,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు"
+    ],
+    "tagType": "offer",
+    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
+    "inStock": true
+  },
+  {
+    "id": "veg_1_tamata",
+    "nameTe": "టమాటా / టమోటా",
+    "nameEn": "Tomato",
+    "translit": "tamata tamota tomato tamatar",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/tamata.jpg",
+    "price": 40,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_3_bendakaya",
+    "nameTe": "బెండకాయ",
+    "nameEn": "Okra / Ladies Finger",
+    "translit": "bendakaya okra ladies finger bhindi",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/bendakaya.jpg",
+    "price": 40,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_4_bangaladumpa",
+    "nameTe": "బంగాళాదుంప / ఆలుగడ్డ",
+    "nameEn": "Potato (Aloo)",
+    "translit": "bangaladumpa aloo alu gadda potato urla gadda",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/bangaladumpa.jpg",
+    "price": 35,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_5_ullipaya",
+    "nameTe": "ఉల్లిపాయ / ఎర్రగడ్డ",
+    "nameEn": "Onion",
+    "translit": "ullipaya ullipayalu erra gadda ulli gadda onion pyaz",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/ullipaya.jpg",
+    "price": 35,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "5 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_6_vellulli",
+    "nameTe": "వెల్లుల్లి",
+    "nameEn": "Garlic (Lahsun)",
+    "translit": "vellulli tellapayalu garlic lahsun garlic pods",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/chart_vegetables/vellulli.jpg",
+    "price": 45,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_7_kyaret",
+    "nameTe": "క్యారెట్",
+    "nameEn": "Carrot",
+    "translit": "kyaret carrot gajar fresh carrot",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/kyaret.jpg",
+    "price": 50,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_8_kaliphlavar",
+    "nameTe": "కాలీఫ్లవర్ / గోబీపువ్వు",
+    "nameEn": "Cauliflower",
+    "translit": "kaliphlavar gobi gobi puvvu cauliflower",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/kaliphlavar.jpg",
+    "price": 40,
+    "defaultQty": "1 కాయ / పువ్వు",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_9_kyabeji",
+    "nameTe": "క్యాబేజీ",
+    "nameEn": "Cabbage",
+    "translit": "kyabeji cabbage patta gobi",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/kyabeji.jpg",
+    "price": 35,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_10_pachchimirapakaya",
+    "nameTe": "పచ్చిమిర్చి / పచ్చి మిరపకాయ",
+    "nameEn": "Green Chilli",
+    "translit": "pachchimirchi pachchi mirapakaya green chilli mirchi hari mirch",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/pachchimirapakaya.jpg",
+    "price": 20,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_11_endumirchi",
+    "nameTe": "ఎండుమిర్చి (గుంటూరు మిరప)",
+    "nameEn": "Dry Red Chilli",
+    "translit": "endumirchi yendu mirapakaya dry red chilli guntur mirchi",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/chart_vegetables/endumirchi.jpg",
+    "price": 45,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_12_allam",
+    "nameTe": "అల్లం (తాజా అల్లం)",
+    "nameEn": "Fresh Ginger",
+    "translit": "allam ginger adrak fresh ginger",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/chart_vegetables/allam.jpg",
+    "price": 30,
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "100 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "veg_13_munagakaya",
+    "nameTe": "మునగకాయ / మునక్కాయ",
+    "nameEn": "Drumstick",
+    "translit": "munagakaya munakkaya drumstick sahjan",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/munagakaya.jpg",
+    "price": 30,
+    "defaultQty": "4 కాయలు",
+    "commonQtys": [
+      "4 కాయలు",
+      "10 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_14_gummadikaya",
+    "nameTe": "గుమ్మడికాయ",
+    "nameEn": "Pumpkin",
+    "translit": "gummadikaya pumpkin kaddu red pumpkin",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/gummadikaya.jpg",
+    "price": 50,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "అర కాయ"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_15_budida_gummadikaya",
+    "nameTe": "బూడిద గుమ్మడికాయ",
+    "nameEn": "Ash Gourd (Winter Melon)",
+    "translit": "budida gummadikaya ash gourd winter melon petha",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/budida_gummadikaya.jpg",
+    "price": 60,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_16_birakaya",
+    "nameTe": "బీరకాయ",
+    "nameEn": "Ridge Gourd",
+    "translit": "birakaya ridge gourd beerakaya turai",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/birakaya.jpg",
+    "price": 50,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_17_sorakaya",
+    "nameTe": "సొరకాయ / ఆనపకాయ",
+    "nameEn": "Bottle Gourd",
+    "translit": "sorakaya anapakaya bottle gourd lauki",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/sorakaya.jpg",
+    "price": 40,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_18_potlakaya",
+    "nameTe": "పొట్లకాయ",
+    "nameEn": "Snake Gourd",
+    "translit": "potlakaya snake gourd chichinda",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/potlakaya.jpg",
+    "price": 40,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_19_kakarakaya",
+    "nameTe": "కాకరకాయ",
+    "nameEn": "Bitter Gourd",
+    "translit": "kakarakaya bitter gourd karela",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/kakarakaya.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_20_dondakaya",
+    "nameTe": "దొండకాయ",
+    "nameEn": "Ivy Gourd (Tindora)",
+    "translit": "dondakaya tindora ivy gourd kundru",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/dondakaya.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_21_dosakaya",
+    "nameTe": "దోసకాయ / కీరా దోసకాయ",
+    "nameEn": "Cucumber (Dosakaya)",
+    "translit": "dosakaya keera dosakaya cucumber kheera",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/dosakaya.jpg",
+    "price": 35,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_22_neti_birakaya",
+    "nameTe": "నేతి బీరకాయ",
+    "nameEn": "Sponge Gourd (Smooth Luffa)",
+    "translit": "neti birakaya sponge gourd smooth luffa ghia tori",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/neti_birakaya.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_23_sima_vankaya",
+    "nameTe": "సీమ వంకాయ / చౌ చౌ",
+    "nameEn": "Chow Chow (Chayote)",
+    "translit": "sima vankaya chow chow chou chou chayote",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/sima_vankaya.jpg",
+    "price": 40,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_24_chikkudukaya",
+    "nameTe": "చిక్కుడుకాయ",
+    "nameEn": "Broad Beans / Flat Beans",
+    "translit": "chikkudukaya flat beans broad beans sem fali",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/chikkudukaya.jpg",
+    "price": 50,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_25_bins",
+    "nameTe": "బీన్స్ / ఫ్రెంచ్ బీన్స్",
+    "nameEn": "French Beans",
+    "translit": "bins french beans green beans fali",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/bins.jpg",
+    "price": 60,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_26_goruchikkudu",
+    "nameTe": "గోరుచిక్కుడు",
+    "nameEn": "Cluster Beans (Guar)",
+    "translit": "goruchikkudu cluster beans guar gawar fali",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/goruchikkudu.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_27_bathanilu",
+    "nameTe": "పచ్చి బఠానీలు",
+    "nameEn": "Green Peas",
+    "translit": "bathanilu pachchi bathanilu green peas matar",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/bathanilu.jpg",
+    "price": 55,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_28_bobbara_kayalu",
+    "nameTe": "బొబ్బర కాయలు / అలసంద కాయలు",
+    "nameEn": "Yardlong Beans",
+    "translit": "bobbara kayalu alasanda kayalu yardlong beans lobia fali",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/bobbara_kayalu.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_29_bitrut",
+    "nameTe": "బీట్‌రూట్",
+    "nameEn": "Beetroot",
+    "translit": "bitrut beetroot chukandar fresh beetroot",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/bitrut.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_30_mullangi",
+    "nameTe": "ముల్లంగి (తెల్ల ముల్లంగి)",
+    "nameEn": "Radish (Mooli)",
+    "translit": "mullangi white radish mooli",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/mullangi.jpg",
+    "price": 35,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_31_chilagadadumpa",
+    "nameTe": "చిలగడదుంప / గెనుసుగడ్డ",
+    "nameEn": "Sweet Potato",
+    "translit": "chilagadadumpa sweet potato genusu gadda shakarkand",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/chilagadadumpa.jpg",
+    "price": 40,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_32_chamadumpa",
+    "nameTe": "చామదుంప / చామగడ్డ",
+    "nameEn": "Colocasia (Taro Root / Arbi)",
+    "translit": "chamadumpa colocasia taro root arbi chama gadda",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/chamadumpa.jpg",
+    "price": 50,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_33_kanda",
+    "nameTe": "కంద / కందగడ్డ",
+    "nameEn": "Elephant Foot Yam (Suran)",
+    "translit": "kanda kandagadda suran elephant foot yam",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/kanda.jpg",
+    "price": 50,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_34_nulkol",
+    "nameTe": "నూల్‌కోల్ / నలుగుమ",
+    "nameEn": "Kohlrabi (Knol Khol / Noolkol)",
+    "translit": "nulkol naluguma kohlrabi knol khol ganth gobi",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/nulkol.jpg",
+    "price": 45,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_35_kyapsikam",
+    "nameTe": "క్యాప్సికమ్ (బెంగళూరు మిరప)",
+    "nameEn": "Capsicum (Bell Pepper)",
+    "translit": "kyapsikam capsicum bell pepper shimla mirch",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/kyapsikam.jpg",
+    "price": 60,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_36_aratikaya",
+    "nameTe": "అరటికాయ (కూర అరటి)",
+    "nameEn": "Raw Cooking Plantain",
+    "translit": "aratikaya raw banana raw plantain kacha kela",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/aratikaya.jpg",
+    "price": 30,
+    "defaultQty": "4 కాయలు",
+    "commonQtys": [
+      "4 కాయలు",
+      "10 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_37_mamidikaya",
+    "nameTe": "పచ్చి మామిడికాయ",
+    "nameEn": "Raw Green Mango",
+    "translit": "mamidikaya raw mango kacha aam green mango",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/mamidikaya.jpg",
+    "price": 40,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_38_puttagodugu",
+    "nameTe": "పుట్టగొడుగులు (మష్రూమ్)",
+    "nameEn": "Fresh Button Mushrooms",
+    "translit": "puttagodugu mushroom button mushroom mashroom",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/puttagodugu.jpg",
+    "price": 50,
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "1 ప్యాకెట్",
+      "2 ప్యాకెట్లు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_39_brokali",
+    "nameTe": "బ్రోకలీ",
+    "nameEn": "Fresh Green Broccoli",
+    "translit": "brokali broccoli green broccoli hari gobi",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/vegetables/brokali.jpg",
+    "price": 80,
+    "defaultQty": "1 పువ్వు / పీస్",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీసులు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "veg_40_kothimeera",
+    "nameTe": "కొత్తిమీర (తాజా కట్ట)",
+    "nameEn": "Fresh Coriander Leaves",
+    "translit": "kothimeera kotthimeera dhaniya patta coriander leaves",
     "mainCategory": "vegetables",
     "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/cor.jpg",
+    "imageUrl": "images/chart_vegetables/kothimeera.jpg",
     "price": 15,
     "defaultQty": "1 కట్ట",
     "commonQtys": [
@@ -211,408 +1490,434 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "nr_7",
-    "nameTe": "ఆవాలు",
-    "nameEn": "Mustard seeds",
-    "translit": "avalu mustard seeds ఆవాలు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/mustard.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
+    "id": "veg_41_karivepaku",
+    "nameTe": "కరివేపాకు (తాజా కట్ట)",
+    "nameEn": "Fresh Curry Leaves",
+    "translit": "karivepaku kadi patta curry leaves",
+    "mainCategory": "vegetables",
+    "category": "greens",
+    "imageUrl": "images/chart_vegetables/karivepaku.jpg",
+    "price": 10,
+    "defaultQty": "1 కట్ట",
     "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
+      "1 కట్ట",
+      "2 కట్టలు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా ఆకుకూర",
     "inStock": true
   },
   {
-    "id": "nr_8",
-    "nameTe": "జీలకర్ర",
-    "nameEn": "Cumin seeds",
-    "translit": "jeelakarra cumin seeds జీలకర్ర",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/cumin.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
+    "id": "veg_42_pudina",
+    "nameTe": "పుదీనా (తాజా ఆకులు)",
+    "nameEn": "Fresh Mint Leaves",
+    "translit": "pudina mint leaves pudina aaku",
+    "mainCategory": "vegetables",
+    "category": "greens",
+    "imageUrl": "images/chart_vegetables/pudina.jpg",
+    "price": 15,
+    "defaultQty": "1 కట్ట",
     "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
+      "1 కట్ట",
+      "2 కట్టలు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా ఆకుకూర",
     "inStock": true
   },
   {
-    "id": "nr_9",
-    "nameTe": "మినప పప్పు",
-    "nameEn": "Urad dal",
-    "translit": "uddipappu urad dal మినప పప్పు minapa pappu minapappu",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/urad.jpg",
-    "price": 60,
+    "id": "veg_43_palakura",
+    "nameTe": "పాలకూర (తాజా ఆకుకూర)",
+    "nameEn": "Fresh Spinach (Palak)",
+    "translit": "palakura spinach palak leafy greens",
+    "mainCategory": "vegetables",
+    "category": "greens",
+    "imageUrl": "images/chart_vegetables/palakura.jpg",
+    "price": 20,
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా ఆకుకూర",
+    "inStock": true
+  },
+  {
+    "id": "veg_44_gongura",
+    "nameTe": "గోంగూర (ఆంధ్రా గోంగూర)",
+    "nameEn": "Roselle Leaves (Gongura)",
+    "translit": "gongura roselle andhra gongura pitwaa",
+    "mainCategory": "vegetables",
+    "category": "greens",
+    "imageUrl": "images/chart_vegetables/gongura.jpg",
+    "price": 20,
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా ఆకుకూర",
+    "inStock": true
+  },
+  {
+    "id": "veg_45_menthikura",
+    "nameTe": "మెంతికూర",
+    "nameEn": "Fenugreek Leaves (Methi)",
+    "translit": "menthikura methi fenugreek leaves",
+    "mainCategory": "vegetables",
+    "category": "greens",
+    "imageUrl": "images/chart_vegetables/menthikura.jpg",
+    "price": 15,
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా ఆకుకూర",
+    "inStock": true
+  },
+  {
+    "id": "veg_46_thotakura",
+    "nameTe": "తోటకూర",
+    "nameEn": "Amaranth Leaves (Thotakura)",
+    "translit": "thotakura amaranth chaulai leafy greens",
+    "mainCategory": "vegetables",
+    "category": "greens",
+    "imageUrl": "images/chart_vegetables/thotakura.jpg",
+    "price": 20,
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా ఆకుకూర",
+    "inStock": true
+  },
+  {
+    "id": "veg_47_mokkajonna",
+    "nameTe": "మొక్కజొన్న (స్వీట్ కార్న్)",
+    "nameEn": "Sweet Corn / Maize",
+    "translit": "mokkajonna sweet corn bhutta maize",
+    "mainCategory": "vegetables",
+    "category": "vegetables",
+    "imageUrl": "images/chart_vegetables/mokkajonna.jpg",
+    "price": 25,
+    "defaultQty": "2 కాయలు",
+    "commonQtys": [
+      "2 కాయలు",
+      "4 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "fruit_1_mamidi_pandu",
+    "nameTe": "మామిడి పండు (బంగినపల్లి)",
+    "nameEn": "Sweet Mango (Banganapalli)",
+    "translit": "mamidi pandu mango banganapalli aam sweet mango",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/mamidi_pandu.jpg",
+    "price": 120,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_10",
-    "nameTe": "పల్లీలు",
-    "nameEn": "Ground Nuts",
-    "translit": "pallilu ground nuts పల్లీలు",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/nuts.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_11",
-    "nameTe": "పసుపు",
-    "nameEn": "Turmeric",
-    "translit": "pasupu turmeric పసుపు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/turmeric-seed.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
+      "2 కిలోలు",
       "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_2_arati_pandu",
+    "nameTe": "అరటి పండు (చక్కెరకేళి / అమృతపాణి)",
+    "nameEn": "Banana (Dozen)",
+    "translit": "arati pandu aratipandlu banana kela amruthapani",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/arati_pandu.jpg",
+    "price": 60,
+    "defaultQty": "1 డజను",
+    "commonQtys": [
+      "1 డజను",
+      "అర డజను",
+      "2 డజన్లు"
     ],
     "tagType": "essential",
     "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
-    "id": "nr_12",
-    "nameTe": "వాము",
-    "nameEn": "Ajowan",
-    "translit": "vamu ajowan వాము",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/ajowan.jpg",
+    "id": "fruit_3_apil",
+    "nameTe": "ఆపిల్ (కాశ్మీర్ ఆపిల్)",
+    "nameEn": "Apple (Red Apple)",
+    "translit": "apil apple seb fresh apple kashmir apple",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/apil.jpg",
+    "price": 160,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_4_draksha",
+    "nameTe": "ద్రాక్ష (నల్ల & పచ్చ ద్రాక్ష)",
+    "nameEn": "Fresh Grapes (Angoor)",
+    "translit": "draksha angoor grapes black grapes green grapes",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/draksha.jpg",
+    "price": 90,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_5_jama_pandu",
+    "nameTe": "జామ పండు / జామకాయ",
+    "nameEn": "Fresh Guava (Amrud)",
+    "translit": "jama pandu jamakaya guava amrud",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/jama_pandu.jpg",
     "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_13",
-    "nameTe": "మెంతులు",
-    "nameEn": "Fenugreek Seeds",
-    "translit": "menthulu fenugreek seeds మెంతులు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/fenugreek.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
       "500 గ్రాములు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_14",
-    "nameTe": "సగ్గుబియ్యం",
-    "nameEn": "Sago",
-    "translit": "saggubiyyam sago సగ్గుబియ్యం",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/sago.jpg",
-    "price": 1450,
-    "defaultQty": "25 కిలోల బస్తా",
+    "id": "fruit_6_danimma",
+    "nameTe": "దానిమ్మ (ఎర్ర గింజలు)",
+    "nameEn": "Pomegranate (Anar)",
+    "translit": "danimma anar pomegranate red seeds",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/danimma.jpg",
+    "price": 140,
+    "defaultQty": "1 కిలో",
     "commonQtys": [
-      "25 కిలోల బస్తా",
-      "10 కిలోలు",
-      "5 కిలోలు",
+      "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_7_kamala_pandu",
+    "nameTe": "కమలా పండు / నారింజ",
+    "nameEn": "Mandarin Orange (Santra)",
+    "translit": "kamala pandu santra narinja orange mandarin",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/kamala_pandu.jpg",
+    "price": 80,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_8_battayi",
+    "nameTe": "బత్తాయి / మోసంబి",
+    "nameEn": "Sweet Lime (Mosambi)",
+    "translit": "battayi mosambi sweet lime cheenikaya",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/battayi.jpg",
+    "price": 75,
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_9_boppayi",
+    "nameTe": "బొప్పాయి / పరంగికాయ",
+    "nameEn": "Fresh Papaya",
+    "translit": "boppayi papaya papita parangikaya",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/boppayi.jpg",
+    "price": 50,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_10_puchchakaya",
+    "nameTe": "పుచ్చకాయ / తర్బూజ",
+    "nameEn": "Watermelon (Tarbuj)",
+    "translit": "puchchakaya tarbooja watermelon tarbuj",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/puchchakaya.jpg",
+    "price": 70,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_11_panasa_pandu",
+    "nameTe": "పనస పండు (తొనలు)",
+    "nameEn": "Jackfruit",
+    "translit": "panasa pandu jackfruit kathal panasa tonalu",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/panasa_pandu.jpg",
+    "price": 60,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "500 గ్రాములు",
       "1 కిలో"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_15",
-    "nameTe": "అటుకులు",
-    "nameEn": "Flattend Rice or Rice Flakes",
-    "translit": "atukulu flattend rice or flakes అటుకులు",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/flattend.jpg",
-    "price": 1450,
-    "defaultQty": "25 కిలోల బస్తా",
+    "id": "fruit_12_sitaphalam",
+    "nameTe": "సీతాఫలం",
+    "nameEn": "Custard Apple (Sitaphal)",
+    "translit": "sitaphalam sitaphal custard apple sharifa",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/sitaphalam.jpg",
+    "price": 90,
+    "defaultQty": "1 కిలో",
     "commonQtys": [
-      "25 కిలోల బస్తా",
-      "10 కిలోలు",
-      "5 కిలోలు",
-      "1 కిలో"
+      "1 కిలో",
+      "500 గ్రాములు"
     ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_16",
-    "nameTe": "ఉలవలు",
-    "nameEn": "Horse Gram",
-    "translit": "ulavalu horse gram ఉలవలు",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/horsegram.jpg",
+    "id": "fruit_13_sapota",
+    "nameTe": "సపోటా / చిక్కూ",
+    "nameEn": "Sapota / Chikoo",
+    "translit": "sapota chikoo chiku sapota",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/sapota.jpg",
     "price": 60,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
+      "500 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_14_neredu_pandu",
+    "nameTe": "నేరేడు పండు (అల్ల నేరేడు)",
+    "nameEn": "Black Jamun (Black Plum)",
+    "translit": "neredu pandu jamun black plum alla neredu",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/neredu_pandu.jpg",
+    "price": 110,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
       "500 గ్రాములు",
-      "250 గ్రాములు"
+      "1 కిలో"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_17",
-    "nameTe": "జొన్నలు",
-    "nameEn": "Millet",
-    "translit": "jonnalu millet జొన్నలు",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/millet.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
+    "id": "fruit_15_anasa_pandu",
+    "nameTe": "అనాస పండు / పైనాపిల్",
+    "nameEn": "Pineapple",
+    "translit": "anasa pandu pineapple ananas",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/anasa_pandu.jpg",
+    "price": 60,
+    "defaultQty": "1 కాయ",
     "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
+      "1 కాయ",
+      "2 కాయలు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_18",
-    "nameTe": "మొక్కజొన్న",
-    "nameEn": "Maize",
-    "translit": "mokka jonna maize మొక్కజొన్న",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/maize.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_19",
-    "nameTe": "ఉప్పు",
-    "nameEn": "Salt",
-    "translit": "uppu salt ఉప్పు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/salt.jpg",
+    "id": "fruit_16_kharbuja",
+    "nameTe": "ఖర్బూజ",
+    "nameEn": "Muskmelon (Cantaloupe)",
+    "translit": "kharbuja kharbhuja muskmelon cantaloupe",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/kharbuja.jpg",
     "price": 50,
-    "defaultQty": "100 గ్రాములు",
+    "defaultQty": "1 కాయ",
     "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_20",
-    "nameTe": "సజ్జలు",
-    "nameEn": "Pearl Millet",
-    "translit": "sazzalu pearl millet సజ్జలు",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/pearl-millet.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_21",
-    "nameTe": "అలసందలు",
-    "nameEn": "Black Eyed Beans",
-    "translit": "alasandhalu black eyed beans అలసందలు",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/black-eyedbeans.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
+      "1 కాయ"
     ],
     "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_22",
-    "nameTe": "రాగులు",
-    "nameEn": "Finger Millet",
-    "translit": "ragulu finger millet రాగులు",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/finger-millet.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
+    "id": "fruit_17_kharjuram",
+    "nameTe": "ఖర్జూరం (అరేబియన్ ఖర్జూరం)",
+    "nameEn": "Dates (Kharjuram)",
+    "translit": "kharjuram dates khajur dry fruit kharjuram",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/kharjuram.jpg",
+    "price": 90,
+    "defaultQty": "500 గ్రాములు",
     "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_23",
-    "nameTe": "చిక్కడు గింజుల",
-    "nameEn": "Kidney beans",
-    "translit": "cikkadu ginjulu kidney beans చిక్కడు గింజుల",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/kidney-beans.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
       "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_24",
-    "nameTe": "శనగపిండి",
-    "nameEn": "Gram Flour",
-    "translit": "senaga pindi gram flour శనగపిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/gram-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_25",
-    "nameTe": "మొక్కజొన్న పిండి",
-    "nameEn": "Corn Flour",
-    "translit": "mokka jonna pindi corn flour మొక్కజొన్న పిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/corn-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_26",
-    "nameTe": "గోధుమ పిండి",
-    "nameEn": "Wheat Flour",
-    "translit": "godhuma pindi wheat flour గోధుమ పిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/wheat-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_27",
-    "nameTe": "బియ్యం పిండి",
-    "nameEn": "Rice Flour",
-    "translit": "biyappindi rice flour బియ్యం పిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/rice-flour.jpg",
-    "price": 1450,
-    "defaultQty": "25 కిలోల బస్తా",
-    "commonQtys": [
-      "25 కిలోల బస్తా",
-      "10 కిలోలు",
-      "5 కిలోలు",
       "1 కిలో"
     ],
     "tagType": "essential",
@@ -620,249 +1925,13 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "nr_28",
-    "nameTe": "రాగి పిండి",
-    "nameEn": "Finger Millet flour",
-    "translit": "ragi pindi finger millet flour రాగి పిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/millet-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_29",
-    "nameTe": "జొన్నలు పిండి",
-    "nameEn": "Jowar Flour",
-    "translit": "jonna pindi jowar flour జొన్నలు పిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/jowar-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_30",
-    "nameTe": "కొబ్బరి పిండి",
-    "nameEn": "Coconut Flour",
-    "translit": "kobbari pindi coconut flour కొబ్బరి పిండి kaya kobbarikaya tenkaya nariyal",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/coconut-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_31",
-    "nameTe": "సజ్జ పిండి",
-    "nameEn": "Pearl Millet Flour",
-    "translit": "sajja pindi pearl millet flour సజ్జ పిండి",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/pearl-millet-flour.jpg",
-    "price": 65,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_32",
-    "nameTe": "వంగ",
-    "nameEn": "Brinjal",
-    "translit": "vankaya brinjal వంగ eggplant baingan",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/brin.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_33",
-    "nameTe": "బీరకాయ",
-    "nameEn": "Ridge Gourd",
-    "translit": "beerakaya ridge gourd బీరకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/ridge.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_34",
-    "nameTe": "పొట్లకాయ",
-    "nameEn": "Snake Gourd",
-    "translit": "potlakaya snake gourd పొట్లకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/snake.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_35",
-    "nameTe": "బెంగుళూరు మిరపకాయ",
-    "nameEn": "Capsicum",
-    "translit": "bengulooru mirapakaya capsicum బెంగుళూరు మిరపకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/capsicum.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_36",
-    "nameTe": "క్యాబేజీ",
-    "nameEn": "Cabbage",
-    "translit": "cabbage క్యాబేజీ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/cabbage.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_37",
-    "nameTe": "గోబీ పుష్పం / కాలీఫ్లవర్",
-    "nameEn": "Cauliflower",
-    "translit": "gobi puvvu cauliflower గోబీ పుష్పం కాలీఫ్లవర్",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/cauli.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_38",
-    "nameTe": "క్యారెట్",
-    "nameEn": "Carrot",
-    "translit": "carrot క్యారెట్",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/carrot.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_39",
-    "nameTe": "బటానీలు",
-    "nameEn": "Green Peas",
-    "translit": "bataneelu green peas బటానీలు",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/peas.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_40",
-    "nameTe": "నిమ్మకాయ",
-    "nameEn": "Lemon",
-    "translit": "nimma pandu lemon నిమ్మకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/lemon.jpg",
+    "id": "fruit_18_nimmakaya",
+    "nameTe": "నిమ్మకాయ (రసాల నిమ్మ)",
+    "nameEn": "Juicy Lemon",
+    "translit": "nimmakaya lemon nimbu fresh lemon",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/nimmakaya.jpg",
     "price": 20,
     "defaultQty": "4 కాయలు",
     "commonQtys": [
@@ -870,552 +1939,92 @@ const GROCERY_ITEMS = [
       "10 కాయలు",
       "1 డజను"
     ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_41",
-    "nameTe": "ఉల్లిపాయ",
-    "nameEn": "Onion",
-    "translit": "ullipayalu yerra gaddalu onion ఉల్లిపాయ ullipaya pyaz vengayam",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/onion.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
     "tagType": "essential",
-    "tagLabelTelugu": "నిత్యావసరం",
+    "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
-    "id": "nr_42",
-    "nameTe": "వెల్లుల్లి",
-    "nameEn": "Garlic",
-    "translit": "velluli payulu tellapaayalu garlic వెల్లుల్లి",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/garlic.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_43",
-    "nameTe": "బంగాళాదుంప",
-    "nameEn": "Potato",
-    "translit": "alu gadda bangalu dumpa potato బంగాళాదుంప bangala aloo batata",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/potato.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నిత్యావసరం",
-    "inStock": true
-  },
-  {
-    "id": "nr_44",
-    "nameTe": "టమోటా",
-    "nameEn": "Tomato",
-    "translit": "tamota tomato టమోటా tamato tamatar",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/tomato.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నిత్యావసరం",
-    "inStock": true
-  },
-  {
-    "id": "nr_45",
-    "nameTe": "బీన్స్",
-    "nameEn": "Beans",
-    "translit": "beans బీన్స్",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/beans.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_46",
-    "nameTe": "దోసకాయ",
-    "nameEn": "Cucumber",
-    "translit": "dosakaya cucumber దోసకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/cucumber.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_47",
-    "nameTe": "ములక్కాడ",
-    "nameEn": "Drum Stick",
-    "translit": "mulakkada drum stick ములక్కాడ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/drum.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_48",
-    "nameTe": "బెండ కాయ",
-    "nameEn": "Ladies Finger",
-    "translit": "bendakaye ladies finger బెండ కాయ bendakaya okra bhindi",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/lady.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_49",
-    "nameTe": "ముల్లంగి",
-    "nameEn": "Radish",
-    "translit": "mullangi radish ముల్లంగి",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/raddish.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_50",
-    "nameTe": "పచ్చిమిర్చి",
-    "nameEn": "Green Chilli",
-    "translit": "pachhimirapakai green chilli పచ్చిమిర్చి",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/green.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_51",
-    "nameTe": "కాకరకాయ",
-    "nameEn": "Bitter Gourd",
-    "translit": "kakarakaya bitter gourd కాకరకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/bitter.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_52",
-    "nameTe": "మిరపకాయ",
-    "nameEn": "Red Chilli",
-    "translit": "yendu mirapa kaaya red chilli మిరపకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/chilli.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_53",
-    "nameTe": "పుట్టగొడుగుల",
-    "nameEn": "Mushroom",
-    "translit": "puttagodugulu mushroom పుట్టగొడుగుల",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/mushroom.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_54",
-    "nameTe": "బీన్స్",
-    "nameEn": "Broad beans",
-    "translit": "chikkudu kaya broad beans బీన్స్",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/broadbeans.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_55",
-    "nameTe": "బీట్రూట్",
-    "nameEn": "Beetroot",
-    "translit": "beetroot బీట్రూట్",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/beetroot.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_56",
-    "nameTe": "చిలగడదుంప",
-    "nameEn": "Sweet Potato",
-    "translit": "chilagada dumpa kandagadda sweet potato చిలగడదుంప alu gadda bangala aloo batata",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/sweetpotato.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నిత్యావసరం",
-    "inStock": true
-  },
-  {
-    "id": "nr_57",
-    "nameTe": "దొండకాయ",
-    "nameEn": "Tindoora",
-    "translit": "dondakaya tindoora దొండకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/tindoora.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_58",
-    "nameTe": "బూడిద గుమ్మడి కాయ",
-    "nameEn": "Ash Gourd",
-    "translit": "budidha gummadi kaya ash gourd బూడిద గుమ్మడి కాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/ash.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_59",
-    "nameTe": "సొరకాయ",
-    "nameEn": "Bottle Gourd",
-    "translit": "anabakaya bottle gourd సొరకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/bottle.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_60",
-    "nameTe": "గుమ్మడికాయ",
-    "nameEn": "Pumpkin",
-    "translit": "gummadikaya pumpkin గుమ్మడికాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/pumpkin.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_61",
-    "nameTe": "ఆనపకాయ",
-    "nameEn": "Field Beans",
-    "translit": "anapakaya field beans ఆనపకాయ",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/fireld.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_62",
-    "nameTe": "అనాస పండు",
-    "nameEn": "Pineapple",
-    "translit": "anasa pandu pineapple అనాస పండు",
+    "id": "fruit_19_usirikaya",
+    "nameTe": "ఉసిరికాయ (పెద్ద ఉసిరి)",
+    "nameEn": "Indian Gooseberry (Amla)",
+    "translit": "usirikaya amla gooseberry pedda usiri",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/pineapple.jpg",
-    "price": 80,
+    "imageUrl": "images/fruits/usirikaya.jpg",
+    "price": 40,
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_20_kobbarikaya",
+    "nameTe": "కొబ్బరికాయ (తాజా కొబ్బరి)",
+    "nameEn": "Fresh Coconut",
+    "translit": "kobbarikaya coconut nariyal tenkaya kobbari kaya",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/kobbarikaya.jpg",
+    "price": 35,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
-      "2 కాయలు"
+      "2 కాయలు",
+      "3 కాయలు"
     ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
-    "id": "nr_63",
-    "nameTe": "దానిమ్మ పండు",
-    "nameEn": "Pomegranate",
-    "translit": "dhanimma pandu pomegranate దానిమ్మ పండు",
+    "id": "fruit_21_tati_munjalu",
+    "nameTe": "తాటి ముంజలు",
+    "nameEn": "Ice Apple / Palmyra Fruit",
+    "translit": "tati munjalu ice apple tadgola palmyra munjalu",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/pomo.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_64",
-    "nameTe": "అరట పండుి",
-    "nameEn": "Banana",
-    "translit": "arati pandu banana అరట పండుి aratipandlu kela",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/banana.jpg",
-    "price": 60,
+    "imageUrl": "images/fruits/tati_munjalu.jpg",
+    "price": 50,
     "defaultQty": "1 డజను",
     "commonQtys": [
       "1 డజను",
-      "అర డజను",
-      "2 డజన్లు"
+      "అర డజను"
     ],
     "tagType": "fresh",
     "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_65",
-    "nameTe": "అరటికాయ",
-    "nameEn": "Banana-raw",
-    "translit": "aratikaya banana raw అరటికాయ arati pandu aratipandlu kela",
+    "id": "fruit_22_regupandu",
+    "nameTe": "రేగు పండు (గంగరేగు)",
+    "nameEn": "Indian Jujube (Ber)",
+    "translit": "regupandu ber jujube gangaregu",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/b-raw.jpg",
-    "price": 60,
-    "defaultQty": "1 డజను",
+    "imageUrl": "images/fruits/regupandu.jpg",
+    "price": 40,
+    "defaultQty": "500 గ్రాములు",
     "commonQtys": [
-      "1 డజను",
-      "అర డజను",
-      "2 డజన్లు"
+      "500 గ్రాములు",
+      "1 కిలో"
     ],
     "tagType": "fresh",
     "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_66",
-    "nameTe": "మామిడి",
-    "nameEn": "Mango",
-    "translit": "mamidi mango మామిడి",
+    "id": "fruit_23_velagapandu",
+    "nameTe": "వెలగపండు",
+    "nameEn": "Wood Apple (Bael)",
+    "translit": "velagapandu wood apple bael vinayaka chaviti",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/mango.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_67",
-    "nameTe": "ద్రాక్ష",
-    "nameEn": "Grapes",
-    "translit": "draksha grapes ద్రాక్ష",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/grapes.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_68",
-    "nameTe": "పనస పండు",
-    "nameEn": "Jackfruit",
-    "translit": "panasa pandu jackfruit పనస పండు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/jack.jpg",
-    "price": 80,
+    "imageUrl": "images/fruits/velagapandu.jpg",
+    "price": 30,
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -1426,18 +2035,17 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "nr_69",
-    "nameTe": "జామ",
-    "nameEn": "Guava",
-    "translit": "jama pandu guava జామ",
+    "id": "fruit_24_star_phrut",
+    "nameTe": "స్టార్ ఫ్రూట్",
+    "nameEn": "Star Fruit (Carambola)",
+    "translit": "star phrut star fruit carambola kamrakh",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/guava.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
+    "imageUrl": "images/fruits/star_phrut.jpg",
+    "price": 40,
+    "defaultQty": "250 గ్రాములు",
     "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
+      "250 గ్రాములు",
       "500 గ్రాములు"
     ],
     "tagType": "fresh",
@@ -1445,1353 +2053,171 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "nr_70",
-    "nameTe": "పుచ్చకాయ",
-    "nameEn": "Water Melon",
-    "translit": "puccakaya water melon పుచ్చకాయ",
+    "id": "fruit_25_anjira_pandu",
+    "nameTe": "అంజీర పండు / అత్తిపండు",
+    "nameEn": "Fresh Fig (Anjeer)",
+    "translit": "anjira pandu anjeer fig fresh fig attipandu",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/water-melon.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
+    "imageUrl": "images/fruits/anjira_pandu.jpg",
+    "price": 90,
+    "defaultQty": "250 గ్రాములు",
     "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
+      "250 గ్రాములు",
       "500 గ్రాములు"
     ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
+    "tagType": "offer",
+    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
     "inStock": true
   },
   {
-    "id": "nr_71",
-    "nameTe": "దోసకాయ",
-    "nameEn": "Musk Melon",
-    "translit": "dosakaya musk melon దోసకాయ",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/musk.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_72",
-    "nameTe": "ఆపిల్ పండు",
-    "nameEn": "Apple",
-    "translit": "apil pandu apple ఆపిల్ పండు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/apple.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_73",
-    "nameTe": "సపోటా",
-    "nameEn": "Chickoo",
-    "translit": "sapota chickoo సపోటా",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/chickoo.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_74",
-    "nameTe": "సీతాఫలం",
-    "nameEn": "Custard apple",
-    "translit": "sita phalamu custard apple సీతాఫలం",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/custadr.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_75",
-    "nameTe": "ఖర్జూరం",
-    "nameEn": "Dates",
-    "translit": "kharjuram dates ఖర్జూరం",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/dates.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నాణ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_76",
-    "nameTe": "అత్తి",
-    "nameEn": "Fig",
-    "translit": "atti fig అత్తి",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/fig.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నాణ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_77",
-    "nameTe": "నారింజ",
-    "nameEn": "Orange",
-    "translit": "narinja orange నారింజ",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/orange.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_78",
-    "nameTe": "బొప్పాయి",
-    "nameEn": "Papaya",
-    "translit": "boppaya paringa pandu papaya బొప్పాయి",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/papaya.jpg",
-    "price": 80,
-    "defaultQty": "1 కాయ",
-    "commonQtys": [
-      "1 కాయ",
-      "2 కాయలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_79",
-    "nameTe": "గూస్ బెర్రీ",
-    "nameEn": "Goose Berry",
-    "translit": "usirikaaya goose berry గూస్ బెర్రీ",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/goose.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_80",
-    "nameTe": "కొబ్బరి",
-    "nameEn": "Coconut",
-    "translit": "kobbari kaaya coconut కొబ్బరి kaya kobbarikaya tenkaya nariyal",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/coconut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_81",
-    "nameTe": "మామిడి",
-    "nameEn": "Raw Mango",
-    "translit": "maamidi kaaya raw mango మామిడి",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/rawmango.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_82",
-    "nameTe": "మొక్క జొన్న",
-    "nameEn": "Corn",
-    "translit": "mokkajonna corn మొక్క జొన్న",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/corn.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_83",
-    "nameTe": "చెర్రీ పండు",
-    "nameEn": "Cherries",
-    "translit": "cherry pandu cherries చెర్రీ పండు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/cherry.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_84",
-    "nameTe": "రేగు",
-    "nameEn": "Plum",
-    "translit": "regu plum రేగు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/plum.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_85",
-    "nameTe": "నల్ల కిష్మిష్",
-    "nameEn": "Black Current",
-    "translit": "nalla kishmish black current నల్ల కిష్మిష్",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/blackcurrant.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_86",
-    "nameTe": "సీమ పనస",
-    "nameEn": "Bread Fruit",
-    "translit": "seema panasa bread fruit సీమ పనస",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/breadfruit.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_87",
-    "nameTe": "జీడి పప్పు",
-    "nameEn": "Cashewnut",
-    "translit": "jeedi mamidi cashewnut జీడి పప్పు",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/cashewnut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_88",
+    "id": "fruit_26_lichi",
     "nameTe": "లీచీ పండు",
-    "nameEn": "Litchi",
-    "translit": "litchi pandu లీచీ పండు",
+    "nameEn": "Fresh Litchi",
+    "translit": "lichi litchi lychee fresh lichi",
     "mainCategory": "fruits",
     "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/litchi.jpg",
+    "imageUrl": "images/fruits/lichi.jpg",
     "price": 120,
-    "defaultQty": "1 కిలో",
+    "defaultQty": "500 గ్రాములు",
     "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_89",
-    "nameTe": "తాటి",
-    "nameEn": "Palmyrah",
-    "translit": "thati palmyrah తాటి",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/palmyrah.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
       "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_90",
-    "nameTe": "పీచ్ పండు",
-    "nameEn": "Peach",
-    "translit": "peach pandu పీచ్ పండు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/peach.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_91",
-    "nameTe": "రాస్ బెర్రీస్",
-    "nameEn": "Rasberries",
-    "translit": "rasberries రాస్ బెర్రీస్",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/rasberries.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_92",
-    "nameTe": "స్ట్రాబెర్రీ",
-    "nameEn": "Straw Berry",
-    "translit": "straw berry స్ట్రాబెర్రీ",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/strawberry.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_93",
-    "nameTe": "ఖర్జూర పండు",
-    "nameEn": "Wild Date fruit",
-    "translit": "karjoora pandu wild date fruit ఖర్జూర పండు",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/wilddate.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_94",
-    "nameTe": "నేరేడు",
-    "nameEn": "Black plum",
-    "translit": "neredu black plum నేరేడు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/black-plum.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_95",
-    "nameTe": "అల్ల నేరేడు",
-    "nameEn": "Black Berry",
-    "translit": "alla neredu black berry అల్ల నేరేడు",
-    "mainCategory": "fruits",
-    "category": "fruits",
-    "imageUrl": "https://www.nriol.com/images/blue-berry.jpg",
-    "price": 120,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా పండ్లు",
-    "inStock": true
-  },
-  {
-    "id": "nr_96",
-    "nameTe": "సొంపు",
-    "nameEn": "Aniseed",
-    "translit": "sopu aniseed సొంపు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/aniseed.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_97",
-    "nameTe": "ఇంగువ",
-    "nameEn": "Asafoetida",
-    "translit": "inguva asafoetida ఇంగువ",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/hing.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_98",
-    "nameTe": "బిర్యాని ఆకు",
-    "nameEn": "Bay Leaf",
-    "translit": "masala aku biryani aaku bay leaf బిర్యాని ఆకు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/bay.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_99",
-    "nameTe": "మిరియాలు",
-    "nameEn": "Black Pepper",
-    "translit": "miriyalu black pepper మిరియాలు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/pepper.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_100",
-    "nameTe": "ఏలకుల",
-    "nameEn": "Cardamom",
-    "translit": "elakulu cardamom ఏలకుల",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/carda.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_101",
-    "nameTe": "దాల్చిన",
-    "nameEn": "Cinnamon",
-    "translit": "dalchina chekka or dalchini cinnamon దాల్చిన",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/cinnmon.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_102",
-    "nameTe": "లవంగాలు",
-    "nameEn": "Cloves",
-    "translit": "lavangam cloves లవంగాలు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/cloves.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_103",
-    "nameTe": "కుంకుమ పుష్పం",
-    "nameEn": "Saffron",
-    "translit": "kumkum puvvu saffron కుంకుమ పుష్పం",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/saffron.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_104",
-    "nameTe": "సోపు",
-    "nameEn": "Fennel",
-    "translit": "peddajeelakarra or sopu fennel సోపు",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/sopapu.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_105",
-    "nameTe": "అల్లం",
-    "nameEn": "Ginger",
-    "translit": "allam ginger అల్లం",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/ginger.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_106",
-    "nameTe": "ఎండు మిరపకాయలు",
-    "nameEn": "Red Chillies",
-    "translit": "yendu mirapakayalu red chillies ఎండు మిరపకాయలు",
-    "mainCategory": "vegetables",
-    "category": "vegetables",
-    "imageUrl": "https://www.nriol.com/images/red.jpg",
-    "price": 40,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా కూరగాయ",
-    "inStock": true
-  },
-  {
-    "id": "nr_107",
-    "nameTe": "చింతపండు",
-    "nameEn": "Tamarind",
-    "translit": "chintha pandu tamarind చింతపండు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/tama.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_108",
-    "nameTe": "పసుపు పొడి",
-    "nameEn": "Turmeric powder",
-    "translit": "pasupu turmeric powder పసుపు పొడి",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/turmeric-seed.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_109",
-    "nameTe": "జీడిపప్పు",
-    "nameEn": "Cashewnuts",
-    "translit": "jeedi pappu cashewnuts జీడిపప్పు",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/cashew.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_110",
-    "nameTe": "ఎండుద్రాక్ష",
-    "nameEn": "Raisins",
-    "translit": "yendu dhraksha raisins ఎండుద్రాక్ష",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/raisina.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_111",
-    "nameTe": "బాదం",
-    "nameEn": "Almond",
-    "translit": "badham almond బాదం",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/almond.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_112",
-    "nameTe": "సీమ బాదం",
-    "nameEn": "Apricot",
-    "translit": "seema badham apricot సీమ బాదం",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/apricot.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_113",
-    "nameTe": "వక్కలు",
-    "nameEn": "Beetal Nut",
-    "translit": "vakkalu beetal nut వక్కలు",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/beetel.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_114",
-    "nameTe": "కొబ్బరి",
-    "nameEn": "Dessicated Coconut",
-    "translit": "kobbari dessicated coconut కొబ్బరి kaya kobbarikaya tenkaya nariyal",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/coconut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_115",
-    "nameTe": "ఖర్జూరం",
-    "nameEn": "Dried Dates",
-    "translit": "kharjooram dried dates ఖర్జూరం",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/dates.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నాణ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_116",
-    "nameTe": "అతి పళ్ళూ",
-    "nameEn": "Dried Fig",
-    "translit": "athi pallu dried fig అతి పళ్ళూ",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/fig.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "నాణ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "nr_117",
-    "nameTe": "అక్రోటుకాయ",
-    "nameEn": "Walnut",
-    "translit": "aakrot walnut అక్రోటుకాయ",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/walnut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_118",
-    "nameTe": "పిస్తా",
-    "nameEn": "Pistachio",
-    "translit": "pista pistachio పిస్తా",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "https://www.nriol.com/images/pista.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_119",
-    "nameTe": "గసగసాల",
-    "nameEn": "Poppy Seed",
-    "translit": "gasagasaalu poppy seed గసగసాల",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/poppy.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_120",
-    "nameTe": "శనగ",
-    "nameEn": "Peanut",
-    "translit": "pallilu peanut శనగ",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "https://www.nriol.com/images/peanut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_121",
-    "nameTe": "అవిసె గింజలు",
-    "nameEn": "Flax seeds",
-    "translit": "avise ginjalu flax seeds అవిసె గింజలు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/flax-seeds.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_122",
-    "nameTe": "నువ్వు గింజలు",
-    "nameEn": "Sesame seeds",
-    "translit": "nuvvu ginjalu sesame seeds నువ్వు గింజలు",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "https://www.nriol.com/images/sesame-seeds.jpg",
-    "price": 50,
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_123",
-    "nameTe": "మెంతి కూర",
-    "nameEn": "Fenu greek leaves",
-    "translit": "menthi kura fenu greek leaves మెంతి కూర",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/fenu-greek.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_124",
-    "nameTe": "కరివేపాకు",
-    "nameEn": "Curry leaves",
-    "translit": "karivepaku curry leaves కరివేపాకు",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/curry.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_125",
-    "nameTe": "కొత్తిమీర",
-    "nameEn": "Coriander",
-    "translit": "kottimira coriander కొత్తిమీర",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/coriander.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_126",
-    "nameTe": "పాలకూర",
-    "nameEn": "Spinach",
-    "translit": "palakura spinach పాలకూర",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/spinach.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_127",
-    "nameTe": "గోంగూరా",
-    "nameEn": "Roselle",
-    "translit": "gongura roselle గోంగూరా",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/roselle.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_128",
-    "nameTe": "పుదీనా ఆకులు",
-    "nameEn": "Mint leaves",
-    "translit": "pudina akulu mint leaves పుదీనా ఆకులు",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/mint.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_129",
-    "nameTe": "బచాలి కురా",
-    "nameEn": "Collard leaves",
-    "translit": "bacali kura collard leaves బచాలి కురా",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/collard-leaves.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_130",
-    "nameTe": "తోటకూర",
-    "nameEn": "Amaranth Leaves",
-    "translit": "totakura amaranth leaves తోటకూర",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "https://www.nriol.com/images/amaranth-leaves.jpg",
-    "price": 15,
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "nr_131",
-    "nameTe": "కోడి గుడ్డు",
-    "nameEn": "Egg",
-    "translit": "kodi guddu egg కోడి గుడ్డు",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/egg.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_138",
-    "nameTe": "పెరుగు",
-    "nameEn": "Yogurt",
-    "translit": "perugu yogurt పెరుగు",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/yogrut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_139",
-    "nameTe": "బియ్యము",
-    "nameEn": "Rice (Raw)",
-    "translit": "biyyamu rice raw బియ్యము",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/raw.jpg",
-    "price": 1450,
-    "defaultQty": "25 కిలోల బస్తా",
-    "commonQtys": [
-      "25 కిలోల బస్తా",
-      "10 కిలోలు",
-      "5 కిలోలు",
       "1 కిలో"
     ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_140",
-    "nameTe": "ఉప్పుడు బియ్యము",
-    "nameEn": "Rice (Boiled)",
-    "translit": "uppu u biyyamu rice boiled ఉప్పుడు బియ్యము",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/rice.jpg",
-    "price": 1450,
-    "defaultQty": "25 కిలోల బస్తా",
+    "id": "fruit_27_straberri",
+    "nameTe": "స్ట్రాబెర్రీ (ఫ్రెష్ బాక్స్)",
+    "nameEn": "Fresh Strawberries",
+    "translit": "straberri strawberry fresh strawberry box",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/straberri.jpg",
+    "price": 75,
+    "defaultQty": "1 బాక్స్",
     "commonQtys": [
-      "25 కిలోల బస్తా",
-      "10 కిలోలు",
-      "5 కిలోలు",
-      "1 కిలో"
+      "1 బాక్స్",
+      "2 బాక్సులు"
     ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
+    "tagType": "offer",
+    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
     "inStock": true
   },
   {
-    "id": "nr_141",
-    "nameTe": "బొంబాయి రవ్వ",
-    "nameEn": "Semolina",
-    "translit": "bombai rawa semolina బొంబాయి రవ్వ",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/semo.jpg",
-    "price": 65,
+    "id": "fruit_28_beripandu",
+    "nameTe": "బేరిపండు / పియర్",
+    "nameEn": "Pear (Nashpati)",
+    "translit": "beripandu pear nashpati pashpati",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/beripandu.jpg",
+    "price": 90,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
-      "2 కిలోలు",
       "500 గ్రాములు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
-    "id": "nr_142",
-    "nameTe": "సేమియా",
-    "nameEn": "Vermicelli",
-    "translit": "semia vermicelli సేమియా",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "https://www.nriol.com/images/verm.jpg",
-    "price": 65,
+    "id": "fruit_29_kivi",
+    "nameTe": "కివీ పండు",
+    "nameEn": "Fresh Kiwi Fruit",
+    "translit": "kivi kiwi kiwi fruit fresh kiwi",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/kivi.jpg",
+    "price": 80,
+    "defaultQty": "3 పీసులు",
+    "commonQtys": [
+      "3 పీసులు",
+      "1 బాక్స్"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_30_dragan_phrut",
+    "nameTe": "డ్రాగన్ ఫ్రూట్",
+    "nameEn": "Dragon Fruit (Pitaya)",
+    "translit": "dragan phrut dragon fruit pitaya pink fruit",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/dragan_phrut.jpg",
+    "price": 90,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_31_avakado",
+    "nameTe": "అవకాడో / వెన్న పండు",
+    "nameEn": "Fresh Avocado (Butter Fruit)",
+    "translit": "avakado avocado butter fruit venna pandu",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/avakado.jpg",
+    "price": 110,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ",
+      "2 కాయలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_32_pamparapanasa",
+    "nameTe": "పంపరపనస",
+    "nameEn": "Pomelo (Grapefruit)",
+    "translit": "pamparapanasa pomelo grapefruit chakotra",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/pamparapanasa.jpg",
+    "price": 60,
+    "defaultQty": "1 కాయ",
+    "commonQtys": [
+      "1 కాయ"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
+    "inStock": true
+  },
+  {
+    "id": "fruit_33_ramaphalam",
+    "nameTe": "రామాఫలం",
+    "nameEn": "Bullock's Heart (Ramphal)",
+    "translit": "ramaphalam ramphal bullocks heart",
+    "mainCategory": "fruits",
+    "category": "fruits",
+    "imageUrl": "images/fruits/ramaphalam.jpg",
+    "price": 80,
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
-      "2 కిలోలు",
       "500 గ్రాములు"
     ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_143",
-    "nameTe": "బెల్లము",
-    "nameEn": "Jaggery",
-    "translit": "bellamu jaggery బెల్లము",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/jaggery.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_144",
-    "nameTe": "తేనె",
-    "nameEn": "Honey",
-    "translit": "tene honey తేనె",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/honey.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
-    "inStock": true
-  },
-  {
-    "id": "nr_145",
-    "nameTe": "కొబ్బరి కాయ",
-    "nameEn": "Coconut",
-    "translit": "kobbari kaya coconut కొబ్బరి కాయ kobbarikaya tenkaya nariyal",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "https://www.nriol.com/images/coconut.jpg",
-    "price": 60,
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": null,
-    "tagLabelTelugu": null,
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పండ్లు",
     "inStock": true
   },
   {
     "id": "pooja_1",
     "nameTe": "అగరబత్తీలు (సుగంధ ధూపం)",
     "nameEn": "Incense Sticks (Agarbatti)",
-    "translit": "agarbatti agarbattilu agarbathi agarbathulu oodubathulu udubathulu dhoop sticks fragrance sticks champa rose agarbatti pooja agarbatti",
+    "translit": "agarbatti agarbattilu oodubathulu udubathulu dhoop sticks fragrance sticks pooja agarbatti",
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&auto=format&fit=crop&q=80",
@@ -2810,7 +2236,7 @@ const GROCERY_ITEMS = [
     "id": "pooja_2",
     "nameTe": "హారతి కర్పూరం బిళ్లలు",
     "nameEn": "Camphor Tablets (Karpooram)",
-    "translit": "karpooram karpuram camphor harathi karpooram karpura billalu harathi deepam white camphor pooja camphor",
+    "translit": "karpooram karpuram camphor harathi karpooram karpura billalu harathi deepam white camphor",
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=80",
@@ -2829,17 +2255,16 @@ const GROCERY_ITEMS = [
     "id": "pooja_3",
     "nameTe": "పూజా పసుపు పొడి",
     "nameEn": "Sacred Pooja Turmeric",
-    "translit": "pasupu pooja pasupu turmeric powder haldi sacred pasupu mangala dravyam turmeric",
+    "translit": "pasupu pooja pasupu turmeric powder haldi mangala dravyam",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://www.nriol.com/images/turmeric-seed.jpg",
+    "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=500&auto=format&fit=crop&q=80",
     "price": 30,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
       "250 గ్రాములు",
-      "50 గ్రాములు",
-      "500 గ్రాములు"
+      "50 గ్రాములు"
     ],
     "tagType": "pooja",
     "tagLabelTelugu": "పవిత్ర ద్రవ్యం",
@@ -2849,7 +2274,7 @@ const GROCERY_ITEMS = [
     "id": "pooja_4",
     "nameTe": "సిందూరం / ఎర్ర కుంకుమ",
     "nameEn": "Divine Kumkum (Vermilion)",
-    "translit": "kumkuma kumkum sindhooram sindhuram erra kumkum divine kumkum pooja kumkuma sindoor",
+    "translit": "kumkuma kumkum sindhooram sindhuram erra kumkum divine kumkum pooja kumkuma",
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80",
@@ -2867,11 +2292,11 @@ const GROCERY_ITEMS = [
   {
     "id": "pooja_5",
     "nameTe": "పూజా కొబ్బరికాయ (పీచుతో)",
-    "nameEn": "Sacred Pooja Coconut",
+    "nameEn": "Sacred Pooja Coconut (Tenkaya)",
     "translit": "kobbari kaya kobbarikaya tenkaya tenkay coconut pooja coconut nariyal kudaka peelu",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://www.nriol.com/images/coconut.jpg",
+    "imageUrl": "images/fruits/kobbarikaya.jpg",
     "price": 35,
     "defaultQty": "1 కాయ",
     "commonQtys": [
@@ -2887,8 +2312,8 @@ const GROCERY_ITEMS = [
   {
     "id": "pooja_6",
     "nameTe": "పత్తి దీపం వత్తులు (పువ్వు వత్తులు)",
-    "nameEn": "Cotton Wicks for Deepam",
-    "translit": "patti vattulu vattulu deepam vattulu cotton wicks phool batti deeparadhana vattulu long wicks diya batti",
+    "nameEn": "Cotton Wicks for Deepam (Patti Vattulu)",
+    "translit": "patti vattulu vattulu deepam vattulu cotton wicks phool batti deeparadhana vattulu",
     "mainCategory": "pooja",
     "category": "pooja",
     "imageUrl": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80",
@@ -2982,12 +2407,12 @@ const GROCERY_ITEMS = [
   },
   {
     "id": "pooja_11",
-    "nameTe": "పూజా వక్కలు (పోక వక్కలు)",
+    "nameTe": "పూజా పోక వక్కలు",
     "nameEn": "Betel Nuts (Vakkalu / Supari)",
     "translit": "vakkalu poka vakkalu supari betel nut pooja vakkalu tamboolam vakkalu areca nut",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://www.nriol.com/images/beetel.jpg",
+    "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
     "price": 40,
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
@@ -3001,7 +2426,7 @@ const GROCERY_ITEMS = [
   },
   {
     "id": "pooja_12",
-    "nameTe": "మట్టి ప్రమిదలు (దీపాలు)",
+    "nameTe": "మట్టి ప్రమిదలు / దీపాలు",
     "nameEn": "Clay Diyas (Matti Pramadalu)",
     "translit": "matti pramidalu matti deepalu clay diyas deepalu diwali diyas deepam pramidalu clay lamps",
     "mainCategory": "pooja",
@@ -3041,7 +2466,7 @@ const GROCERY_ITEMS = [
   },
   {
     "id": "pooja_14",
-    "nameTe": "రక్షా సూత్రం / పవిత్ర కంకణం",
+    "nameTe": "పవిత్ర రక్షా సూత్రం / కంకణం",
     "nameEn": "Sacred Protection Thread (Kankanam)",
     "translit": "kankanam raksha sutram pooja thread mauli kalawa red yellow thread pavitra daram",
     "mainCategory": "pooja",
@@ -3060,25 +2485,6 @@ const GROCERY_ITEMS = [
   },
   {
     "id": "pooja_15",
-    "nameTe": "ఆవు నెయ్యి (పూజా దీపారాధనకు)",
-    "nameEn": "Pure Cow Ghee for Deepam",
-    "translit": "avu neyyi cow ghee pooja ghee deeparadhana neyyi akhanda deepam ghee pure desi ghee",
-    "mainCategory": "pooja",
-    "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=500&auto=format&fit=crop&q=80",
-    "price": 160,
-    "defaultQty": "250 గ్రాములు",
-    "commonQtys": [
-      "250 గ్రాములు",
-      "500 గ్రాములు",
-      "1 కిలో"
-    ],
-    "tagType": "pooja",
-    "tagLabelTelugu": "పవిత్ర నేయి",
-    "inStock": true
-  },
-  {
-    "id": "pooja_16",
     "nameTe": "అక్షింతలు (పూజా పవిత్ర బియ్యం)",
     "nameEn": "Sacred Akshintalu (Pooja Rice)",
     "translit": "akshintalu akshatalu pooja biyyam pasupu biyyam sacred rice blessed rice",
@@ -3096,7 +2502,7 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "pooja_17",
+    "id": "pooja_16",
     "nameTe": "యజ్ఞోపవీతం (పవిత్ర జంధ్యం)",
     "nameEn": "Sacred Jandhyam (Yajnopavita)",
     "translit": "jandhyam yagnopaveetham sacred thread pooja thread brahmin thread",
@@ -3114,7 +2520,7 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "pooja_18",
+    "id": "pooja_17",
     "nameTe": "కలశం రాగి / ఇత్తడి చెంబు",
     "nameEn": "Pooja Kalasham Pot (Vessel)",
     "translit": "kalasham chembu pooja kalash brass chembu copper pot pooja patra",

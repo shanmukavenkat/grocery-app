@@ -799,7 +799,7 @@
 
     // Group items into 4 distinct thermal receipt categories
     const groups = {
-      groceries: { title: '*** [ కిరాణా సరుకులు & పప్పులు ] ***', items: [], isPooja: false },
+      groceries: { title: '*** [ కిరాణా సరుకులు & నవధాన్యాలు ] ***', items: [], isPooja: false },
       vegetables: { title: '*** [ తాజా కూరగాయలు & ఆకులు ] ***', items: [], isPooja: false },
       fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
       pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true }
@@ -994,8 +994,11 @@
     const samples = [
       { nameTe: 'పుట్నాల పప్పు (వేయించిన శనగ పప్పు)', nameEn: 'Roasted Gram Dal', category: 'groceries', mainCategory: 'groceries', qty: '500 గ్రాములు', price: 38 },
       { nameTe: 'సోనా మసూరి బియ్యం (పాత బియ్యం)', nameEn: 'Sona Masoori Rice', category: 'groceries', mainCategory: 'groceries', qty: '25 కిలోల బస్తా', price: 1450 },
-      { nameTe: 'టమోటా', nameEn: 'Tomato', category: 'vegetables', mainCategory: 'vegetables', qty: '1 కిలో', price: 40 },
-      { nameTe: 'అరటిపండ్లు', nameEn: 'Banana', category: 'fruits', mainCategory: 'fruits', qty: '1 డజను', price: 60 },
+      { nameTe: 'గోధుమలు', nameEn: 'Wheat (Godhumalu)', category: 'groceries', mainCategory: 'groceries', qty: '2 కిలోలు', price: 45 },
+      { nameTe: 'టమాటా / టమోటా', nameEn: 'Tomato', category: 'vegetables', mainCategory: 'vegetables', qty: '1 కిలో', price: 40 },
+      { nameTe: 'కొత్తిమీర (తాజా కట్ట)', nameEn: 'Fresh Coriander', category: 'vegetables', mainCategory: 'vegetables', qty: '2 కట్టలు', price: 15 },
+      { nameTe: 'అరటి పండు (చక్కెరకేళి / అమృతపాణి)', nameEn: 'Banana', category: 'fruits', mainCategory: 'fruits', qty: '1 డజను', price: 60 },
+      { nameTe: 'మామిడి పండు (బంగినపల్లి)', nameEn: 'Sweet Mango', category: 'fruits', mainCategory: 'fruits', qty: '1 కిలో', price: 120 },
       { nameTe: 'అగరబత్తీలు (సుగంధ ధూపం)', nameEn: 'Incense Sticks', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్', price: 40 },
       { nameTe: 'హారతి కర్పూరం బిళ్లలు', nameEn: 'Camphor Tablets', category: 'pooja', mainCategory: 'pooja', qty: '1 ప్యాకెట్', price: 50 },
       { nameTe: 'పూజా కొబ్బరికాయ (పీచుతో)', nameEn: 'Sacred Pooja Coconut', category: 'pooja', mainCategory: 'pooja', qty: '1 కాయ', price: 35 }
