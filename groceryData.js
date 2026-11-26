@@ -100,6 +100,13 @@ const GROCERY_CATEGORIES = [
     "nameEn": "Pooja Flowers",
     "icon": "fa-spa",
     "color": "bg-pink-600"
+  },
+  {
+    "id": "toiletries",
+    "name": "టాయిలెట్రీ & క్లీనింగ్",
+    "nameEn": "Toiletries & Cleaning",
+    "icon": "fa-pump-soap",
+    "color": "bg-cyan-700"
   }
 ];
 
@@ -5310,6 +5317,255 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "pooja",
     "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "toil_1",
+    "nameTe": "టూత్ బ్రష్",
+    "nameEn": "Toothbrush",
+    "translit": "toothbrush tooth brush brush oral b colgate dental brush",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/toothbrush.jpg",
+    "defaultQty": "2 పీస్‌లు",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీస్‌లు",
+      "4 పీస్‌లు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_2",
+    "nameTe": "టూత్ పేస్ట్ (కోల్గేట్ / క్లోజప్)",
+    "nameEn": "Toothpaste",
+    "translit": "toothpaste tooth paste paste colgate closeup pepsodent sensodyne",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/toothpaste.jpg",
+    "defaultQty": "200 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "200 గ్రాములు",
+      "1 ప్యాకెట్"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_3",
+    "nameTe": "హార్పిక్ టాయిలెట్ క్లీనర్",
+    "nameEn": "Harpic Toilet Cleaner",
+    "translit": "harpic toilet cleaner bathroom cleaner liquid harpic",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/harpic.jpg",
+    "defaultQty": "500 మి.లీ.",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "2 లీటర్లు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_4",
+    "nameTe": "విమ్ డిష్‌వాష్ లిక్విడ్ (గిన్నెల లిక్విడ్)",
+    "nameEn": "Vim Dishwash Liquid / Gel",
+    "translit": "vim liquid vim gel dishwash liquid ginnelu thome liquid prill",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/vim_liquid.jpg",
+    "defaultQty": "500 మి.లీ.",
+    "commonQtys": [
+      "250 మి.లీ.",
+      "500 మి.లీ.",
+      "1 లీటరు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_5",
+    "nameTe": "హ్యాండ్ వాష్ లిక్విడ్ (డెటాల్ / లైఫ్‌బాయ్)",
+    "nameEn": "Handwash Liquid",
+    "translit": "handwash liquid hand wash soap dettol lifebuoy santoor handwash",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/handwash.jpg",
+    "defaultQty": "500 మి.లీ.",
+    "commonQtys": [
+      "250 మి.లీ.",
+      "500 మి.లీ.",
+      "1 లీటరు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_6",
+    "nameTe": "కంఫర్ట్ ఫ్యాబ్రిక్ కండిషనర్",
+    "nameEn": "Comfort Fabric Conditioner Liquid",
+    "translit": "comfort liquid comfort fabric conditioner softener battala comfort",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/comfort.jpg",
+    "defaultQty": "500 మి.లీ.",
+    "commonQtys": [
+      "200 మి.లీ.",
+      "500 మి.లీ.",
+      "1 లీటరు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "సువాసన",
+    "inStock": true
+  },
+  {
+    "id": "toil_7",
+    "nameTe": "లైజాల్ ఫ్లోర్ క్లీనర్ (ఫినాయిల్)",
+    "nameEn": "Floor Cleaner / Phenyl (Lizol)",
+    "translit": "lizol floor cleaner phenyl finayil floor wash disinfectant",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/floor_cleaner.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "2 లీటర్లు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_8",
+    "nameTe": "స్నానం సబ్బు (సంతూర్ / లక్స్ / డవ్)",
+    "nameEn": "Bath Soap Bar",
+    "translit": "bath soap snanam sabbu santoor lux dove pears dettol soap",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/bath_soap.jpg",
+    "defaultQty": "4 పీస్‌లు",
+    "commonQtys": [
+      "1 పీస్",
+      "4 పీస్‌లు",
+      "1 ప్యాకెట్"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_9",
+    "nameTe": "షాంపూ బాటిల్ / ప్యాకెట్లు",
+    "nameEn": "Hair Shampoo",
+    "translit": "shampoo clinic plus head and shoulders dove pantene sunsilk",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/shampoo.jpg",
+    "defaultQty": "500 మి.లీ.",
+    "commonQtys": [
+      "250 మి.లీ.",
+      "500 మి.లీ.",
+      "1 ప్యాకెట్"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "toil_10",
+    "nameTe": "బట్టల డిటర్జెంట్ పౌడర్ (సర్ఫ్ ఎక్సెల్ / ఏరియల్)",
+    "nameEn": "Washing Detergent Powder",
+    "translit": "surf excel ariel tide washing powder detergent powder battala powder",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/detergent_powder.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "toil_11",
+    "nameTe": "స్టీల్ స్క్రబ్బర్ (గిన్నెల పీచు)",
+    "nameEn": "Steel Scrubber / Dish Pad",
+    "translit": "steel scrubber scotch brite scrubber ginnela peechu dish pad",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/steel_scrubber.jpg",
+    "defaultQty": "2 పీస్‌లు",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీస్‌లు",
+      "1 ప్యాకెట్"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "toil_12",
+    "nameTe": "టాయిలెట్ క్లీనింగ్ బ్రష్",
+    "nameEn": "Toilet Cleaning Brush",
+    "translit": "toilet brush cleaning brush bathroom brush",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/toilet_brush.jpg",
+    "defaultQty": "1 పీస్",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీస్‌లు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "toil_13",
+    "nameTe": "దోమల కాయిల్స్ (మస్కిటో కాయిల్స్)",
+    "nameEn": "Mosquito Repellent Coils",
+    "translit": "mosquito coil domala coil good knight mortein maxo all out",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/mosquito_coil.jpg",
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "1 ప్యాకెట్",
+      "2 ప్యాకెట్లు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "toil_14",
+    "nameTe": "నాఫ్తలీన్ బాల్స్ (కర్పూరం గోళీలు)",
+    "nameEn": "Naphthalene Balls (Mothballs)",
+    "translit": "naphthalene balls karpooram golilu mothballs odonil",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/naphthalene_balls.jpg",
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "1 ప్యాకెట్",
+      "2 ప్యాకెట్లు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
     "inStock": true
   }
 ];

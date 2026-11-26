@@ -51,6 +51,12 @@
       fill = '#d97706';
       // Nut / Dry Fruit
       path = '<ellipse cx="12" cy="13" rx="6" ry="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.6"/>';
+    } else if (cat.includes('toiletry') || cat.includes('toiletries') || cat.includes('clean')) {
+      bg = '#ecfeff';
+      stroke = '#0e7490';
+      fill = '#06b6d4';
+      // Soap Dispenser Bottle
+      path = '<rect x="7" y="9" width="10" height="12" rx="2" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/><path d="M12 9V5M9 5h6" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round"/>';
     } else {
       // Groceries / Grains / Spices
       bg = '#fffbeb';
@@ -290,7 +296,8 @@
       { id: 'leafy_greens', name: 'ఆకుకూరలు', nameEn: 'Leafy Vegetables', icon: 'fa-leaf', color: 'bg-emerald-600' },
       { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
       { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' },
-      { id: 'pooja_flowers', name: 'పూజా పువ్వులు', nameEn: 'Pooja Flowers', icon: 'fa-spa', color: 'bg-pink-600' }
+      { id: 'pooja_flowers', name: 'పూజా పువ్వులు', nameEn: 'Pooja Flowers', icon: 'fa-spa', color: 'bg-pink-600' },
+      { id: 'toiletries', name: 'టాయిలెట్రీ & క్లీనింగ్', nameEn: 'Toiletries', icon: 'fa-pump-soap', color: 'bg-cyan-700' }
     ];
 
     categories.forEach(cat => {
@@ -435,6 +442,8 @@
           if (!matchesCat('pooja') && !matchesCat('pooja_flowers')) return false;
         } else if (STATE.currentCategory === 'pooja_flowers') {
           if (!matchesCat('pooja_flowers') && !matchesCat('flowers')) return false;
+        } else if (STATE.currentCategory === 'toiletries') {
+          if (!matchesCat('toiletries') && !matchesCat('toiletry')) return false;
         } else {
           if (!matchesCat(STATE.currentCategory)) return false;
         }
@@ -903,7 +912,8 @@
       leafy_greens: { title: '*** [ తాజా ఆకుకూరలు ] ***', items: [], isPooja: false },
       fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
       pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true },
-      pooja_flowers: { title: '*** [ పవిత్ర పూజా పువ్వులు ] ***', items: [], isPooja: true }
+      pooja_flowers: { title: '*** [ పవిత్ర పూజా పువ్వులు ] ***', items: [], isPooja: true },
+      toiletries: { title: '*** [ టాయిలెట్రీ & ఇంటి శుభ్రత ] ***', items: [], isPooja: false }
     };
 
     STATE.cart.forEach(item => {
@@ -912,6 +922,8 @@
         groups.pooja_flowers.items.push(item);
       } else if (cat.includes('pooja')) {
         groups.pooja.items.push(item);
+      } else if (cat.includes('toilet') || cat.includes('clean')) {
+        groups.toiletries.items.push(item);
       } else if (cat.includes('millet')) {
         groups.millets.items.push(item);
       } else if (cat.includes('grain')) {
