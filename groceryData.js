@@ -397,7 +397,7 @@ const GROCERY_ITEMS = [
     "translit": "sona masoori biyyam biyam rice sona masuri raw rice steam rice white rice rice bag basta",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/sona_masoori.jpg",
     "defaultQty": "25 కిలోల బస్తా",
     "commonQtys": [
       "25 కిలోల బస్తా",
@@ -416,7 +416,7 @@ const GROCERY_ITEMS = [
     "translit": "basmati rice biyyam biryani rice daawat india gate long grain basmathi",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/basmati_rice.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -434,7 +434,7 @@ const GROCERY_ITEMS = [
     "translit": "kandi pappu kandipappu toor dal tuvar dal arhar dal yellow dal",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://images.unsplash.com/photo-1585994192701-f1a505c817ea?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/kandi_pappu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -452,7 +452,7 @@ const GROCERY_ITEMS = [
     "translit": "minapa pappu minapappu minapa gulla urad dal idli dal dosa pappu",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://images.unsplash.com/photo-1587334207436-1e0e8e0d37e6?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/minapa_pappu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -470,7 +470,7 @@ const GROCERY_ITEMS = [
     "translit": "pesara pappu pesarapappu moong dal yellow moong dal pesarattu pappu",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://images.unsplash.com/photo-1610444585694-8254b2a8d3fe?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/pesara_pappu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -488,7 +488,7 @@ const GROCERY_ITEMS = [
     "translit": "senaga pappu sanaga pappu chana dal bengal gram split dal",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://images.unsplash.com/photo-1585994192701-f1a505c817ea?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/senaga_pappu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -506,7 +506,7 @@ const GROCERY_ITEMS = [
     "translit": "pallilu palli verusenaga gullu peanuts groundnuts moongphali",
     "mainCategory": "groceries",
     "category": "dals",
-    "imageUrl": "https://images.unsplash.com/photo-1567894340315-735d7c361db0?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/pallilu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -524,7 +524,7 @@ const GROCERY_ITEMS = [
     "translit": "godhuma pindi atta chakki fresh aashirvaad wheat flour chapatipindi",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/godhuma_pindi.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -542,7 +542,7 @@ const GROCERY_ITEMS = [
     "translit": "senagapindi besan gram flour bajji pindi chana flour",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://images.unsplash.com/photo-1610444585694-8254b2a8d3fe?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/senagapindi.jpg",
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -560,7 +560,7 @@ const GROCERY_ITEMS = [
     "translit": "bombai rawa bombay rava upma rava semolina sooji suji",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/bombay_rava.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -577,7 +577,7 @@ const GROCERY_ITEMS = [
     "translit": "atukulu poha flattened rice beaten rice aval atukulu",
     "mainCategory": "groceries",
     "category": "grains",
-    "imageUrl": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/atukulu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -594,7 +594,7 @@ const GROCERY_ITEMS = [
     "translit": "verusenaga nune palli noone groundnut oil peanut oil ganuga nune cooking oil",
     "mainCategory": "groceries",
     "category": "oils",
-    "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/verusenaga_nune.jpg",
     "defaultQty": "1 లీటరు",
     "commonQtys": [
       "1 లీటరు",
@@ -612,7 +612,7 @@ const GROCERY_ITEMS = [
     "translit": "aavu neyyi cow ghee pure desi ghee neyyi ghee butter",
     "mainCategory": "groceries",
     "category": "oils",
-    "imageUrl": "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/aavu_neyyi.jpg",
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -630,7 +630,7 @@ const GROCERY_ITEMS = [
     "translit": "jeelakarra jeera cumin seeds zeera popu jeelakarra",
     "mainCategory": "groceries",
     "category": "spices",
-    "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/jeelakarra.jpg",
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -648,7 +648,7 @@ const GROCERY_ITEMS = [
     "translit": "avalu rai mustard seeds popu avalu sasive",
     "mainCategory": "groceries",
     "category": "spices",
-    "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/avalu.jpg",
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -666,7 +666,7 @@ const GROCERY_ITEMS = [
     "translit": "chintapandu chintha pandu tamarind imli fresh tamarind",
     "mainCategory": "groceries",
     "category": "spices",
-    "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/chintapandu.jpg",
     "defaultQty": "500 గ్రాములు",
     "commonQtys": [
       "500 గ్రాములు",
@@ -684,7 +684,7 @@ const GROCERY_ITEMS = [
     "translit": "bellam achu bellam jaggery gur organic bellam chakkera",
     "mainCategory": "groceries",
     "category": "essentials",
-    "imageUrl": "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/bellam.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -702,7 +702,7 @@ const GROCERY_ITEMS = [
     "translit": "kalluppu rathi uppu rock salt sea salt crystal salt uppu",
     "mainCategory": "groceries",
     "category": "essentials",
-    "imageUrl": "https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/kalluppu.jpg",
     "defaultQty": "1 కిలో",
     "commonQtys": [
       "1 కిలో",
@@ -720,7 +720,7 @@ const GROCERY_ITEMS = [
     "translit": "jeedi pappu jeedipappu kaju cashews kaju nuts whole cashews",
     "mainCategory": "groceries",
     "category": "dryfruits",
-    "imageUrl": "https://images.unsplash.com/photo-1536591375315-1b8368146743?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/jeedipappu.jpg",
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -739,7 +739,7 @@ const GROCERY_ITEMS = [
     "translit": "badam badampappu almonds california badam dry fruits",
     "mainCategory": "groceries",
     "category": "dryfruits",
-    "imageUrl": "https://images.unsplash.com/photo-1508061252445-5350f3ab0a55?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/groceries/badam.jpg",
     "defaultQty": "250 గ్రాములు",
     "commonQtys": [
       "250 గ్రాములు",
@@ -2111,7 +2111,7 @@ const GROCERY_ITEMS = [
     "translit": "agarbatti agarbattilu oodubathulu udubathulu dhoop sticks fragrance sticks pooja agarbatti",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/agarbattilu.jpg",
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2129,7 +2129,7 @@ const GROCERY_ITEMS = [
     "translit": "karpooram karpuram camphor harathi karpooram karpura billalu harathi deepam white camphor",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/karpooram.jpg",
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2147,7 +2147,7 @@ const GROCERY_ITEMS = [
     "translit": "pasupu pooja pasupu turmeric powder haldi mangala dravyam",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/pooja_pasupu.jpg",
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2165,7 +2165,7 @@ const GROCERY_ITEMS = [
     "translit": "kumkuma kumkum sindhooram sindhuram erra kumkum divine kumkum pooja kumkuma",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/kumkuma.jpg",
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2183,7 +2183,7 @@ const GROCERY_ITEMS = [
     "translit": "kobbari kaya kobbarikaya tenkaya tenkay coconut pooja coconut nariyal kudaka peelu",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "images/fruits/kobbarikaya.jpg",
+    "imageUrl": "images/pooja/pooja_kobbari.jpg",
     "defaultQty": "1 కాయ",
     "commonQtys": [
       "1 కాయ",
@@ -2202,7 +2202,7 @@ const GROCERY_ITEMS = [
     "translit": "patti vattulu vattulu deepam vattulu cotton wicks phool batti deeparadhana vattulu",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/patti_vattulu.jpg",
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2220,7 +2220,7 @@ const GROCERY_ITEMS = [
     "translit": "deeparadhana nune nuvvula nune pooja oil lamp oil sesame oil til oil deepam oil",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/deeparadhana_nune.jpg",
     "defaultQty": "500 మి.లీ.",
     "commonQtys": [
       "500 మి.లీ.",
@@ -2238,7 +2238,7 @@ const GROCERY_ITEMS = [
     "translit": "sambrani sambrani dhoop dhoop cups loban guggilam dhoopam agarbatti dhoop",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/sambrani.jpg",
     "defaultQty": "1 ప్యాకెట్",
     "commonQtys": [
       "1 ప్యాకెట్",
@@ -2256,7 +2256,7 @@ const GROCERY_ITEMS = [
     "translit": "gandham gandham podi sandalwood powder chandan pooja chandan gandhapu billalu",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1615397349754-cfa2066a298e?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/gandham.jpg",
     "defaultQty": "50 గ్రాములు",
     "commonQtys": [
       "50 గ్రాములు",
@@ -2274,7 +2274,7 @@ const GROCERY_ITEMS = [
     "translit": "tamalapakulu tamalapaku betel leaves paan akulu tamboolam pooja leaves vettilai",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/tamalapakulu.jpg",
     "defaultQty": "1 కట్ట",
     "commonQtys": [
       "1 కట్ట",
@@ -2293,7 +2293,7 @@ const GROCERY_ITEMS = [
     "translit": "vakkalu poka vakkalu supari betel nut pooja vakkalu tamboolam vakkalu areca nut",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/vakkalu.jpg",
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2311,7 +2311,7 @@ const GROCERY_ITEMS = [
     "translit": "matti pramidalu matti deepalu clay diyas deepalu diwali diyas deepam pramidalu clay lamps",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1574870111867-089730e5a72b?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/matti_pramidalu.jpg",
     "defaultQty": "1 జత (2 నంబర్లు)",
     "commonQtys": [
       "1 జత",
@@ -2330,7 +2330,7 @@ const GROCERY_ITEMS = [
     "translit": "poolu pooja poolu banti poolu malle poolu marigold garland flower garland gajra danda",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1533616688419-b7a585564566?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/poolu_mala.jpg",
     "defaultQty": "1 కట్ట / మాల",
     "commonQtys": [
       "1 కట్ట",
@@ -2349,7 +2349,7 @@ const GROCERY_ITEMS = [
     "translit": "kankanam raksha sutram pooja thread mauli kalawa red yellow thread pavitra daram",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/kankanam.jpg",
     "defaultQty": "1 పీస్",
     "commonQtys": [
       "1 పీస్",
@@ -2367,7 +2367,7 @@ const GROCERY_ITEMS = [
     "translit": "akshintalu akshatalu pooja biyyam pasupu biyyam sacred rice blessed rice",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/akshintalu.jpg",
     "defaultQty": "100 గ్రాములు",
     "commonQtys": [
       "100 గ్రాములు",
@@ -2384,7 +2384,7 @@ const GROCERY_ITEMS = [
     "translit": "jandhyam yagnopaveetham sacred thread pooja thread brahmin thread",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/jandhyam.jpg",
     "defaultQty": "1 జత",
     "commonQtys": [
       "1 జత",
@@ -2401,7 +2401,7 @@ const GROCERY_ITEMS = [
     "translit": "kalasham chembu pooja kalash brass chembu copper pot pooja patra",
     "mainCategory": "pooja",
     "category": "pooja",
-    "imageUrl": "https://images.unsplash.com/photo-1610730581079-ff3715e29786?w=500&auto=format&fit=crop&q=80",
+    "imageUrl": "images/pooja/kalasham.jpg",
     "defaultQty": "1 పీస్",
     "commonQtys": [
       "1 పీస్"
