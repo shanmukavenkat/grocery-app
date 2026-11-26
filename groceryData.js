@@ -5701,6 +5701,24 @@ const GROCERY_ITEMS = [
     "tagType": null,
     "tagLabelTelugu": null,
     "inStock": true
+  },
+  {
+    "id": "toil_15",
+    "nameTe": "డస్ట్‌బిన్ కవర్లు (చెత్త కవర్లు)",
+    "nameEn": "Dustbin Covers / Garbage Bags (Roll)",
+    "translit": "dustbin covers dustin covers garbage bags trash bags bin liners chetha coverlu",
+    "mainCategory": "toiletries",
+    "category": "toiletries",
+    "imageUrl": "images/toiletries/dustbin_covers.jpg",
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "1 ప్యాకెట్",
+      "2 ప్యాకెట్లు",
+      "5 ప్యాకెట్లు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
   }
 ];
 

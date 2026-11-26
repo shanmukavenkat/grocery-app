@@ -307,52 +307,79 @@ body {
   height: 100%;
 }
 
-/* Print Styles */
+/* Protect Telugu ligatures inside Thermal Receipt from tracking/letter-spacing */
+#printable-area,
+#printable-area *:not(#pdf-view-barcode-num) {
+  letter-spacing: normal !important;
+}
+
+/* Print Styles - ONLY print the 80mm thermal ticket, never the catalog/webpage */
 @media print {
+  @page {
+    size: auto;
+    margin: 5mm;
+  }
+
   html, body {
     background: #ffffff !important;
     padding: 0 !important;
     margin: 0 !important;
     width: 100% !important;
+    height: auto !important;
     color: #0f172a !important;
   }
 
-  /* Hide everything except the thermal receipt */
-  header, nav, #main-content, #cart-sidebar, #mobile-nav, .modal-backdrop, .no-print, button, .btn, #bottom-nav, #floating-cart-bar {
+  /* Hide EVERY direct child of body except #modal-pdf-preview */
+  body > *:not(#modal-pdf-preview) {
     display: none !important;
   }
 
-  /* Unhide preview modal and remove overlays */
+  /* Explicitly hide all navigation, main grid, cart, other modals & toasts */
+  header, main, nav, aside, footer, .modal-backdrop, .no-print, button, .btn,
+  #mobile-floating-cart-bar, #toast, #modal-quantity, #modal-custom-item, #modal-details {
+    display: none !important;
+  }
+
+  /* Unhide preview modal and strip modal backdrop/frame/buttons */
   #modal-pdf-preview {
     position: static !important;
+    inset: auto !important;
     background: transparent !important;
+    backdrop-filter: none !important;
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     box-shadow: none !important;
     overflow: visible !important;
     width: 100% !important;
+    height: auto !important;
   }
 
   #modal-pdf-preview > div {
     max-width: 100% !important;
     width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
     box-shadow: none !important;
     border: none !important;
+    border-radius: 0 !important;
     background: transparent !important;
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible !important;
-    max-height: none !important;
+    display: block !important;
   }
 
-  /* Hide modal header bar & control buttons during print */
-  #modal-pdf-preview .bg-slate-900,
+  /* Hide preview modal header bar (emerald-800 bar with Download/Print/Close buttons) */
+  #modal-pdf-preview > div > div:first-child,
   #modal-pdf-preview button {
     display: none !important;
   }
 
-  /* Remove gray background from scroll container */
+  /* Remove gray background & scroll box from preview body */
+  #modal-pdf-preview > div > div:last-child,
   #modal-pdf-preview .bg-slate-200 {
     background: transparent !important;
     padding: 0 !important;
@@ -361,7 +388,8 @@ body {
     display: block !important;
   }
 
-  .thermal-receipt-container {
+  .thermal-receipt-container,
+  #printable-area {
     box-shadow: none !important;
     border: none !important;
     max-width: 80mm !important;
@@ -370,13 +398,12 @@ body {
     padding: 0 !important;
     display: block !important;
     visibility: visible !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
   }
 
   .receipt-item-row,
   .receipt-section-header,
-  .thermal-totals-section {
+  .thermal-totals-section,
+  .receipt-header-block {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
