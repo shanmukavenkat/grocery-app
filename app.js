@@ -27,6 +27,18 @@
       fill = '#f43f5e';
       // Fresh Orchard Fruit
       path = '<circle cx="12" cy="13" r="8" fill="' + fill + '"/><path d="M12 5c0-2.5 2-3 4-3" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round"/>';
+    } else if (cat.includes('oil')) {
+      bg = '#fefce8';
+      stroke = '#ca8a04';
+      fill = '#eab308';
+      // Oil Droplet
+      path = '<path d="M12 3s-6 6.5-6 11a6 6 0 0 0 12 0c0-4.5-6-11-6-11z" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>';
+    } else if (cat.includes('spice')) {
+      bg = '#fef2f2';
+      stroke = '#b91c1c';
+      fill = '#dc2626';
+      // Spice Bowl
+      path = '<path d="M4 12h16a8 8 0 0 1-16 0z" fill="' + fill + '"/><path d="M12 4v5M8 6l4-2 4 2" stroke="' + stroke + '" stroke-width="1.8" stroke-linecap="round"/>';
     } else if (cat.includes('seed')) {
       bg = '#f7fee7';
       stroke = '#4d7c0f';
@@ -260,7 +272,12 @@
 
     const categories = (typeof GROCERY_CATEGORIES !== 'undefined') ? GROCERY_CATEGORIES : [
       { id: 'all', name: 'అన్నీ', nameEn: 'All', icon: 'fa-layer-group', color: 'bg-emerald-600' },
-      { id: 'groceries', name: 'కిరాణా సరుకులు', nameEn: 'Groceries', icon: 'fa-wheat-awn', color: 'bg-amber-600' },
+      { id: 'groceries', name: 'కిరాణా & నవధాన్యాలు', nameEn: 'Groceries', icon: 'fa-wheat-awn', color: 'bg-amber-600' },
+      { id: 'grains', name: 'ధాన్యాలు & పప్పులు', nameEn: 'Grains', icon: 'fa-bowl-rice', color: 'bg-yellow-700' },
+      { id: 'millets', name: 'చిరుధాన్యాలు', nameEn: 'Millets', icon: 'fa-wheat-awn-circle-exclamation', color: 'bg-amber-700' },
+      { id: 'spices', name: 'మసాలాలు', nameEn: 'Spices', icon: 'fa-mortar-pestle', color: 'bg-red-700' },
+      { id: 'oils', name: 'వంట నూనెలు', nameEn: 'Oils', icon: 'fa-bottle-droplet', color: 'bg-yellow-600' },
+      { id: 'kitchen_staples', name: 'వంటగది నిత్యావసరాలు', nameEn: 'Staples', icon: 'fa-jar', color: 'bg-stone-700' },
       { id: 'seeds', name: 'గింజలు & విత్తనాలు', nameEn: 'Seeds', icon: 'fa-seedling', color: 'bg-lime-700' },
       { id: 'vegetables', name: 'కూరగాయలు & ఆకులు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
       { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
@@ -372,25 +389,39 @@
   function filterCatalog() {
     const all = getCatalogList();
     return all.filter(item => {
-      // Category filter
+      // Category filter (supports extraCategories so items appear in all relevant lists without duplicates in 'all')
       if (STATE.currentCategory !== 'all') {
         const itemCat = (item.mainCategory || item.category || '').toLowerCase();
+        const extraCats = Array.isArray(item.extraCategories) ? item.extraCategories.map(c => c.toLowerCase()) : [];
+        const matchesCat = (target) => itemCat === target || extraCats.includes(target);
+
         if (STATE.currentCategory === 'groceries') {
-          if (!['groceries', 'grains', 'dals', 'spices', 'essentials', 'dryfruits', 'oils'].includes(itemCat)) {
+          const grocGroup = ['groceries', 'grains', 'dals', 'spices', 'essentials', 'dryfruits', 'oils', 'kitchen_staples', 'millets'];
+          if (!grocGroup.includes(itemCat) && !extraCats.some(c => grocGroup.includes(c))) {
             return false;
           }
+        } else if (STATE.currentCategory === 'grains') {
+          if (!matchesCat('grains') && !matchesCat('dals')) return false;
+        } else if (STATE.currentCategory === 'millets') {
+          if (!matchesCat('millets')) return false;
+        } else if (STATE.currentCategory === 'spices') {
+          if (!matchesCat('spices')) return false;
+        } else if (STATE.currentCategory === 'oils') {
+          if (!matchesCat('oils')) return false;
+        } else if (STATE.currentCategory === 'kitchen_staples') {
+          if (!matchesCat('kitchen_staples') && !matchesCat('essentials')) return false;
         } else if (STATE.currentCategory === 'seeds') {
-          if (!['seeds', 'seed'].includes(itemCat)) return false;
+          if (!matchesCat('seeds') && !matchesCat('seed')) return false;
         } else if (STATE.currentCategory === 'vegetables') {
-          if (!['vegetables', 'greens'].includes(itemCat)) {
+          if (!['vegetables', 'greens'].includes(itemCat) && !extraCats.some(c => ['vegetables', 'greens'].includes(c))) {
             return false;
           }
         } else if (STATE.currentCategory === 'fruits') {
-          if (itemCat !== 'fruits') return false;
+          if (!matchesCat('fruits')) return false;
         } else if (STATE.currentCategory === 'pooja') {
-          if (itemCat !== 'pooja') return false;
+          if (!matchesCat('pooja')) return false;
         } else {
-          if (itemCat !== STATE.currentCategory) return false;
+          if (!matchesCat(STATE.currentCategory)) return false;
         }
       }
 
@@ -846,7 +877,12 @@
     // Group items into distinct thermal receipt categories
     const groups = {
       groceries: { title: '*** [ కిరాణా సరుకులు & నవధాన్యాలు ] ***', items: [], isPooja: false },
+      grains: { title: '*** [ ధాన్యాలు & పప్పు దినుసులు ] ***', items: [], isPooja: false },
+      millets: { title: '*** [ సిరిధాన్యాలు (చిరుధాన్యాలు) ] ***', items: [], isPooja: false },
       seeds: { title: '*** [ గింజలు & విత్తనాలు ] ***', items: [], isPooja: false },
+      spices: { title: '*** [ మసాలాలు & సుగంధ ద్రవ్యాలు ] ***', items: [], isPooja: false },
+      oils: { title: '*** [ వంట నూనెలు ] ***', items: [], isPooja: false },
+      kitchen_staples: { title: '*** [ వంటగది నిత్యావసరాలు ] ***', items: [], isPooja: false },
       vegetables: { title: '*** [ తాజా కూరగాయలు & ఆకులు ] ***', items: [], isPooja: false },
       fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
       pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true }
@@ -856,8 +892,18 @@
       const cat = (item.mainCategory || item.category || 'groceries').toLowerCase();
       if (cat.includes('pooja')) {
         groups.pooja.items.push(item);
+      } else if (cat.includes('millet')) {
+        groups.millets.items.push(item);
+      } else if (cat.includes('grain')) {
+        groups.grains.items.push(item);
       } else if (cat.includes('seed')) {
         groups.seeds.items.push(item);
+      } else if (cat.includes('spice')) {
+        groups.spices.items.push(item);
+      } else if (cat.includes('oil')) {
+        groups.oils.items.push(item);
+      } else if (cat.includes('kitchen')) {
+        groups.kitchen_staples.items.push(item);
       } else if (cat.includes('veg') || cat.includes('green')) {
         groups.vegetables.items.push(item);
       } else if (cat.includes('fruit')) {

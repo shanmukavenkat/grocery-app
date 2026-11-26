@@ -18,6 +18,41 @@ const GROCERY_CATEGORIES = [
     "color": "bg-amber-600"
   },
   {
+    "id": "grains",
+    "name": "ధాన్యాలు & పప్పులు",
+    "nameEn": "Grains & Pulses",
+    "icon": "fa-bowl-rice",
+    "color": "bg-yellow-700"
+  },
+  {
+    "id": "millets",
+    "name": "చిరుధాన్యాలు",
+    "nameEn": "Millets",
+    "icon": "fa-wheat-awn-circle-exclamation",
+    "color": "bg-amber-700"
+  },
+  {
+    "id": "spices",
+    "name": "మసాలాలు",
+    "nameEn": "Spices",
+    "icon": "fa-mortar-pestle",
+    "color": "bg-red-700"
+  },
+  {
+    "id": "oils",
+    "name": "వంట నూనెలు",
+    "nameEn": "Cooking Oils",
+    "icon": "fa-bottle-droplet",
+    "color": "bg-yellow-600"
+  },
+  {
+    "id": "kitchen_staples",
+    "name": "వంటగది నిత్యావసరాలు",
+    "nameEn": "Kitchen Staples",
+    "icon": "fa-jar",
+    "color": "bg-stone-700"
+  },
+  {
     "id": "seeds",
     "name": "గింజలు & విత్తనాలు",
     "nameEn": "Seeds",
@@ -380,24 +415,6 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "groc_1",
-    "nameTe": "పుట్నాల పప్పు (వేయించిన శనగ పప్పు)",
-    "nameEn": "Roasted Gram Dal (Putnala Pappu)",
-    "translit": "putnala pappu putnalapappu putnalu roasted chana dal senaga pappu roasted bengal gram vepudu senagapappu",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "images/navadhanyalu/putnala_pappu.jpg",
-    "defaultQty": "500 గ్రాములు",
-    "commonQtys": [
-      "500 గ్రాములు",
-      "1 కిలో",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
     "id": "groc_2",
     "nameTe": "సోనా మసూరి బియ్యం (పాత బియ్యం)",
     "nameEn": "Sona Masoori Rice (Aged Rice)",
@@ -435,292 +452,6 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "groc_4",
-    "nameTe": "కంది పప్పు (ఫస్ట్ క్వాలిటీ)",
-    "nameEn": "Toor Dal (Kandi Pappu)",
-    "translit": "kandi pappu kandipappu toor dal tuvar dal arhar dal yellow dal",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "images/groceries/kandi_pappu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_5",
-    "nameTe": "మినప పప్పు (గుళ్ళు)",
-    "nameEn": "Urad Dal Gulla (Minapa Gulla)",
-    "translit": "minapa pappu minapappu minapa gulla urad dal idli dal dosa pappu",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "images/groceries/minapa_pappu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_6",
-    "nameTe": "పెసర పప్పు",
-    "nameEn": "Moong Dal (Pesara Pappu)",
-    "translit": "pesara pappu pesarapappu moong dal yellow moong dal pesarattu pappu",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "images/groceries/pesara_pappu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_7",
-    "nameTe": "శనగ పప్పు (తాలింపు పప్పు)",
-    "nameEn": "Chana Dal (Senaga Pappu)",
-    "translit": "senaga pappu sanaga pappu chana dal bengal gram split dal",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "images/groceries/senaga_pappu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_8",
-    "nameTe": "వేరుశెనగ గుళ్ళు / పల్లీలు",
-    "nameEn": "Peanuts / Groundnuts (Pallilu)",
-    "translit": "pallilu palli verusenaga gullu peanuts groundnuts moongphali",
-    "mainCategory": "groceries",
-    "category": "dals",
-    "imageUrl": "images/groceries/pallilu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు",
-      "2 కిలోలు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_9",
-    "nameTe": "గోధుమ పిండి (చక్కీ ఫ్రెష్ ఆటా)",
-    "nameEn": "Chakki Fresh Wheat Flour (Atta)",
-    "translit": "godhuma pindi atta chakki fresh aashirvaad wheat flour chapatipindi",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "images/groceries/godhuma_pindi.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "5 కిలోలు",
-      "10 కిలోలు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_10",
-    "nameTe": "శనగపిండి (బేసన్)",
-    "nameEn": "Besan / Gram Flour",
-    "translit": "senagapindi besan gram flour bajji pindi chana flour",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "images/groceries/senagapindi.jpg",
-    "defaultQty": "500 గ్రాములు",
-    "commonQtys": [
-      "500 గ్రాములు",
-      "1 కిలో",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_11",
-    "nameTe": "బొంబాయి రవ్వ (ఉప్మా రవ్వ)",
-    "nameEn": "Semolina / Upma Rava (Bombay Rava)",
-    "translit": "bombai rawa bombay rava upma rava semolina sooji suji",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "images/groceries/bombay_rava.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_12",
-    "nameTe": "అటుకులు (మధ్యస్థం)",
-    "nameEn": "Poha / Beaten Rice (Atukulu)",
-    "translit": "atukulu poha flattened rice beaten rice aval atukulu",
-    "mainCategory": "groceries",
-    "category": "grains",
-    "imageUrl": "images/groceries/atukulu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_13",
-    "nameTe": "వేరుశెనగ నూనె (గానుగ నూనె)",
-    "nameEn": "Groundnut Cooking Oil (Cold Pressed)",
-    "translit": "verusenaga nune palli noone groundnut oil peanut oil ganuga nune cooking oil",
-    "mainCategory": "groceries",
-    "category": "oils",
-    "imageUrl": "images/groceries/verusenaga_nune.jpg",
-    "defaultQty": "1 లీటరు",
-    "commonQtys": [
-      "1 లీటరు",
-      "2 లీటర్లు",
-      "5 లీటర్ల డబ్బా"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_14",
-    "nameTe": "స్వచ్ఛమైన ఆవు నెయ్యి",
-    "nameEn": "Pure Cow Ghee (Aavu Neyyi)",
-    "translit": "aavu neyyi cow ghee pure desi ghee neyyi ghee butter",
-    "mainCategory": "groceries",
-    "category": "oils",
-    "imageUrl": "images/groceries/aavu_neyyi.jpg",
-    "defaultQty": "500 గ్రాములు",
-    "commonQtys": [
-      "500 గ్రాములు",
-      "1 కిలో",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_15",
-    "nameTe": "జీలకర్ర",
-    "nameEn": "Cumin Seeds (Jeelakarra)",
-    "translit": "jeelakarra jeera cumin seeds zeera popu jeelakarra",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "images/groceries/jeelakarra.jpg",
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_16",
-    "nameTe": "ఆవాలు",
-    "nameEn": "Mustard Seeds (Avalu)",
-    "translit": "avalu rai mustard seeds popu avalu sasive",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "images/groceries/avalu.jpg",
-    "defaultQty": "100 గ్రాములు",
-    "commonQtys": [
-      "100 గ్రాములు",
-      "250 గ్రాములు",
-      "50 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_17",
-    "nameTe": "చింతపండు (కొత్త చింతపండు)",
-    "nameEn": "Tamarind (Chintapandu)",
-    "translit": "chintapandu chintha pandu tamarind imli fresh tamarind",
-    "mainCategory": "groceries",
-    "category": "spices",
-    "imageUrl": "images/groceries/chintapandu.jpg",
-    "defaultQty": "500 గ్రాములు",
-    "commonQtys": [
-      "500 గ్రాములు",
-      "1 కిలో",
-      "250 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_18",
-    "nameTe": "సేంద్రీయ అచ్చ బెల్లం",
-    "nameEn": "Organic Jaggery (Bellam)",
-    "translit": "bellam achu bellam jaggery gur organic bellam chakkera",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "images/groceries/bellam.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "500 గ్రాములు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
-    "id": "groc_19",
-    "nameTe": "కల్లుప్పు / రాతి ఉప్పు",
-    "nameEn": "Crystal Rock Salt (Kalluppu)",
-    "translit": "kalluppu rathi uppu rock salt sea salt crystal salt uppu",
-    "mainCategory": "groceries",
-    "category": "essentials",
-    "imageUrl": "images/groceries/kalluppu.jpg",
-    "defaultQty": "1 కిలో",
-    "commonQtys": [
-      "1 కిలో",
-      "2 కిలోలు",
-      "5 కిలోలు"
-    ],
-    "tagType": "essential",
-    "tagLabelTelugu": "ముఖ్యమైనది",
-    "inStock": true
-  },
-  {
     "id": "groc_20",
     "nameTe": "జీడిపప్పు (ప్రీమియం కాజూ)",
     "nameEn": "Cashew Nuts (Jeedi Pappu / Kaju)",
@@ -755,6 +486,1774 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "offer",
     "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_1",
+    "nameTe": "బియ్యం",
+    "nameEn": "Rice",
+    "translit": "biyyam rice raw rice sona masoori white rice biyam",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/rice.jpg",
+    "defaultQty": "5 కిలోలు",
+    "commonQtys": [
+      "1 కిలో",
+      "5 కిలోలు",
+      "25 కిలోల బస్తా"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_2",
+    "nameTe": "గోధుమలు",
+    "nameEn": "Wheat",
+    "translit": "godhumalu godhuma wheat whole wheat grains atta",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/wheat.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_7",
+    "nameTe": "మొక్కజొన్న",
+    "nameEn": "Maize",
+    "translit": "mokkajonna mokkajonna ginjalu maize corn kernels",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/maize.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_8",
+    "nameTe": "కందిపప్పు",
+    "nameEn": "Toor dal",
+    "translit": "kandi pappu kandipappu toor dal tuvar dal arhar",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/toor_dal.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_9",
+    "nameTe": "పెసరపప్పు",
+    "nameEn": "Moong dal",
+    "translit": "pesara pappu pesarapappu moong dal yellow moong",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/moong_dal.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_10",
+    "nameTe": "మినప్పప్పు",
+    "nameEn": "Urad dal",
+    "translit": "minapa pappu minapappu minapa gullu urad dal",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/urad_dal.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_11",
+    "nameTe": "బొబ్బర్లు",
+    "nameEn": "Cowpea",
+    "translit": "bobbarlu alasandalu cowpea lobiya black eyed peas",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/cowpea.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_12",
+    "nameTe": "ఉలవలు",
+    "nameEn": "Horse gram",
+    "translit": "ulavalu horse gram kulthi ulava charu",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/horse_gram.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_13",
+    "nameTe": "వేరుశనగ",
+    "nameEn": "Groundnuts",
+    "translit": "verusenaga gullu pallilu palli peanuts groundnuts",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/groundnuts.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_14",
+    "nameTe": "నువ్వులు",
+    "nameEn": "Sesame seeds",
+    "translit": "nuvvulu tella nuvvulu til sesame seeds gingelly",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/sesame.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_15",
+    "nameTe": "మసూర్ పప్పు",
+    "nameEn": "Masoor dal",
+    "translit": "masoor dal masoor pappu red lentils errapappu",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/masoor_dal.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_16",
+    "nameTe": "శనగపప్పు",
+    "nameEn": "Chana dal",
+    "translit": "senaga pappu sanaga pappu chana dal talimpu pappu",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/chana_dal.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_17",
+    "nameTe": "రాజ్మా",
+    "nameEn": "Rajma",
+    "translit": "rajma kidney beans red beans",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/rajma.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_18",
+    "nameTe": "సోయా చిక్కుడు",
+    "nameEn": "Soybean",
+    "translit": "soya chikkudu soybean soya beans",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/soybean.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_19",
+    "nameTe": "బార్లీ",
+    "nameEn": "Barley",
+    "translit": "barley yavalu jav grains",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/barley.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_20",
+    "nameTe": "ఓట్స్",
+    "nameEn": "Oats",
+    "translit": "oats rolled oats diet breakfast oats",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/oats.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_21",
+    "nameTe": "పెసలు",
+    "nameEn": "Whole green gram",
+    "translit": "pesalu green gram whole sabut moong",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/green_gram_whole.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_22",
+    "nameTe": "మినుములు",
+    "nameEn": "Whole black gram",
+    "translit": "minumulu black gram whole sabut urad",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/black_gram_whole.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_23",
+    "nameTe": "పుట్నాల పప్పు",
+    "nameEn": "Roasted gram",
+    "translit": "putnala pappu putnalu roasted gram chana pappu",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/roasted_gram.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_grains_24",
+    "nameTe": "కాబూలీ శనగలు",
+    "nameEn": "White chickpeas",
+    "translit": "kabuli senagalu kabuli chana white chickpeas chole",
+    "mainCategory": "grains",
+    "category": "grains",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/grains/white_chickpeas.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_1",
+    "nameTe": "జొన్నలు",
+    "nameEn": "Sorghum",
+    "translit": "jonnalu jonna sorghum jowar millet",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "grains",
+      "groceries"
+    ],
+    "imageUrl": "images/millets/jowar.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_2",
+    "nameTe": "రాగులు",
+    "nameEn": "Finger millet",
+    "translit": "ragulu ragi finger millet nachni",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "grains",
+      "groceries"
+    ],
+    "imageUrl": "images/millets/ragi.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_3",
+    "nameTe": "సజ్జలు",
+    "nameEn": "Pearl millet",
+    "translit": "sajjalu sajja pearl millet bajra",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "grains",
+      "groceries"
+    ],
+    "imageUrl": "images/millets/bajra.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_4",
+    "nameTe": "కొర్రలు",
+    "nameEn": "Foxtail millet",
+    "translit": "korralu korra foxtail millet kangni",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "grains",
+      "groceries"
+    ],
+    "imageUrl": "images/millets/foxtail_millet.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_5",
+    "nameTe": "సామలు",
+    "nameEn": "Little millet",
+    "translit": "samalu saamalu little millet kutki siri dhanyalu",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/millets/little_millet.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_6",
+    "nameTe": "అరికెలు",
+    "nameEn": "Kodo millet",
+    "translit": "arikelu arika kodo millet kodra siri dhanyalu",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/millets/kodo_millet.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_7",
+    "nameTe": "ఊదలు",
+    "nameEn": "Barnyard millet",
+    "translit": "oodalu udalu barnyard millet sanwa siri dhanyalu",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/millets/barnyard_millet.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_8",
+    "nameTe": "వరిగలు",
+    "nameEn": "Proso millet",
+    "translit": "varigalu variga proso millet chenna siri dhanyalu",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/millets/proso_millet.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_millets_9",
+    "nameTe": "అండుకొర్రలు",
+    "nameEn": "Browntop millet",
+    "translit": "andukorralu andu korralu browntop millet siri dhanyalu",
+    "mainCategory": "millets",
+    "category": "millets",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/millets/browntop_millet.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "సిరిధాన్యం",
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_1",
+    "nameTe": "పసుపు",
+    "nameEn": "Turmeric",
+    "translit": "pasupu turmeric haldi spice powder",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/turmeric.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_2",
+    "nameTe": "ఎండు మిరపకాయ",
+    "nameEn": "Dry red chilli",
+    "translit": "endu mirchi endu mirapakaya dry red chilli guntur mirchi",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/dry_chilli.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_3",
+    "nameTe": "జీలకర్ర",
+    "nameEn": "Cumin seeds",
+    "translit": "jeelakarra jeera cumin seeds zeera popu",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/cumin.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_4",
+    "nameTe": "ఆవాలు",
+    "nameEn": "Mustard seeds",
+    "translit": "avalu mustard seeds rai popu",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/mustard.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_5",
+    "nameTe": "మిరియాలు",
+    "nameEn": "Black pepper",
+    "translit": "miriyalu black pepper kali mirch",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/black_pepper.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_6",
+    "nameTe": "దాల్చిన చెక్క",
+    "nameEn": "Cinnamon",
+    "translit": "dalchina chekka dalchini cinnamon",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/cinnamon.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_7",
+    "nameTe": "మెంతులు",
+    "nameEn": "Fenugreek seeds",
+    "translit": "menthulu methi fenugreek seeds",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/fenugreek.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_8",
+    "nameTe": "ధనియాలు",
+    "nameEn": "Coriander seeds",
+    "translit": "dhaniyalu coriander seeds dhania",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/coriander_seeds.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_9",
+    "nameTe": "వెల్లుల్లి",
+    "nameEn": "Garlic",
+    "translit": "vellulli tellagadda garlic lehsun",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/garlic.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_10",
+    "nameTe": "అల్లం",
+    "nameEn": "Ginger",
+    "translit": "allam ginger adrak",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/ginger.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_11",
+    "nameTe": "ఇంగువ",
+    "nameEn": "Asafoetida",
+    "translit": "inguva hing asafoetida",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/asafoetida.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_12",
+    "nameTe": "కుంకుమ పువ్వు",
+    "nameEn": "Saffron",
+    "translit": "kunkuma puvvu kumkuma puvvu saffron kesar",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/saffron.jpg",
+    "defaultQty": "1 గ్రాము",
+    "commonQtys": [
+      "1 గ్రాము",
+      "2 గ్రాములు",
+      "5 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_13",
+    "nameTe": "కరివేపాకు",
+    "nameEn": "Curry leaves",
+    "translit": "karivepaku curry leaves kadi patta",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/curry_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "100 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_14",
+    "nameTe": "సోంపు",
+    "nameEn": "Fennel seeds",
+    "translit": "sompu saunf fennel seeds",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/fennel.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_15",
+    "nameTe": "వాము",
+    "nameEn": "Ajwain",
+    "translit": "vamu vaamu ajwain carom seeds",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/ajwain.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_16",
+    "nameTe": "అనాస పువ్వు",
+    "nameEn": "Star anise",
+    "translit": "anasa puvvu star anise chakri phool",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/star_anise.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_17",
+    "nameTe": "జాజికాయ",
+    "nameEn": "Nutmeg",
+    "translit": "jajikaya jaiphal nutmeg",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/nutmeg.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_18",
+    "nameTe": "జాపత్రి",
+    "nameEn": "Mace",
+    "translit": "japatri javitri mace",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/mace.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_19",
+    "nameTe": "నల్ల యాలకులు",
+    "nameEn": "Black cardamom",
+    "translit": "nalla yalakulu nalla elakkai black cardamom badi elaichi",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/black_cardamom.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_20",
+    "nameTe": "శొంఠి",
+    "nameEn": "Dry ginger",
+    "translit": "sonthi sonti dry ginger saunth",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/dry_ginger.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_21",
+    "nameTe": "షాజీర",
+    "nameEn": "Black cumin",
+    "translit": "shajeera shahi jeera black cumin royal cumin",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/shahi_jeera.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_22",
+    "nameTe": "రాతి పువ్వు",
+    "nameEn": "Black stone flower",
+    "translit": "rathi puvvu dagad phool black stone flower kalpasi",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/black_stone_flower.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_23",
+    "nameTe": "మరాఠీ మొగ్గ",
+    "nameEn": "Kapok buds",
+    "translit": "marathi moggu kapok buds",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/marathi_moggu.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_24",
+    "nameTe": "ఆమ్‌చూర్",
+    "nameEn": "Dry mango powder",
+    "translit": "amchur dry mango powder mamidi podi",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/amchur.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_spices_25",
+    "nameTe": "తెల్ల మిరియాలు",
+    "nameEn": "White pepper",
+    "translit": "tella miriyalu white pepper safed mirch",
+    "mainCategory": "spices",
+    "category": "spices",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/spices/white_pepper.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_1",
+    "nameTe": "నువ్వుల నూనె",
+    "nameEn": "Sesame oil",
+    "translit": "nuvvula nune til oil sesame oil gingelly oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/sesame_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_2",
+    "nameTe": "వేరుశనగ నూనె",
+    "nameEn": "Groundnut oil",
+    "translit": "verusenaga nune palli nune groundnut oil peanut oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/groundnut_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_3",
+    "nameTe": "కొబ్బరి నూనె",
+    "nameEn": "Coconut oil",
+    "translit": "kobbari nune coconut oil nariyal tel",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/coconut_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_4",
+    "nameTe": "ఆవ నూనె",
+    "nameEn": "Mustard oil",
+    "translit": "ava nune mustard oil sarson ka tel",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/mustard_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_5",
+    "nameTe": "ఆముదం",
+    "nameEn": "Castor oil",
+    "translit": "amudam amudamu castor oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/castor_oil.jpg",
+    "defaultQty": "250 మి.లీ.",
+    "commonQtys": [
+      "100 మి.లీ.",
+      "250 మి.లీ.",
+      "500 మి.లీ."
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_6",
+    "nameTe": "పొద్దుతిరుగుడు నూనె",
+    "nameEn": "Sunflower oil",
+    "translit": "poddutirugudu nune sunflower oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/sunflower_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_7",
+    "nameTe": "ఆలివ్ నూనె",
+    "nameEn": "Olive oil",
+    "translit": "olive oil olive nune",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/olive_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_8",
+    "nameTe": "పామాయిల్",
+    "nameEn": "Palm oil",
+    "translit": "palm oil pamolien oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/palm_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_9",
+    "nameTe": "వరి తవుడు నూనె",
+    "nameEn": "Rice bran oil",
+    "translit": "vari tavudu nune rice bran oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/rice_bran_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_10",
+    "nameTe": "వేప నూనె",
+    "nameEn": "Neem oil",
+    "translit": "vepa nune neem oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/neem_oil.jpg",
+    "defaultQty": "250 మి.లీ.",
+    "commonQtys": [
+      "100 మి.లీ.",
+      "250 మి.లీ.",
+      "500 మి.లీ."
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_11",
+    "nameTe": "బాదం నూనె",
+    "nameEn": "Almond oil",
+    "translit": "badam oil badam nune almond oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/almond_oil.jpg",
+    "defaultQty": "250 మి.లీ.",
+    "commonQtys": [
+      "100 మి.లీ.",
+      "250 మి.లీ.",
+      "500 మి.లీ."
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_12",
+    "nameTe": "కుసుమ నూనె",
+    "nameEn": "Safflower oil",
+    "translit": "kusuma nune safflower oil kardi oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/safflower_oil.jpg",
+    "defaultQty": "1 లీటరు",
+    "commonQtys": [
+      "500 మి.లీ.",
+      "1 లీటరు",
+      "5 లీటర్ల డబ్బా"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_13",
+    "nameTe": "కానుగ నూనె",
+    "nameEn": "Pongamia oil",
+    "translit": "kanuga nune pongamia oil karanja oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/pongamia_oil.jpg",
+    "defaultQty": "250 మి.లీ.",
+    "commonQtys": [
+      "100 మి.లీ.",
+      "250 మి.లీ.",
+      "500 మి.లీ."
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_oils_14",
+    "nameTe": "ఇప్ప నూనె",
+    "nameEn": "Mahua oil",
+    "translit": "ippa nune mahua oil",
+    "mainCategory": "oils",
+    "category": "oils",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/oils/mahua_oil.jpg",
+    "defaultQty": "250 మి.లీ.",
+    "commonQtys": [
+      "100 మి.లీ.",
+      "250 మి.లీ.",
+      "500 మి.లీ."
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_1",
+    "nameTe": "బెల్లం",
+    "nameEn": "Jaggery",
+    "translit": "bellam achu bellam jaggery gur",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/jaggery.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_2",
+    "nameTe": "పంచదార",
+    "nameEn": "Sugar",
+    "translit": "panchadara chekkera sugar cheeni",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/sugar.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_3",
+    "nameTe": "ఉప్పు",
+    "nameEn": "Salt",
+    "translit": "uppu kalluppu salt namak",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/salt.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_4",
+    "nameTe": "పటిక బెల్లం",
+    "nameEn": "Rock sugar",
+    "translit": "patika bellam mishri rock sugar kalakanda",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/rock_sugar.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_5",
+    "nameTe": "చింతపండు",
+    "nameEn": "Tamarind",
+    "translit": "chintapandu chintha pandu tamarind imli",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/tamarind.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_6",
+    "nameTe": "బొంబాయి రవ్వ",
+    "nameEn": "Semolina",
+    "translit": "bombay rava upma rava semolina sooji",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/semolina.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_7",
+    "nameTe": "గోధుమ పిండి",
+    "nameEn": "Wheat flour",
+    "translit": "godhuma pindi atta chakki wheat flour",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/wheat_flour.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_8",
+    "nameTe": "మైదా పిండి",
+    "nameEn": "Maida",
+    "translit": "maida maida pindi refined flour",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/maida.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_9",
+    "nameTe": "బియ్యప్పిండి",
+    "nameEn": "Rice flour",
+    "translit": "biyyapindi biyyam pindi rice flour",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/rice_flour.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_10",
+    "nameTe": "శనగపిండి",
+    "nameEn": "Gram flour",
+    "translit": "senagapindi besan gram flour",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/gram_flour.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_11",
+    "nameTe": "కార్న్ ఫ్లోర్",
+    "nameEn": "Corn flour",
+    "translit": "corn flour cornflour makka pindi",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/corn_flour.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_12",
+    "nameTe": "సేమియా",
+    "nameEn": "Vermicelli",
+    "translit": "semiya vermicelli",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/vermicelli.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_13",
+    "nameTe": "అటుకులు",
+    "nameEn": "Flattened rice",
+    "translit": "atukulu poha flattened rice beaten rice",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/poha.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_14",
+    "nameTe": "మరమరాలు",
+    "nameEn": "Puffed rice",
+    "translit": "maramaralu borugulu murmura puffed rice",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/puffed_rice.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_15",
+    "nameTe": "వంట సోడా",
+    "nameEn": "Baking soda",
+    "translit": "vanta soda baking soda",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/baking_soda.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "ts_kitchen_staples_16",
+    "nameTe": "నెయ్యి",
+    "nameEn": "Ghee",
+    "translit": "neyyi aavu neyyi ghee pure ghee",
+    "mainCategory": "kitchen_staples",
+    "category": "kitchen_staples",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/kitchen_staples/ghee.jpg",
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "250 మి.లీ.",
+      "500 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
     "inStock": true
   },
   {
