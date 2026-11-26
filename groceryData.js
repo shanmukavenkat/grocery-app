@@ -480,6 +480,50 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
+    "id": "groc_idly_rava",
+    "nameTe": "ఇడ్లీ రవ్వ (సన్న రవ్వ)",
+    "nameEn": "Idly Rava (Parboiled Rice Rava)",
+    "translit": "idly rava idli rava idly ravva idli ravva parboiled rice rava idli pindi",
+    "mainCategory": "groceries",
+    "category": "groceries",
+    "extraCategories": [
+      "kitchen_staples",
+      "grains"
+    ],
+    "imageUrl": "images/groceries/idly_rava.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "groc_biyam_rava",
+    "nameTe": "బియ్యం రవ్వ (బియ్యపు రవ్వ)",
+    "nameEn": "Biyam Rava (Rice Rava / Upma Rava)",
+    "translit": "biyam rava biyyam rava biyyapu rava rice rava ukkada rava arisi rava",
+    "mainCategory": "groceries",
+    "category": "groceries",
+    "extraCategories": [
+      "kitchen_staples",
+      "grains"
+    ],
+    "imageUrl": "images/groceries/biyam_rava.jpg",
+    "defaultQty": "1 కిలో",
+    "commonQtys": [
+      "500 గ్రాములు",
+      "1 కిలో",
+      "2 కిలోలు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
     "id": "ts_grains_1",
     "nameTe": "బియ్యం",
     "nameEn": "Rice",
@@ -4771,6 +4815,96 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "pooja",
     "tagLabelTelugu": "కలశ స్థాపన",
+    "inStock": true
+  },
+  {
+    "id": "pooja_18",
+    "nameTe": "అగ్గిపెట్టె (పూజ దీపానికి)",
+    "nameEn": "Matchbox (Aggipette / Safety Matches)",
+    "translit": "aggipette aggipetti matchbox match box matches deepam matchbox pooja",
+    "mainCategory": "pooja",
+    "category": "pooja",
+    "imageUrl": "images/pooja/matchbox.jpg",
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "1 పీస్",
+      "1 ప్యాకెట్",
+      "2 ప్యాకెట్లు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pooja_19",
+    "nameTe": "డిస్పోజబుల్ పేపర్ గ్లాసులు",
+    "nameEn": "Disposable Paper Glasses (Theertham / Water)",
+    "translit": "disposal glasses disposable glass paper cups tea cups water glasses pooja glasses",
+    "mainCategory": "pooja",
+    "category": "pooja",
+    "imageUrl": "images/pooja/disposal_glasses.jpg",
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "1 ప్యాకెట్",
+      "2 ప్యాకెట్లు",
+      "50 పీస్‌లు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pooja_20",
+    "nameTe": "పవిత్ర విభూది పొడి (భస్మం)",
+    "nameEn": "Sacred Vibhuti Powder (Bhasmam)",
+    "translit": "vibhuti vibhooti vibhudi vibhuti powder bhasmam thiruneeru sacred ash pooja vibhuti",
+    "mainCategory": "pooja",
+    "category": "pooja",
+    "imageUrl": "images/pooja/vibhuti.jpg",
+    "defaultQty": "1 ప్యాకెట్",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "1 ప్యాకెట్"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pooja_21",
+    "nameTe": "సహజ విస్తరాకులు (అడ్డాకు / మోదుగ విస్తర్లు)",
+    "nameEn": "Natural Leaf Plates (Vistaraku / Pattal)",
+    "translit": "vistaraku vistarakulu vistarlu addaku vistaraku moduga leaf plates pattal bhojanam leaf",
+    "mainCategory": "pooja",
+    "category": "pooja",
+    "imageUrl": "images/pooja/vistaraku.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "10 పీస్‌లు",
+      "25 పీస్‌లు",
+      "1 కట్ట"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pooja_22",
+    "nameTe": "భోజనం అరటి ఆకు (సాంప్రదాయ ఆకు)",
+    "nameEn": "Traditional Eating Banana Leaf (Arati Aaku)",
+    "translit": "banana leaf for eating arati aaku arati aku bhojanam arati aaku plantain leaf arataku",
+    "mainCategory": "pooja",
+    "category": "pooja",
+    "imageUrl": "images/pooja/banana_leaf.jpg",
+    "defaultQty": "5 పీస్‌లు",
+    "commonQtys": [
+      "1 పీస్",
+      "5 పీస్‌లు",
+      "1 కట్ట"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
     "inStock": true
   },
   {
