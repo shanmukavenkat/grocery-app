@@ -18,6 +18,13 @@ const GROCERY_CATEGORIES = [
     "color": "bg-amber-600"
   },
   {
+    "id": "seeds",
+    "name": "గింజలు & విత్తనాలు",
+    "nameEn": "Seeds",
+    "icon": "fa-seedling",
+    "color": "bg-lime-700"
+  },
+  {
     "id": "vegetables",
     "name": "కూరగాయలు & ఆకులు",
     "nameEn": "Vegetables & Greens",
@@ -748,6 +755,276 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "offer",
     "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
+    "inStock": true
+  },
+  {
+    "id": "seed_1",
+    "nameTe": "చియా గింజలు",
+    "nameEn": "Chia Seeds",
+    "translit": "chia ginjalu chia seeds chiya ginjalu weight loss seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/chia_seeds.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ఆరోగ్య విత్తనం",
+    "inStock": true
+  },
+  {
+    "id": "seed_2",
+    "nameTe": "అవిసె గింజలు (అవిసెలు)",
+    "nameEn": "Flax Seeds / Linseed",
+    "translit": "avise ginjalu aviselu flax seeds flaxseeds linseed alsi seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/flax_seeds.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ఆరోగ్య విత్తనం",
+    "inStock": true
+  },
+  {
+    "id": "seed_3",
+    "nameTe": "సబ్జా గింజలు (సబ్జాలు)",
+    "nameEn": "Sabja / Sweet Basil Seeds",
+    "translit": "sabja ginjalu sabjalu sabja seeds sweet basil seeds tukmaria",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/sabja_seeds.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా సరుకు",
+    "inStock": true
+  },
+  {
+    "id": "seed_4",
+    "nameTe": "గుమ్మడి గింజలు",
+    "nameEn": "Pumpkin Seeds",
+    "translit": "gummadi ginjalu pumpkin seeds pepitas gummadi vittanalu",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/pumpkin_seeds.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "seed_5",
+    "nameTe": "పొద్దుతిరుగుడు గింజలు",
+    "nameEn": "Sunflower Seeds",
+    "translit": "poddutirugudu ginjalu poddu tirugudu sunflower seeds surajmukhi",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/sunflower_seeds.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_6",
+    "nameTe": "పుచ్చ గింజలు (పుచ్చకాయ గింజలు)",
+    "nameEn": "Watermelon Seeds",
+    "translit": "pucha ginjalu puchakaya ginjalu watermelon seeds magaj char magaz",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/watermelon_seeds.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_7",
+    "nameTe": "ఖర్బూజ గింజలు",
+    "nameEn": "Muskmelon Seeds",
+    "translit": "kharbuja ginjalu kharbooja ginjalu muskmelon seeds melon seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/muskmelon_seeds.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_8",
+    "nameTe": "గసగసాలు",
+    "nameEn": "Poppy Seeds (Khus Khus)",
+    "translit": "gasagasalu gasagasa poppy seeds khus khus posto spice seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/poppy_seeds.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "seed_9",
+    "nameTe": "కలోంజి",
+    "nameEn": "Nigella Seeds (Kalonji)",
+    "translit": "kalonji nigella seeds black seeds onion seeds mangrail nalla jeelakarra",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/nigella_seeds.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_10",
+    "nameTe": "మఖానా (పూల్ మఖానా)",
+    "nameEn": "Fox Nuts (Makhana)",
+    "translit": "makhana phool makhana pool makhana fox nuts lotus seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/makhana.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ఆరోగ్య విత్తనం",
+    "inStock": true
+  },
+  {
+    "id": "seed_11",
+    "nameTe": "క్వినోవా",
+    "nameEn": "Quinoa",
+    "translit": "quinoa keenwa quinoa seeds protein grain diet seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/quinoa.jpg",
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_12",
+    "nameTe": "నల్ల నువ్వులు",
+    "nameEn": "Black Sesame Seeds",
+    "translit": "nalla nuvvulu black sesame seeds til black til pooja nuvvulu",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/black_sesame.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా & ఆరోగ్యం",
+    "inStock": true
+  },
+  {
+    "id": "seed_13",
+    "nameTe": "పనస గింజలు (పనస పిక్కలు)",
+    "nameEn": "Jackfruit Seeds",
+    "translit": "panasa ginjalu panasa pikkalu jackfruit seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/jackfruit_seeds.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_14",
+    "nameTe": "చింత గింజలు (చింతపిక్కలు)",
+    "nameEn": "Tamarind Seeds",
+    "translit": "chinta ginjalu chintha pikkalu chintapikkalu tamarind seeds",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/tamarind_seeds.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "seed_15",
+    "nameTe": "రాజగిరా (తోటకూర గింజలు)",
+    "nameEn": "Amaranth Grain (Rajgira)",
+    "translit": "rajagira rajgira thotakura ginjalu amaranth grain ramdana",
+    "mainCategory": "seeds",
+    "category": "seeds",
+    "imageUrl": "images/seeds/amaranth_grain.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
     "inStock": true
   },
   {

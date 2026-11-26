@@ -27,6 +27,12 @@
       fill = '#f43f5e';
       // Fresh Orchard Fruit
       path = '<circle cx="12" cy="13" r="8" fill="' + fill + '"/><path d="M12 5c0-2.5 2-3 4-3" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round"/>';
+    } else if (cat.includes('seed')) {
+      bg = '#f7fee7';
+      stroke = '#4d7c0f';
+      fill = '#65a30d';
+      // Seedling / Seeds
+      path = '<path d="M12 20V10M12 10c0-4 4-6 7-6 0 4-3 6-7 6zM12 13c0-3.5-3.5-5.5-6.5-5.5 0 3.5 2.5 5.5 6.5 5.5z" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="' + fill + '"/>';
     } else {
       // Groceries / Grains / Spices
       bg = '#fffbeb';
@@ -60,7 +66,7 @@
       phone: '9876543210',
       address: 'గాంధీ నగర్, విజయవాడ',
       date: new Date().toISOString().split('T')[0],
-      shopName: 'శ్రీ లక్ష్మి కిరాణా, కూరగాయలు & పూజా స్టోర్',
+      shopName: 'శ్రీరామ కిరాణా & పూజా స్టోర్',
       shopPhone: '9440123456',
       shopPlace: 'మెయిన్ రోడ్డు, విజయవాడ'
     },
@@ -255,6 +261,7 @@
     const categories = (typeof GROCERY_CATEGORIES !== 'undefined') ? GROCERY_CATEGORIES : [
       { id: 'all', name: 'అన్నీ', nameEn: 'All', icon: 'fa-layer-group', color: 'bg-emerald-600' },
       { id: 'groceries', name: 'కిరాణా సరుకులు', nameEn: 'Groceries', icon: 'fa-wheat-awn', color: 'bg-amber-600' },
+      { id: 'seeds', name: 'గింజలు & విత్తనాలు', nameEn: 'Seeds', icon: 'fa-seedling', color: 'bg-lime-700' },
       { id: 'vegetables', name: 'కూరగాయలు & ఆకులు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
       { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
       { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' }
@@ -372,6 +379,8 @@
           if (!['groceries', 'grains', 'dals', 'spices', 'essentials', 'dryfruits', 'oils'].includes(itemCat)) {
             return false;
           }
+        } else if (STATE.currentCategory === 'seeds') {
+          if (!['seeds', 'seed'].includes(itemCat)) return false;
         } else if (STATE.currentCategory === 'vegetables') {
           if (!['vegetables', 'greens'].includes(itemCat)) {
             return false;
@@ -816,7 +825,7 @@
     const cust = STATE.customerDetails;
 
     // Header
-    if (DOM.pdfViewShopName) DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీ లక్ష్మి కిరాణా & పూజా స్టోర్';
+    if (DOM.pdfViewShopName) DOM.pdfViewShopName.textContent = cust.shopName || 'శ్రీరామ కిరాణా & పూజా స్టోర్';
     if (DOM.pdfViewShopContact) {
       DOM.pdfViewShopContact.textContent = `${cust.shopPlace ? cust.shopPlace + ' | ' : ''}ఫోన్: ${cust.shopPhone || '9440123456'}`;
     }
@@ -834,9 +843,10 @@
     if (DOM.pdfViewCustomerPhone) DOM.pdfViewCustomerPhone.textContent = cust.phone || '-';
     if (DOM.pdfViewCustomerAddress) DOM.pdfViewCustomerAddress.textContent = cust.address || '-';
 
-    // Group items into 4 distinct thermal receipt categories
+    // Group items into distinct thermal receipt categories
     const groups = {
       groceries: { title: '*** [ కిరాణా సరుకులు & నవధాన్యాలు ] ***', items: [], isPooja: false },
+      seeds: { title: '*** [ గింజలు & విత్తనాలు ] ***', items: [], isPooja: false },
       vegetables: { title: '*** [ తాజా కూరగాయలు & ఆకులు ] ***', items: [], isPooja: false },
       fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
       pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true }
@@ -846,6 +856,8 @@
       const cat = (item.mainCategory || item.category || 'groceries').toLowerCase();
       if (cat.includes('pooja')) {
         groups.pooja.items.push(item);
+      } else if (cat.includes('seed')) {
+        groups.seeds.items.push(item);
       } else if (cat.includes('veg') || cat.includes('green')) {
         groups.vegetables.items.push(item);
       } else if (cat.includes('fruit')) {
