@@ -286,7 +286,8 @@
       { id: 'kitchen_staples', name: 'వంటగది నిత్యావసరాలు', nameEn: 'Staples', icon: 'fa-jar', color: 'bg-stone-700' },
       { id: 'seeds', name: 'గింజలు & విత్తనాలు', nameEn: 'Seeds', icon: 'fa-seedling', color: 'bg-lime-700' },
       { id: 'dry_fruits', name: 'డ్రై ఫ్రూట్స్', nameEn: 'Dry Fruits', icon: 'fa-cookie-bite', color: 'bg-amber-800' },
-      { id: 'vegetables', name: 'కూరగాయలు & ఆకులు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
+      { id: 'vegetables', name: 'కూరగాయలు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
+      { id: 'leafy_greens', name: 'ఆకుకూరలు', nameEn: 'Leafy Vegetables', icon: 'fa-leaf', color: 'bg-emerald-600' },
       { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
       { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' }
     ];
@@ -422,9 +423,11 @@
         } else if (STATE.currentCategory === 'seeds') {
           if (!matchesCat('seeds') && !matchesCat('seed')) return false;
         } else if (STATE.currentCategory === 'vegetables') {
-          if (!['vegetables', 'greens'].includes(itemCat) && !extraCats.some(c => ['vegetables', 'greens'].includes(c))) {
+          if (!['vegetables', 'greens', 'leafy_greens'].includes(itemCat) && !extraCats.some(c => ['vegetables', 'greens', 'leafy_greens'].includes(c))) {
             return false;
           }
+        } else if (STATE.currentCategory === 'leafy_greens') {
+          if (!matchesCat('leafy_greens') && !matchesCat('greens')) return false;
         } else if (STATE.currentCategory === 'fruits') {
           if (!matchesCat('fruits')) return false;
         } else if (STATE.currentCategory === 'pooja') {
@@ -893,7 +896,8 @@
       spices: { title: '*** [ మసాలాలు & సుగంధ ద్రవ్యాలు ] ***', items: [], isPooja: false },
       oils: { title: '*** [ వంట నూనెలు ] ***', items: [], isPooja: false },
       kitchen_staples: { title: '*** [ వంటగది నిత్యావసరాలు ] ***', items: [], isPooja: false },
-      vegetables: { title: '*** [ తాజా కూరగాయలు & ఆకులు ] ***', items: [], isPooja: false },
+      vegetables: { title: '*** [ తాజా కూరగాయలు ] ***', items: [], isPooja: false },
+      leafy_greens: { title: '*** [ తాజా ఆకుకూరలు ] ***', items: [], isPooja: false },
       fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
       pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true }
     };
@@ -916,7 +920,9 @@
         groups.oils.items.push(item);
       } else if (cat.includes('kitchen')) {
         groups.kitchen_staples.items.push(item);
-      } else if (cat.includes('veg') || cat.includes('green')) {
+      } else if (cat.includes('leafy') || cat.includes('green')) {
+        groups.leafy_greens.items.push(item);
+      } else if (cat.includes('veg')) {
         groups.vegetables.items.push(item);
       } else if (cat.includes('fruit')) {
         groups.fruits.items.push(item);

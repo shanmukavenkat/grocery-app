@@ -68,10 +68,17 @@ const GROCERY_CATEGORIES = [
   },
   {
     "id": "vegetables",
-    "name": "కూరగాయలు & ఆకులు",
-    "nameEn": "Vegetables & Greens",
+    "name": "కూరగాయలు",
+    "nameEn": "Vegetables",
     "icon": "fa-carrot",
     "color": "bg-green-600"
+  },
+  {
+    "id": "leafy_greens",
+    "name": "ఆకుకూరలు",
+    "nameEn": "Leafy Vegetables",
+    "icon": "fa-leaf",
+    "color": "bg-emerald-600"
   },
   {
     "id": "fruits",
@@ -3359,30 +3366,12 @@ const GROCERY_ITEMS = [
     "inStock": true
   },
   {
-    "id": "veg_40_kothimeera",
-    "nameTe": "కొత్తిమీర (తాజా కట్ట)",
-    "nameEn": "Fresh Coriander Leaves",
-    "translit": "kothimeera kotthimeera dhaniya patta coriander leaves",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "images/chart_vegetables/kothimeera.jpg",
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు",
-      "3 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
     "id": "veg_41_karivepaku",
     "nameTe": "కరివేపాకు (తాజా కట్ట)",
     "nameEn": "Fresh Curry Leaves",
     "translit": "karivepaku kadi patta curry leaves",
-    "mainCategory": "vegetables",
-    "category": "greens",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
     "imageUrl": "images/chart_vegetables/karivepaku.jpg",
     "defaultQty": "1 కట్ట",
     "commonQtys": [
@@ -3391,92 +3380,10 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "fresh",
     "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "veg_42_pudina",
-    "nameTe": "పుదీనా (తాజా ఆకులు)",
-    "nameEn": "Fresh Mint Leaves",
-    "translit": "pudina mint leaves pudina aaku",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "images/chart_vegetables/pudina.jpg",
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "veg_43_palakura",
-    "nameTe": "పాలకూర (తాజా ఆకుకూర)",
-    "nameEn": "Fresh Spinach (Palak)",
-    "translit": "palakura spinach palak leafy greens",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "images/chart_vegetables/palakura.jpg",
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "veg_44_gongura",
-    "nameTe": "గోంగూర (ఆంధ్రా గోంగూర)",
-    "nameEn": "Roselle Leaves (Gongura)",
-    "translit": "gongura roselle andhra gongura pitwaa",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "images/chart_vegetables/gongura.jpg",
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "veg_45_menthikura",
-    "nameTe": "మెంతికూర",
-    "nameEn": "Fenugreek Leaves (Methi)",
-    "translit": "menthikura methi fenugreek leaves",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "images/chart_vegetables/menthikura.jpg",
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
-  },
-  {
-    "id": "veg_46_thotakura",
-    "nameTe": "తోటకూర",
-    "nameEn": "Amaranth Leaves (Thotakura)",
-    "translit": "thotakura amaranth chaulai leafy greens",
-    "mainCategory": "vegetables",
-    "category": "greens",
-    "imageUrl": "images/chart_vegetables/thotakura.jpg",
-    "defaultQty": "1 కట్ట",
-    "commonQtys": [
-      "1 కట్ట",
-      "2 కట్టలు"
-    ],
-    "tagType": "fresh",
-    "tagLabelTelugu": "తాజా ఆకుకూర",
-    "inStock": true
+    "inStock": true,
+    "extraCategories": [
+      "vegetables"
+    ]
   },
   {
     "id": "veg_47_mokkajonna",
@@ -3493,6 +3400,489 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "fresh",
     "tagLabelTelugu": "తాజా కూరగాయ",
+    "inStock": true
+  },
+  {
+    "id": "lg_1",
+    "nameTe": "పాలకూర",
+    "nameEn": "Spinach",
+    "translit": "palakura paalakoora spinach palak leafy greens aakukuralu",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/spinach.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పంట",
+    "inStock": true
+  },
+  {
+    "id": "lg_2",
+    "nameTe": "తోటకూర",
+    "nameEn": "Amaranth leaves",
+    "translit": "thotakura totakura amaranth leaves chaulai leafy greens",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/amaranth.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పంట",
+    "inStock": true
+  },
+  {
+    "id": "lg_3",
+    "nameTe": "గోంగూర",
+    "nameEn": "Gongura",
+    "translit": "gongura gongoora sorrel ambadi pulicha keerai andhra gongura",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/gongura.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పంట",
+    "inStock": true
+  },
+  {
+    "id": "lg_4",
+    "nameTe": "మెంతికూర",
+    "nameEn": "Fenugreek leaves",
+    "translit": "menthikura menthi kura methi fenugreek leaves",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/fenugreek_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పంట",
+    "inStock": true
+  },
+  {
+    "id": "lg_5",
+    "nameTe": "మునగాకు",
+    "nameEn": "Drumstick leaves",
+    "translit": "munagaku munaga aaku moringa leaves drumstick leaves",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/drumstick_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_6",
+    "nameTe": "కొత్తిమీర",
+    "nameEn": "Coriander leaves",
+    "translit": "kothimeera kothimira coriander leaves dhania cilantros",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/coriander.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పంట",
+    "inStock": true
+  },
+  {
+    "id": "lg_7",
+    "nameTe": "పుదీనా",
+    "nameEn": "Mint",
+    "translit": "pudina pudinaa mint leaves",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/mint.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": "fresh",
+    "tagLabelTelugu": "తాజా పంట",
+    "inStock": true
+  },
+  {
+    "id": "lg_8",
+    "nameTe": "చుక్కకూర",
+    "nameEn": "Green sorrel",
+    "translit": "chukkakura chukka kura green sorrel khatta palak",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/green_sorrel.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_9",
+    "nameTe": "పొన్నగంటి కూర",
+    "nameEn": "Dwarf copperleaf",
+    "translit": "ponnaganti kura ponnanganni dwarf copperleaf eye greens",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/ponnaganti.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_10",
+    "nameTe": "బచ్చలికూర",
+    "nameEn": "Malabar spinach",
+    "translit": "bachalikura bachali kura malabar spinach poi saag",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/malabar_spinach.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_11",
+    "nameTe": "సోయకూర",
+    "nameEn": "Dill leaves",
+    "translit": "soyakura soya kura sova dill leaves shepu",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/dill.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_12",
+    "nameTe": "గంగపాయల కూర",
+    "nameEn": "Purslane",
+    "translit": "gangapayala kura gangavalli purslane kulfa",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/purslane.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_13",
+    "nameTe": "ఉల్లికాడలు",
+    "nameEn": "Spring onion",
+    "translit": "ullikadalu ulli kadalu spring onion scallions green onion",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/spring_onion.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_14",
+    "nameTe": "చింతచిగురు",
+    "nameEn": "Tender tamarind leaves",
+    "translit": "chintachiguru chintha chiguru tender tamarind leaves",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/tamarind_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_15",
+    "nameTe": "అవిసె ఆకు",
+    "nameEn": "Agathi leaves",
+    "translit": "avise aaku agathi leaves agise kura hummingbird tree leaves",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/agathi.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_16",
+    "nameTe": "చేమ ఆకు",
+    "nameEn": "Colocasia leaves",
+    "translit": "chema aaku chama aaku colocasia leaves arbi leaves patra",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/colocasia_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_17",
+    "nameTe": "ఎర్ర తోటకూర",
+    "nameEn": "Red amaranth",
+    "translit": "erra thotakura red amaranth lal math",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/red_amaranth.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_18",
+    "nameTe": "చక్రవర్తి కూర",
+    "nameEn": "Bathua",
+    "translit": "chakravarthi kura bathua chenopodium white goosefoot",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/bathua.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_19",
+    "nameTe": "ఆవకూర",
+    "nameEn": "Mustard greens",
+    "translit": "avakoora aava kura mustard greens sarson ka saag",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/mustard_greens.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_20",
+    "nameTe": "గుమ్మడి ఆకు",
+    "nameEn": "Pumpkin leaves",
+    "translit": "gummadi aaku pumpkin leaves kaddu patta",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/pumpkin_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_21",
+    "nameTe": "ముల్లంగి ఆకు",
+    "nameEn": "Radish leaves",
+    "translit": "mullangi aaku radish leaves mooli patta",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/radish_leaves.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_22",
+    "nameTe": "తూటికూర",
+    "nameEn": "Water spinach",
+    "translit": "thootikoora tuti kura water spinach kalmi saag",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/water_spinach.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "lg_23",
+    "nameTe": "లెట్యూస్",
+    "nameEn": "Lettuce",
+    "translit": "lettuce salad leaves green lettuce",
+    "mainCategory": "leafy_greens",
+    "category": "leafy_greens",
+    "extraCategories": [
+      "vegetables"
+    ],
+    "imageUrl": "images/leafy_greens/lettuce.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "1 కట్ట",
+      "2 కట్టలు",
+      "3 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
     "inStock": true
   },
   {
