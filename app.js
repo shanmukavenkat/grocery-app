@@ -289,7 +289,8 @@
       { id: 'vegetables', name: 'కూరగాయలు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
       { id: 'leafy_greens', name: 'ఆకుకూరలు', nameEn: 'Leafy Vegetables', icon: 'fa-leaf', color: 'bg-emerald-600' },
       { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
-      { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' }
+      { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' },
+      { id: 'pooja_flowers', name: 'పూజా పువ్వులు', nameEn: 'Pooja Flowers', icon: 'fa-spa', color: 'bg-pink-600' }
     ];
 
     categories.forEach(cat => {
@@ -431,7 +432,9 @@
         } else if (STATE.currentCategory === 'fruits') {
           if (!matchesCat('fruits')) return false;
         } else if (STATE.currentCategory === 'pooja') {
-          if (!matchesCat('pooja')) return false;
+          if (!matchesCat('pooja') && !matchesCat('pooja_flowers')) return false;
+        } else if (STATE.currentCategory === 'pooja_flowers') {
+          if (!matchesCat('pooja_flowers') && !matchesCat('flowers')) return false;
         } else {
           if (!matchesCat(STATE.currentCategory)) return false;
         }
@@ -899,12 +902,15 @@
       vegetables: { title: '*** [ తాజా కూరగాయలు ] ***', items: [], isPooja: false },
       leafy_greens: { title: '*** [ తాజా ఆకుకూరలు ] ***', items: [], isPooja: false },
       fruits: { title: '*** [ తాజా పండ్లు ] ***', items: [], isPooja: false },
-      pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true }
+      pooja: { title: '*** [ పవిత్ర హిందూ పూజా సామాగ్రి ] ***', items: [], isPooja: true },
+      pooja_flowers: { title: '*** [ పవిత్ర పూజా పువ్వులు ] ***', items: [], isPooja: true }
     };
 
     STATE.cart.forEach(item => {
       const cat = (item.mainCategory || item.category || 'groceries').toLowerCase();
-      if (cat.includes('pooja')) {
+      if (cat.includes('flower')) {
+        groups.pooja_flowers.items.push(item);
+      } else if (cat.includes('pooja')) {
         groups.pooja.items.push(item);
       } else if (cat.includes('millet')) {
         groups.millets.items.push(item);

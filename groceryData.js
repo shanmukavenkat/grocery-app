@@ -93,6 +93,13 @@ const GROCERY_CATEGORIES = [
     "nameEn": "Hindu Pooja Items",
     "icon": "fa-om",
     "color": "bg-orange-600"
+  },
+  {
+    "id": "pooja_flowers",
+    "name": "పూజా పువ్వులు",
+    "nameEn": "Pooja Flowers",
+    "icon": "fa-spa",
+    "color": "bg-pink-600"
   }
 ];
 
@@ -4686,7 +4693,10 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "pooja",
     "tagLabelTelugu": "పూజా పుష్పం",
-    "inStock": true
+    "inStock": true,
+    "extraCategories": [
+      "pooja_flowers"
+    ]
   },
   {
     "id": "pooja_14",
@@ -4754,6 +4764,552 @@ const GROCERY_ITEMS = [
     ],
     "tagType": "pooja",
     "tagLabelTelugu": "కలశ స్థాపన",
+    "inStock": true
+  },
+  {
+    "id": "pf_1",
+    "nameTe": "గులాబీ",
+    "nameEn": "Rose",
+    "translit": "gulabi gulabi puvvu rose flower pooja poolu",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/rose.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_2",
+    "nameTe": "బంతి పువ్వు",
+    "nameEn": "Marigold",
+    "translit": "banti puvvu banthi poolu marigold genda pooja flowers",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/marigold.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_3",
+    "nameTe": "తామర పువ్వు",
+    "nameEn": "Lotus",
+    "translit": "tamara puvvu thaamara puvvu lotus kamalam lakshmi pooja",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/lotus.jpg",
+    "defaultQty": "1 పీస్",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీస్‌లు",
+      "5 పీస్‌లు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_4",
+    "nameTe": "పొద్దుతిరుగుడు పువ్వు",
+    "nameEn": "Sunflower",
+    "translit": "poddutirugudu puvvu poddu tirugudu sunflower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/sunflower.jpg",
+    "defaultQty": "1 పీస్",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీస్‌లు",
+      "5 పీస్‌లు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_5",
+    "nameTe": "చామంతి",
+    "nameEn": "Chrysanthemum",
+    "translit": "chamanthi chamanti poolu chrysanthemum sevanti",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/chrysanthemum.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_6",
+    "nameTe": "కనకాంబరం",
+    "nameEn": "Crossandra",
+    "translit": "kanakambaram kanakambaraalau crossandra firecracker flower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/crossandra.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_7",
+    "nameTe": "కలువ పువ్వు",
+    "nameEn": "Water lily",
+    "translit": "kaluva puvvu kaluva water lily",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/water_lily.jpg",
+    "defaultQty": "1 పీస్",
+    "commonQtys": [
+      "1 పీస్",
+      "2 పీస్‌లు",
+      "5 పీస్‌లు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_8",
+    "nameTe": "పారిజాతం",
+    "nameEn": "Night-flowering jasmine",
+    "translit": "parijatham parijatam night flowering jasmine harsingar",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/night_jasmine.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_9",
+    "nameTe": "సంపంగి",
+    "nameEn": "Champak",
+    "translit": "sampangi champak sonchafa sampangi puvvu",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/champak.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_10",
+    "nameTe": "గన్నేరు",
+    "nameEn": "Oleander",
+    "translit": "ganneru ganneru puvvu oleander kaner",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/oleander.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_11",
+    "nameTe": "నందివర్ధనం",
+    "nameEn": "Crape jasmine",
+    "translit": "nandivardhanam nandi vardhanam crepe jasmine chandni",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/crepe_jasmine.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_12",
+    "nameTe": "మొగలి పువ్వు",
+    "nameEn": "Screwpine flower",
+    "translit": "mogali puvvu kewda screwpine flower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/screwpine.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_13",
+    "nameTe": "జాజి పువ్వు",
+    "nameEn": "Spanish jasmine",
+    "translit": "jaji puvvu jaaji puvvu spanish jasmine chameli",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/spanish_jasmine.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_14",
+    "nameTe": "లిల్లీ పూలు",
+    "nameEn": "Tuberose",
+    "translit": "lilly poolu lily poolu rajnigandha tuberose",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/tuberose.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_15",
+    "nameTe": "నూరువరహాల పువ్వు",
+    "nameEn": "Ixora",
+    "translit": "nooruvarahala puvvu nuru varahalu ixora jungle geranium",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/ixora.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_16",
+    "nameTe": "బిళ్ళగన్నేరు",
+    "nameEn": "Periwinkle",
+    "translit": "billaganneru billa ganneru periwinkle sadabahar",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/periwinkle.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_17",
+    "nameTe": "కాగితం పూలు",
+    "nameEn": "Bougainvillea",
+    "translit": "kagitam poolu kagitham poolu bougainvillea",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/bougainvillea.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_18",
+    "nameTe": "దేవగన్నేరు",
+    "nameEn": "Frangipani",
+    "translit": "devaganneru deva ganneru frangipani champa plumeria",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/frangipani.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_19",
+    "nameTe": "డాలియా",
+    "nameEn": "Dahlia",
+    "translit": "dahlia dahlia flower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/dahlia.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_20",
+    "nameTe": "ఆర్కిడ్",
+    "nameEn": "Orchid",
+    "translit": "orchid flower orchids",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/orchid.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_21",
+    "nameTe": "శంఖుపువ్వు",
+    "nameEn": "Butterfly pea",
+    "translit": "shankupuvvu sanku puvvu aprajita butterfly pea blue flower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/butterfly_pea.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_22",
+    "nameTe": "పొగడ పువ్వు",
+    "nameEn": "Bakul",
+    "translit": "pogada puvvu bakul maulsari flower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/bakul.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_23",
+    "nameTe": "చంద్రకాంత పువ్వు",
+    "nameEn": "Four o'clock flower",
+    "translit": "chandrakanta puvvu four o clock flower",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/four_o_clock.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_24",
+    "nameTe": "కోడిజుట్టు పువ్వు",
+    "nameEn": "Cockscomb",
+    "translit": "kodijuttu puvvu kodi juttu cockscomb",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/cockscomb.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "pf_25",
+    "nameTe": "జిల్లేడు పువ్వు",
+    "nameEn": "Crown flower",
+    "translit": "jilledu puvvu jilledu poolu crown flower aak calotropis shiva pooja",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/crown_flower.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
+    "inStock": true
+  },
+  {
+    "id": "pf_26",
+    "nameTe": "ఉమ్మెత్త పువ్వు",
+    "nameEn": "Datura",
+    "translit": "ummetta puvvu ummetta ummatta datura dhatura shiva pooja",
+    "mainCategory": "pooja_flowers",
+    "category": "pooja_flowers",
+    "extraCategories": [
+      "pooja"
+    ],
+    "imageUrl": "images/pooja_flowers/datura.jpg",
+    "defaultQty": "1 కట్ట",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "1 కట్ట",
+      "2 కట్టలు"
+    ],
+    "tagType": "pooja",
+    "tagLabelTelugu": "పూజా విశేషం",
     "inStock": true
   }
 ];
