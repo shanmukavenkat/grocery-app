@@ -45,6 +45,12 @@
       fill = '#65a30d';
       // Seedling / Seeds
       path = '<path d="M12 20V10M12 10c0-4 4-6 7-6 0 4-3 6-7 6zM12 13c0-3.5-3.5-5.5-6.5-5.5 0 3.5 2.5 5.5 6.5 5.5z" stroke="' + stroke + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="' + fill + '"/>';
+    } else if (cat.includes('dry_fruit') || cat.includes('dryfruit')) {
+      bg = '#fef3c7';
+      stroke = '#92400e';
+      fill = '#d97706';
+      // Nut / Dry Fruit
+      path = '<ellipse cx="12" cy="13" rx="6" ry="8" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.6"/>';
     } else {
       // Groceries / Grains / Spices
       bg = '#fffbeb';
@@ -279,6 +285,7 @@
       { id: 'oils', name: 'వంట నూనెలు', nameEn: 'Oils', icon: 'fa-bottle-droplet', color: 'bg-yellow-600' },
       { id: 'kitchen_staples', name: 'వంటగది నిత్యావసరాలు', nameEn: 'Staples', icon: 'fa-jar', color: 'bg-stone-700' },
       { id: 'seeds', name: 'గింజలు & విత్తనాలు', nameEn: 'Seeds', icon: 'fa-seedling', color: 'bg-lime-700' },
+      { id: 'dry_fruits', name: 'డ్రై ఫ్రూట్స్', nameEn: 'Dry Fruits', icon: 'fa-cookie-bite', color: 'bg-amber-800' },
       { id: 'vegetables', name: 'కూరగాయలు & ఆకులు', nameEn: 'Vegetables', icon: 'fa-carrot', color: 'bg-green-600' },
       { id: 'fruits', name: 'తాజా పండ్లు', nameEn: 'Fruits', icon: 'fa-apple-whole', color: 'bg-rose-600' },
       { id: 'pooja', name: 'పూజా సామాగ్రి', nameEn: 'Pooja', icon: 'fa-om', color: 'bg-orange-600' }
@@ -396,10 +403,12 @@
         const matchesCat = (target) => itemCat === target || extraCats.includes(target);
 
         if (STATE.currentCategory === 'groceries') {
-          const grocGroup = ['groceries', 'grains', 'dals', 'spices', 'essentials', 'dryfruits', 'oils', 'kitchen_staples', 'millets'];
+          const grocGroup = ['groceries', 'grains', 'dals', 'spices', 'essentials', 'dryfruits', 'dry_fruits', 'oils', 'kitchen_staples', 'millets'];
           if (!grocGroup.includes(itemCat) && !extraCats.some(c => grocGroup.includes(c))) {
             return false;
           }
+        } else if (STATE.currentCategory === 'dry_fruits') {
+          if (!matchesCat('dry_fruits') && !matchesCat('dryfruits')) return false;
         } else if (STATE.currentCategory === 'grains') {
           if (!matchesCat('grains') && !matchesCat('dals')) return false;
         } else if (STATE.currentCategory === 'millets') {
@@ -880,6 +889,7 @@
       grains: { title: '*** [ ధాన్యాలు & పప్పు దినుసులు ] ***', items: [], isPooja: false },
       millets: { title: '*** [ సిరిధాన్యాలు (చిరుధాన్యాలు) ] ***', items: [], isPooja: false },
       seeds: { title: '*** [ గింజలు & విత్తనాలు ] ***', items: [], isPooja: false },
+      dry_fruits: { title: '*** [ డ్రై ఫ్రూట్స్ ] ***', items: [], isPooja: false },
       spices: { title: '*** [ మసాలాలు & సుగంధ ద్రవ్యాలు ] ***', items: [], isPooja: false },
       oils: { title: '*** [ వంట నూనెలు ] ***', items: [], isPooja: false },
       kitchen_staples: { title: '*** [ వంటగది నిత్యావసరాలు ] ***', items: [], isPooja: false },
@@ -898,6 +908,8 @@
         groups.grains.items.push(item);
       } else if (cat.includes('seed')) {
         groups.seeds.items.push(item);
+      } else if (cat.includes('dry')) {
+        groups.dry_fruits.items.push(item);
       } else if (cat.includes('spice')) {
         groups.spices.items.push(item);
       } else if (cat.includes('oil')) {

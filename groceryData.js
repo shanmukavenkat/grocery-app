@@ -60,6 +60,13 @@ const GROCERY_CATEGORIES = [
     "color": "bg-lime-700"
   },
   {
+    "id": "dry_fruits",
+    "name": "డ్రై ఫ్రూట్స్",
+    "nameEn": "Dry Fruits",
+    "icon": "fa-cookie-bite",
+    "color": "bg-amber-800"
+  },
+  {
     "id": "vegetables",
     "name": "కూరగాయలు & ఆకులు",
     "nameEn": "Vegetables & Greens",
@@ -446,43 +453,6 @@ const GROCERY_ITEMS = [
       "1 కిలో",
       "5 కిలోలు",
       "2 కిలోలు"
-    ],
-    "tagType": "offer",
-    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
-    "inStock": true
-  },
-  {
-    "id": "groc_20",
-    "nameTe": "జీడిపప్పు (ప్రీమియం కాజూ)",
-    "nameEn": "Cashew Nuts (Jeedi Pappu / Kaju)",
-    "translit": "jeedi pappu jeedipappu kaju cashews kaju nuts whole cashews",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "images/groceries/jeedipappu.jpg",
-    "defaultQty": "250 గ్రాములు",
-    "commonQtys": [
-      "250 గ్రాములు",
-      "500 గ్రాములు",
-      "100 గ్రాములు",
-      "1 కిలో"
-    ],
-    "tagType": "offer",
-    "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
-    "inStock": true
-  },
-  {
-    "id": "groc_21",
-    "nameTe": "బాదం పప్పు (కాలిఫోర్నియా బాదం)",
-    "nameEn": "Almonds (Badam)",
-    "translit": "badam badampappu almonds california badam dry fruits",
-    "mainCategory": "groceries",
-    "category": "dryfruits",
-    "imageUrl": "images/groceries/badam.jpg",
-    "defaultQty": "250 గ్రాములు",
-    "commonQtys": [
-      "250 గ్రాములు",
-      "500 గ్రాములు",
-      "100 గ్రాములు"
     ],
     "tagType": "offer",
     "tagLabelTelugu": "ప్రత్యేక ఆఫర్",
@@ -2521,6 +2491,216 @@ const GROCERY_ITEMS = [
       "100 గ్రాములు",
       "250 గ్రాములు",
       "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "df_1",
+    "nameTe": "బాదం పప్పు",
+    "nameEn": "Almonds",
+    "translit": "badam badam pappu california badam almonds dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/almond.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "df_2",
+    "nameTe": "జీడిపప్పు",
+    "nameEn": "Cashew nuts",
+    "translit": "jeedipappu jeedi pappu kaju cashew nuts dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/cashew.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "df_3",
+    "nameTe": "పిస్తా పప్పు",
+    "nameEn": "Pistachios",
+    "translit": "pista pista pappu pistachios salted pista dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/pistachio.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "df_4",
+    "nameTe": "ఆక్రోటు",
+    "nameEn": "Walnuts",
+    "translit": "akrotu akhrot walnuts brain nut dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/walnut.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "df_5",
+    "nameTe": "కిస్మిస్",
+    "nameEn": "Raisins",
+    "translit": "kismis kishmish endu draksha raisins dry grapes dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/raisins.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "df_6",
+    "nameTe": "అంజీర",
+    "nameEn": "Dried figs",
+    "translit": "anjeera anjeer dried figs dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/dried_figs.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "df_7",
+    "nameTe": "ఎండు ఖర్జూరం",
+    "nameEn": "Dry dates",
+    "translit": "endu kharjuram endu kharjooram khajoor dry dates chuhara",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/dry_dates.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "df_8",
+    "nameTe": "జల్దారు",
+    "nameEn": "Dried apricots",
+    "translit": "jaldaru khubani apricot dried apricots dry fruits",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/apricot.jpg",
+    "defaultQty": "250 గ్రాములు",
+    "commonQtys": [
+      "100 గ్రాములు",
+      "250 గ్రాములు",
+      "500 గ్రాములు"
+    ],
+    "tagType": null,
+    "tagLabelTelugu": null,
+    "inStock": true
+  },
+  {
+    "id": "df_9",
+    "nameTe": "ఎండు కొబ్బరి",
+    "nameEn": "Dry coconut",
+    "translit": "endu kobbari endu kobbarikaya copra dry coconut",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/dry_coconut.jpg",
+    "defaultQty": "500 గ్రాములు",
+    "commonQtys": [
+      "250 గ్రాములు",
+      "500 గ్రాములు",
+      "1 కిలో"
+    ],
+    "tagType": "essential",
+    "tagLabelTelugu": "ముఖ్యమైనది",
+    "inStock": true
+  },
+  {
+    "id": "df_10",
+    "nameTe": "సారపప్పు",
+    "nameEn": "Chironji",
+    "translit": "sarapappu saarapappu chironji charoli sweet nut",
+    "mainCategory": "dry_fruits",
+    "category": "dry_fruits",
+    "extraCategories": [
+      "groceries"
+    ],
+    "imageUrl": "images/dry_fruits/chironji.jpg",
+    "defaultQty": "100 గ్రాములు",
+    "commonQtys": [
+      "50 గ్రాములు",
+      "100 గ్రాములు",
+      "250 గ్రాములు"
     ],
     "tagType": null,
     "tagLabelTelugu": null,
