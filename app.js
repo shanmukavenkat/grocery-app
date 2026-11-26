@@ -84,7 +84,7 @@
       phone: '9876543210',
       address: 'గాంధీ నగర్, విజయవాడ',
       date: new Date().toISOString().split('T')[0],
-      shopName: 'శ్రీరామ కిరాణా & పూజా స్టోర్',
+      shopName: 'శ్రీరామ స్టోర్',
       shopPhone: '9440123456',
       shopPlace: 'మెయిన్ రోడ్డు, విజయవాడ'
     },
